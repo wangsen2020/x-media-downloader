@@ -49,7 +49,7 @@ function updatePreview(s) {
   $('filenamePreview').textContent = buildFilename(
     s.filenameTemplate,
     {
-      user: 'nasa',
+      user: 'NASA',
       id: '1789012345678901234',
       height: 720,
       bitrate: 2176000,
@@ -57,7 +57,7 @@ function updatePreview(s) {
       index: 0,
       count: 1,
       date: Date.now(),
-      text: 'Launch highlights',
+      text: 'We are go for launch — Artemis II crew heads to the pad',
     },
     s.subfolder,
   );

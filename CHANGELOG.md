@@ -15,5 +15,8 @@ Initial release — a full rewrite.
   and the in‑timeline button.
 - Media resolution: live API capture → session cache →
   `cdn.syndication.twimg.com` fallback.
-- Configurable filename template with tokens.
+- Configurable filename template with tokens. Default
+  `{user}_{text}_{datetime}_{id}` — tweet author, first words of the tweet,
+  the tweet's own post time (from the snowflake id) and its id, so every
+  file is descriptive and collision-proof. No more `video.mp4` overwrites.
 - No analytics or external servers.

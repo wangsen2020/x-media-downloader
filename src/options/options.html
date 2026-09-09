@@ -61,11 +61,16 @@
           <label for="filenameTemplate"><strong>Filename template</strong></label>
           <p class="hint">
             Tokens:
-            <code>{user}</code> <code>{id}</code> <code>{quality}</code>
-            <code>{height}</code> <code>{bitrate}</code> <code>{date}</code>
-            <code>{time}</code> <code>{text}</code> <code>{index}</code>.
-            <code>.mp4</code> is added automatically. You may include <code>/</code>
-            to nest subfolders.
+            <code>{user}</code> <code>{text}</code> <code>{datetime}</code>
+            <code>{date}</code> <code>{time}</code> <code>{id}</code>
+            <code>{quality}</code> <code>{height}</code> <code>{bitrate}</code>
+            <code>{index}</code>.
+            <code>{text}</code> is the first few words of the tweet;
+            <code>{datetime}</code>/<code>{date}</code>/<code>{time}</code> use
+            the tweet's own post time. <code>.mp4</code> is added automatically;
+            <code>/</code> nests subfolders. The default
+            (<code>{user}_{text}_{datetime}_{id}</code>) is always unique — the
+            tweet id prevents any collision.
           </p>
           <input id="filenameTemplate" type="text" />
           <p class="preview">Preview: <code id="filenamePreview"></code></p>

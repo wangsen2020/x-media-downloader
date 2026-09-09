@@ -45,7 +45,7 @@ service‑worker modules).
 | Setting | Notes |
 | --- | --- |
 | **Default video quality** | `Highest`, a target height (`1080/720/480/360`, resolved as the best rendition that does not exceed it), or `Lowest`. |
-| **Filename template** | Tokens: `{user} {id} {quality} {height} {bitrate} {date} {time} {text} {index}`. `.mp4` is appended automatically. `/` in the template creates nested folders. |
+| **Filename template** | Default `{user}_{text}_{datetime}_{id}` — author + first words of the tweet + the tweet's post time + its id, so names are descriptive **and** collision-proof. Tokens: `{user} {text} {datetime} {date} {time} {id} {quality} {height} {bitrate} {index}`. `.mp4` is appended automatically; `/` nests folders. |
 | **Subfolder** | A relative folder inside your browser’s Downloads directory. Blank = straight into Downloads. |
 | **Ask where to save every time** | Opens the native Save‑As dialog for every download. Overrides the subfolder. |
 | **Show a Download button in the timeline** | Toggle the injected button. |

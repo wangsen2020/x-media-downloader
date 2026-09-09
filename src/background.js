@@ -99,6 +99,7 @@ async function startDownload(req) {
       index: 0,
       count: 1,
       date: Date.now(),
+      postDate: record.postDate || 0,
       text: record.text || '',
     },
     settings.subfolder,

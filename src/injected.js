@@ -35,16 +35,17 @@
   function scan(root) {
     const out = [];
     const seenTweets = new Set();
-    const stack = [{ node: root, tweetId: null, screen: null, text: null }];
+    const stack = [{ node: root, tweetId: null, screen: null, text: null, created: 0 }];
     let budget = 60000;
 
     while (stack.length && budget-- > 0) {
-      const { node, tweetId, screen, text } = stack.pop();
+      const { node, tweetId, screen, text, created } = stack.pop();
       if (!node || typeof node !== 'object') continue;
 
       let curId = tweetId;
       let curScreen = screen;
       let curText = text;
+      let curCreated = created;
 
       // Recognise a legacy tweet object.
       const legacy = node.legacy && typeof node.legacy === 'object' ? node.legacy : node;
@@ -52,6 +53,10 @@
         if (legacy.id_str && /^\d+$/.test(legacy.id_str)) curId = legacy.id_str;
         else if (legacy.conversation_id_str) curId = curId || legacy.conversation_id_str;
         if (typeof legacy.full_text === 'string') curText = legacy.full_text;
+        if (typeof legacy.created_at === 'string') {
+          const t = Date.parse(legacy.created_at);
+          if (t) curCreated = t;
+        }
       }
       if (node.rest_id && /^\d+$/.test(node.rest_id)) curId = node.rest_id || curId;
 
@@ -88,6 +93,7 @@
             type: media.type === 'animated_gif' ? 'gif' : 'video',
             poster: media.media_url_https || '',
             text: (curText || '').trim(),
+            postDate: curCreated || 0,
             durationMs: media.video_info.duration_millis || 0,
             variants,
             capturedAt: Date.now(),
@@ -99,7 +105,13 @@
       for (const k in node) {
         const v = node[k];
         if (v && typeof v === 'object') {
-          stack.push({ node: v, tweetId: curId, screen: curScreen, text: curText });
+          stack.push({
+            node: v,
+            tweetId: curId,
+            screen: curScreen,
+            text: curText,
+            created: curCreated,
+          });
         }
       }
     }
