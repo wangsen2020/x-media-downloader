@@ -83,7 +83,8 @@ async function startDownload(req) {
   const quality = req.quality || settings.defaultQuality;
   const chosen = pickVariant(variants, quality) || variants[0];
   const label = labelForVariant(chosen);
-  const screenName = record.screenName || req.screenName || 'unknown';
+  const realName = (n) => (n && n !== 'unknown' ? n : null);
+  const screenName = realName(record.screenName) || realName(req.screenName) || 'unknown';
   const tweetUrl =
     req.tweetUrl || `https://x.com/${screenName}/status/${req.tweetId}`;
 

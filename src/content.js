@@ -140,10 +140,32 @@
     const box = anchor.getBoundingClientRect();
     menu.style.top = `${window.scrollY + box.bottom + 6}px`;
     menu.style.left = `${window.scrollX + box.left}px`;
-    setTimeout(() => document.addEventListener('click', closeMenu, { once: true }), 0);
+
+    const onDocClick = (e) => {
+      if (!menu.contains(e.target)) closeMenu();
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    const onScroll = () => closeMenu();
+    menuCleanup = () => {
+      document.removeEventListener('click', onDocClick, true);
+      document.removeEventListener('keydown', onKey, true);
+      window.removeEventListener('scroll', onScroll, true);
+    };
+    setTimeout(() => {
+      document.addEventListener('click', onDocClick, true);
+      document.addEventListener('keydown', onKey, true);
+      window.addEventListener('scroll', onScroll, true);
+    }, 0);
   }
 
+  let menuCleanup = null;
   function closeMenu() {
+    if (menuCleanup) {
+      menuCleanup();
+      menuCleanup = null;
+    }
     document.querySelectorAll('.xvd-menu').forEach((m) => m.remove());
   }
 
@@ -151,12 +173,13 @@
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'xvd-btn';
-    btn.title = 'Download video (Alt-click for quality menu)';
+    // Icon-only: all text lives in the tooltip.
+    btn.title = 'Download video · Alt-click to choose quality';
+    btn.setAttribute('aria-label', 'Download video');
     btn.innerHTML =
       '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">' +
       '<path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1Z"/>' +
-      '<path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Z"/></svg>' +
-      '<span class="xvd-btn__label">Download</span>';
+      '<path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Z"/></svg>';
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
