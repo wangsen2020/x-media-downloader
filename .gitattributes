@@ -1,0 +1,11 @@
+# Keep these out of `git archive` (npm run zip) store packages.
+/.github        export-ignore
+/tools          export-ignore
+/.gitignore     export-ignore
+/.gitattributes export-ignore
+/CONTRIBUTING.md export-ignore
+/CHANGELOG.md   export-ignore
+/package.json   export-ignore
+
+* text=auto eol=lf
+*.png binary

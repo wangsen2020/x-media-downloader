@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>X Video Downloader — History &amp; Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="brand">
+          <img src="../../icons/icon128.png" alt="" width="32" height="32" />
+          <div>
+            <h1>X Video Downloader</h1>
+            <p class="sub">Download history &amp; settings</p>
+          </div>
+        </div>
+        <nav class="tabs">
+          <button class="tab is-active" data-tab="history" type="button">History</button>
+          <button class="tab" data-tab="settings" type="button">Settings</button>
+        </nav>
+      </header>
+
+      <!-- HISTORY ------------------------------------------------------->
+      <section id="tab-history" class="panel">
+        <div class="toolbar">
+          <input id="search" class="search" type="search" placeholder="Filter by @user, filename, tweet id…" />
+          <select id="stateFilter">
+            <option value="">All states</option>
+            <option value="complete">Complete</option>
+            <option value="in_progress">In progress</option>
+            <option value="interrupted">Interrupted</option>
+          </select>
+          <span class="spacer"></span>
+          <button id="exportBtn" class="btn" type="button">Export JSON</button>
+          <label class="btn" for="importInput">Import JSON</label>
+          <input id="importInput" type="file" accept="application/json,.json" hidden />
+          <button id="clearBtn" class="btn btn-danger" type="button">Clear all</button>
+        </div>
+
+        <p id="historyCount" class="count"></p>
+
+        <div id="historyList" class="cards"></div>
+        <p id="historyEmpty" class="empty" hidden>
+          No downloads yet. Open X, find a video, and hit <strong>Download</strong>.
+        </p>
+      </section>
+
+      <!-- SETTINGS ----------------------------------------------------->
+      <section id="tab-settings" class="panel" hidden>
+        <div class="setting">
+          <label for="defaultQuality"><strong>Default video quality</strong></label>
+          <p class="hint">Used by the popup and the in‑timeline Download button. X serves
+            a few fixed renditions per video; “closest below” picks the best one that
+            does not exceed your target.</p>
+          <select id="defaultQuality"></select>
+        </div>
+
+        <div class="setting">
+          <label for="filenameTemplate"><strong>Filename template</strong></label>
+          <p class="hint">
+            Tokens:
+            <code>{user}</code> <code>{id}</code> <code>{quality}</code>
+            <code>{height}</code> <code>{bitrate}</code> <code>{date}</code>
+            <code>{time}</code> <code>{text}</code> <code>{index}</code>.
+            <code>.mp4</code> is added automatically. You may include <code>/</code>
+            to nest subfolders.
+          </p>
+          <input id="filenameTemplate" type="text" />
+          <p class="preview">Preview: <code id="filenamePreview"></code></p>
+        </div>
+
+        <div class="setting">
+          <label for="subfolder"><strong>Subfolder</strong> (inside your Downloads folder)</label>
+          <p class="hint">
+            Chrome extensions can only write inside the browser’s Downloads folder.
+            A relative subfolder is the closest thing to “choose a path”. Leave blank
+            to save straight into Downloads. To pick a location every time, turn on
+            the option below.
+          </p>
+          <input id="subfolder" type="text" placeholder="X Video Downloader" />
+        </div>
+
+        <div class="setting setting-row">
+          <input id="askWhereToSave" type="checkbox" />
+          <label for="askWhereToSave">
+            <strong>Ask where to save every time</strong>
+            <span class="hint">Opens Chrome’s “Save As” dialog for each download so you
+              can choose any folder. Overrides the subfolder above.</span>
+          </label>
+        </div>
+
+        <div class="setting setting-row">
+          <input id="showTimelineButton" type="checkbox" />
+          <label for="showTimelineButton">
+            <strong>Show a Download button under videos in the timeline</strong>
+          </label>
+        </div>
+
+        <div class="setting setting-row">
+          <input id="clickDownloadsImmediately" type="checkbox" />
+          <label for="clickDownloadsImmediately">
+            <strong>Timeline button downloads immediately</strong>
+            <span class="hint">When off, the button opens a small quality menu instead.
+              (Alt‑click always opens the menu.)</span>
+          </label>
+        </div>
+
+        <div class="setting">
+          <label for="maxHistory"><strong>Keep at most</strong></label>
+          <p class="hint">Oldest history entries beyond this count are dropped.</p>
+          <input id="maxHistory" type="number" min="10" max="5000" step="10" />
+        </div>
+
+        <div class="setting">
+          <button id="resetBtn" class="btn" type="button">Reset settings to defaults</button>
+          <span id="savedNote" class="saved" hidden>Saved ✓</span>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>Open source · MIT</span>
+        <a id="repoLink" href="#" target="_blank" rel="noreferrer">GitHub repository</a>
+      </footer>
+    </div>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>
