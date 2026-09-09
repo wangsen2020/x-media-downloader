@@ -3,13 +3,13 @@
   align-items: center;
 }
 
-/* Icon-only, sized to match X's own action-bar icons. */
+/* Icon-only, sized to match X's own action-bar icons (reply / repost / like). */
 .xvd-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 34.75px;
+  height: 34.75px;
   padding: 0;
   margin: 0;
   border: 0;
@@ -21,8 +21,9 @@
 }
 
 .xvd-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 1.25em;
+  height: 1.25em;
+  font-size: 15px;
   display: block;
 }
 

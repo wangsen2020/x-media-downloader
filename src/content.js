@@ -83,46 +83,75 @@
     }, 3200);
   }
 
-  function requestDownload(info, quality) {
+  function requestDownload(info, choice) {
+    const isImage = info.kind === 'image';
     toast('Preparing download…');
-    chrome.runtime.sendMessage(
-      {
-        type: 'xvd:download',
-        tweetId: info.tweetId,
-        screenName: info.screenName,
-        tweetUrl: `${origin}/${info.screenName}/status/${info.tweetId}`,
-        quality: quality || settings.defaultQuality,
-        record: mediaByTweet.get(info.tweetId) || null,
-      },
-      (res) => {
+    const msg = {
+      type: 'xvd:download',
+      kind: info.kind || 'video',
+      tweetId: info.tweetId,
+      screenName: info.screenName,
+      tweetUrl: `${origin}/${info.screenName}/status/${info.tweetId}`,
+      text: info.text || '',
+    };
+    if (isImage) {
+      // Re-scan now: X lazy-loads / upgrades <img> src after the button was drawn.
+      const fresh = info.article ? articleMedia(info.article) : null;
+      msg.images = (fresh && fresh.images) || info.images || [];
+      msg.size = choice || 'orig';
+    } else {
+      msg.quality = choice || settings.defaultQuality;
+      msg.record = mediaByTweet.get(info.tweetId) || null;
+    }
+    try {
+      chrome.runtime.sendMessage(msg, (res) => {
         if (chrome.runtime.lastError) {
           toast('Download failed: ' + chrome.runtime.lastError.message, 'error');
           return;
         }
         if (!res || !res.ok) {
-          toast('Could not find a downloadable video for this tweet' + (res && res.error ? ` (${res.error})` : ''), 'error');
+          toast(
+            `Could not find a downloadable ${isImage ? 'image' : 'video'} for this tweet` +
+              (res && res.error ? ` (${res.error})` : ''),
+            'error',
+          );
+        } else if (res.count > 1) {
+          toast(`Downloading ${res.count} images → ${res.folder || 'Downloads'}`, 'ok');
         } else {
           toast(`Downloading ${res.label || ''} → ${res.filename || 'file'}`, 'ok');
         }
-      },
-    );
+      });
+    } catch (_) {
+      /* extension context invalidated (reloaded while page open) */
+    }
   }
 
   function openQualityMenu(anchor, info) {
     closeMenu();
-    const rec = mediaByTweet.get(info.tweetId);
     const menu = document.createElement('div');
     menu.className = 'xvd-menu';
     const rows = [];
-    if (rec && rec.variants && rec.variants.length) {
-      for (const v of rec.variants) {
-        rows.push({ label: (v.height ? v.height + 'p' : Math.round(v.bitrate / 1000) + 'kbps'), quality: String(v.height || 'highest') });
-      }
+    if (info.kind === 'image') {
+      const fresh = info.article ? articleMedia(info.article) : null;
+      const n = ((fresh && fresh.images) || []).length;
+      rows.push({ label: n > 1 ? `Original size · all ${n}` : 'Original size', choice: 'orig' });
+      rows.push({ label: 'Large', choice: 'large' });
+      rows.push({ label: 'Medium', choice: 'medium' });
     } else {
-      rows.push({ label: 'Highest', quality: 'highest' });
-      rows.push({ label: '720p', quality: '720' });
-      rows.push({ label: '480p', quality: '480' });
-      rows.push({ label: '360p', quality: '360' });
+      const rec = mediaByTweet.get(info.tweetId);
+      if (rec && rec.variants && rec.variants.length) {
+        for (const v of rec.variants) {
+          rows.push({
+            label: v.height ? v.height + 'p' : Math.round(v.bitrate / 1000) + 'kbps',
+            choice: String(v.height || 'highest'),
+          });
+        }
+      } else {
+        rows.push({ label: 'Highest', choice: 'highest' });
+        rows.push({ label: '720p', choice: '720' });
+        rows.push({ label: '480p', choice: '480' });
+        rows.push({ label: '360p', choice: '360' });
+      }
     }
     for (const r of rows) {
       const b = document.createElement('button');
@@ -132,7 +161,7 @@
       b.addEventListener('click', (e) => {
         e.stopPropagation();
         closeMenu();
-        requestDownload(info, r.quality);
+        requestDownload(info, r.choice);
       });
       menu.appendChild(b);
     }
@@ -173,13 +202,14 @@
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'xvd-btn';
-    // Icon-only: all text lives in the tooltip.
-    btn.title = 'Download video · Alt-click to choose quality';
-    btn.setAttribute('aria-label', 'Download video');
+    // Icon-only: all wording lives in the tooltip, matching X's own icons.
+    const what = info.kind === 'image' ? 'image' : 'video';
+    btn.title = `Download ${what} · Alt-click for options`;
+    btn.setAttribute('aria-label', `Download ${what}`);
     btn.innerHTML =
-      '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">' +
-      '<path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1Z"/>' +
-      '<path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Z"/></svg>';
+      '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +
+      '<path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.585l3.293-3.292a1 1 0 0 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L11 13.585V4a1 1 0 0 1 1-1Z"/>' +
+      '<path fill="currentColor" d="M4 19a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z"/></svg>';
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -189,18 +219,42 @@
     return btn;
   }
 
-  function articleHasVideo(article) {
-    return !!article.querySelector(
-      '[data-testid="videoPlayer"], [data-testid="videoComponent"], video, [data-testid="playButton"]',
-    );
+  const MEDIA_URL_RE = /pbs\.twimg\.com\/media\//;
+
+  // Returns { kind:'video' } | { kind:'image', images:[url,...] } | null
+  function articleMedia(article) {
+    if (
+      article.querySelector(
+        '[data-testid="videoPlayer"], [data-testid="videoComponent"], video, [data-testid="playButton"]',
+      )
+    ) {
+      return { kind: 'video' };
+    }
+    const imgs = [];
+    for (const img of article.querySelectorAll(
+      '[data-testid="tweetPhoto"] img, a[href*="/photo/"] img',
+    )) {
+      const src = img.currentSrc || img.src || '';
+      if (MEDIA_URL_RE.test(src) && !imgs.includes(src)) imgs.push(src);
+    }
+    return imgs.length ? { kind: 'image', images: imgs } : null;
+  }
+
+  function tweetText(article) {
+    const el = article.querySelector('[data-testid="tweetText"]');
+    return el ? el.textContent.trim() : '';
   }
 
   function decorate(article) {
     if (!settings.showTimelineButton) return;
     if (article.querySelector(':scope .xvd-btn')) return;
-    if (!articleHasVideo(article)) return;
+    const media = articleMedia(article);
+    if (!media) return;
     const info = statusInfoFromArticle(article);
     if (!info) return;
+    info.kind = media.kind;
+    info.text = tweetText(article);
+    info.article = article; // re-scanned at click time for freshly-loaded images
     const group = article.querySelector('[role="group"]');
     if (!group) return;
     const holder = document.createElement('div');

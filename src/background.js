@@ -4,6 +4,8 @@ import {
   pickVariant,
   labelForVariant,
   buildFilename,
+  bestImageUrl,
+  imageExt,
   syndicationUrl,
   parseSyndicationResponse,
 } from './lib/media.js';
@@ -139,6 +141,87 @@ async function startDownload(req) {
   return { ok: true, filename, label, downloadId, key: entry.key };
 }
 
+const SIZE_MAP = { orig: 'orig', large: 'large', medium: 'medium', small: 'small' };
+
+async function startImageDownload(req) {
+  const settings = await getSettings();
+  const realName = (n) => (n && n !== 'unknown' ? n : null);
+  const screenName = realName(req.screenName) || 'unknown';
+  const urls = (req.images || [])
+    .filter(Boolean)
+    .map((u) => {
+      const best = bestImageUrl(u);
+      const size = SIZE_MAP[req.size] || 'orig';
+      return size === 'orig' ? best : best.replace(/([?&]name=)[^&]+/, `$1${size}`);
+    });
+  const uniq = [...new Set(urls)];
+  if (!uniq.length) throw new Error('no images on this tweet');
+
+  const tweetUrl =
+    req.tweetUrl || `https://x.com/${screenName}/status/${req.tweetId}`;
+  let started = 0;
+  let firstName = '';
+
+  for (let i = 0; i < uniq.length; i++) {
+    const url = uniq[i];
+    const ext = imageExt(url);
+    const filename = buildFilename(
+      settings.filenameTemplate,
+      {
+        user: screenName,
+        id: req.tweetId,
+        quality: 'img',
+        index: i,
+        count: uniq.length,
+        date: Date.now(),
+        text: req.text || '',
+        ext,
+      },
+      settings.subfolder,
+    );
+    if (!firstName) firstName = filename;
+
+    const entry = await addHistoryEntry({
+      tweetId: req.tweetId,
+      screenName,
+      tweetUrl,
+      type: 'image',
+      quality: req.size || 'orig',
+      poster: url,
+      filename,
+      url,
+      state: 'in_progress',
+    });
+    try {
+      const downloadId = await chrome.downloads.download({
+        url,
+        filename,
+        saveAs: !!settings.askWhereToSave && i === 0,
+        conflictAction: 'uniquify',
+      });
+      await updateHistoryEntry({ key: entry.key }, { downloadId });
+      started++;
+    } catch (e) {
+      await updateHistoryEntry(
+        { key: entry.key },
+        { state: 'interrupted', error: String(e.message || e) },
+      );
+    }
+  }
+
+  if (!started) throw new Error('all image downloads failed');
+  const folder = firstName.includes('/')
+    ? firstName.slice(0, firstName.lastIndexOf('/'))
+    : 'Downloads';
+  return {
+    ok: true,
+    count: started,
+    filename: firstName,
+    folder,
+    label: `${started} image${started > 1 ? 's' : ''}`,
+  };
+}
+
 // --- download progress -> history ---------------------------------------
 
 chrome.downloads.onChanged.addListener(async (delta) => {
@@ -186,7 +269,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
 
   if (msg.type === 'xvd:download') {
-    startDownload(msg)
+    const run = msg.kind === 'image' ? startImageDownload(msg) : startDownload(msg);
+    run
       .then((r) => sendResponse(r))
       .catch((e) => sendResponse({ ok: false, error: String(e.message || e) }));
     return true;
@@ -197,6 +281,16 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       .then((list) => {
         const rec = list.find((r) => r.key === msg.key);
         if (!rec) throw new Error('history entry gone');
+        if (rec.type === 'image') {
+          return startImageDownload({
+            tweetId: rec.tweetId,
+            screenName: rec.screenName,
+            tweetUrl: rec.tweetUrl,
+            text: '',
+            images: [rec.url],
+            size: rec.quality || 'orig',
+          });
+        }
         return startDownload({
           tweetId: rec.tweetId,
           screenName: rec.screenName,

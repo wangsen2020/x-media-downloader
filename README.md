@@ -1,7 +1,7 @@
 # X Video Downloader
 
 A rewritten, open‑source Chrome/Edge extension (Manifest V3) for downloading
-videos and GIFs from **X / Twitter**.
+videos, GIFs **and images** from **X / Twitter**.
 
 It was built to fix three things that the older “x‑downloader” style extensions
 get wrong:
@@ -31,9 +31,11 @@ service‑worker modules).
 
 ## Usage
 
-- **From the timeline:** a small **⬇ Download** button appears under every video.
-  Click it to download at your default quality. **Alt‑click** (or disable
-  *“downloads immediately”* in settings) to open a quality menu.
+- **From the timeline:** a **⬇** download icon appears in the action bar of
+  every post that has a video **or image(s)**. Click it to grab the video at
+  your default quality, or all images at original resolution. **Alt‑click**
+  (or disable *“downloads immediately”* in settings) to open a menu — video
+  renditions, or image sizes (Original / Large / Medium).
 - **From the popup:** open a tweet that has a video, click the toolbar icon,
   choose a quality, hit **Download video**. The popup also shows your last few
   downloads.
@@ -86,6 +88,11 @@ The syndication fallback (`cdn.syndication.twimg.com/tweet-result`) is the same
 public endpoint embedded tweets use, so single‑tweet pages work even if the API
 response was never seen. Only progressive **MP4** renditions are offered
 (HLS/`m3u8` playlists can’t be saved as a single file by the downloads API).
+
+**Images** are read straight from the tweet’s `<img>` elements
+(`pbs.twimg.com/media/…`); the `name=` size parameter is rewritten to `orig`
+so you get full resolution, and the real extension (`jpg` / `png`) is kept.
+Multi‑image posts download every picture, numbered `_1`…`_4`.
 
 ## Privacy
 
