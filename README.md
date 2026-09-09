@@ -18,16 +18,43 @@ No servers, no tracking, no account. Everything runs locally in your browser.
 
 ## Install (unpacked)
 
-1. Download or clone this repository.
-2. Open `chrome://extensions` (or `edge://extensions`).
-3. Turn on **Developer mode**.
-4. Click **Load unpacked** and select the project folder (the one containing
-   `manifest.json`).
-5. The options / history page opens automatically on first install. Pin the
-   extension for quick access to the popup.
+There is no build step and it is not on the Web Store yet — you load the folder
+directly. Takes about a minute.
 
-Chrome 116+ / Edge 116+ recommended (uses `chrome.storage.session` and MV3
-service‑worker modules).
+![Install in four steps](docs/install-steps.svg)
+
+1. **Get the code.** Clone it, or download the ZIP from the green **Code**
+   button above and unzip it somewhere permanent (don't delete the folder
+   afterwards — Chrome loads the extension from it every launch).
+
+   ```bash
+   git clone https://github.com/wangsen2020/x-video-downloader.git
+   ```
+
+2. **Open the extensions page.** Type `chrome://extensions` in the address bar
+   and press Enter. On Edge it's `edge://extensions`.
+
+3. **Turn on Developer mode.** The toggle is in the top‑right corner of that
+   page (在中文界面里是右上角的 **“开发者模式”**). Three buttons appear.
+
+4. **Load unpacked.** Click **Load unpacked** (**“加载未打包的扩展程序”**) and
+   pick the repository folder — the one that directly contains `manifest.json`.
+
+5. **Done.** The history / settings page opens automatically on first install.
+   Open the puzzle‑piece menu in the toolbar and pin **X Video Downloader** so
+   its icon is always visible.
+
+> Chrome 116+ / Edge 116+ (needs `chrome.storage.session` and MV3
+> service‑worker modules).
+
+### Updating
+
+```bash
+git pull
+```
+
+Then go back to `chrome://extensions` and click the **↻ reload** icon on the
+X Video Downloader card.
 
 ## Usage
 
