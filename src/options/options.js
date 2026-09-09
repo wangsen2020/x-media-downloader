@@ -10,7 +10,7 @@ import {
 } from '../lib/store.js';
 
 const $ = (id) => document.getElementById(id);
-const REPO_URL = 'https://github.com/YOUR_GITHUB_USERNAME/x-video-downloader';
+const REPO_URL = 'https://github.com/wangsen2020/x-video-downloader';
 
 $('repoLink').href = REPO_URL;
 
