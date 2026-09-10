@@ -1,7 +1,7 @@
 {
-  "name": "x-video-downloader",
+  "name": "x-media-downloader",
   "version": "1.0.0",
-  "description": "Open-source Chrome/Edge extension to download videos and GIFs from X / Twitter with quality selection, a custom folder, and a full download history.",
+  "description": "Open-source Chrome/Edge extension to download videos, GIFs and images from X / Twitter with quality selection, a custom folder, unique filenames, and a full download history.",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,13 +12,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wangsen2020/x-video-downloader"
+    "url": "https://github.com/wangsen2020/x-media-downloader"
   },
   "keywords": [
     "chrome-extension",
+    "edge-extension",
     "twitter",
     "x",
     "video-downloader",
+    "image-downloader",
+    "media-downloader",
     "manifest-v3"
   ]
 }

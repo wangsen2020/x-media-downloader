@@ -10,7 +10,7 @@ import {
 } from '../lib/store.js';
 
 const $ = (id) => document.getElementById(id);
-const REPO_URL = 'https://github.com/wangsen2020/x-video-downloader';
+const REPO_URL = 'https://github.com/wangsen2020/x-media-downloader';
 
 $('repoLink').href = REPO_URL;
 
@@ -254,7 +254,7 @@ $('exportBtn').addEventListener('click', async () => {
   const blob = new Blob([data], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `x-video-downloader-history-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `x-media-downloader-history-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 });

@@ -4,7 +4,7 @@ import { DEFAULT_FILENAME_TEMPLATE } from './media.js';
 export const DEFAULT_SETTINGS = {
   defaultQuality: 'highest',        // see QUALITY_OPTIONS in media.js
   filenameTemplate: DEFAULT_FILENAME_TEMPLATE, // {user}_{text}_{datetime}_{id}
-  subfolder: 'X Video Downloader',
+  subfolder: 'X Media Downloader',
   askWhereToSave: false,            // chrome.downloads saveAs dialog
   showTimelineButton: true,         // inject a button on each video in the feed
   clickDownloadsImmediately: true,  // false -> timeline button opens a quality menu

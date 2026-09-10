@@ -18,10 +18,10 @@ jobs:
       - run: npm run zip
       - uses: actions/upload-artifact@v4
         with:
-          name: x-video-downloader
-          path: x-video-downloader-*.zip
+          name: x-media-downloader
+          path: x-media-downloader-*.zip
       - name: Attach to release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: x-video-downloader-*.zip
+          files: x-media-downloader-*.zip

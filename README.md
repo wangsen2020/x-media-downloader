@@ -1,4 +1,4 @@
-# X Video Downloader
+# X Media Downloader
 
 A rewritten, open‑source Chrome/Edge extension (Manifest V3) for downloading
 videos, GIFs **and images** from **X / Twitter**.
@@ -28,7 +28,7 @@ directly. Takes about a minute.
    afterwards — Chrome loads the extension from it every launch).
 
    ```bash
-   git clone https://github.com/wangsen2020/x-video-downloader.git
+   git clone https://github.com/wangsen2020/x-media-downloader.git
    ```
 
 2. **Open the extensions page.** Type `chrome://extensions` in the address bar
@@ -41,7 +41,7 @@ directly. Takes about a minute.
    pick the repository folder — the one that directly contains `manifest.json`.
 
 5. **Done.** The history / settings page opens automatically on first install.
-   Open the puzzle‑piece menu in the toolbar and pin **X Video Downloader** so
+   Open the puzzle‑piece menu in the toolbar and pin **X Media Downloader** so
    its icon is always visible.
 
 > Chrome 116+ / Edge 116+ (needs `chrome.storage.session` and MV3
@@ -54,7 +54,7 @@ git pull
 ```
 
 Then go back to `chrome://extensions` and click the **↻ reload** icon on the
-X Video Downloader card.
+X Media Downloader card.
 
 ## Usage
 
@@ -116,10 +116,11 @@ public endpoint embedded tweets use, so single‑tweet pages work even if the AP
 response was never seen. Only progressive **MP4** renditions are offered
 (HLS/`m3u8` playlists can’t be saved as a single file by the downloads API).
 
-**Images** are read straight from the tweet’s `<img>` elements
-(`pbs.twimg.com/media/…`); the `name=` size parameter is rewritten to `orig`
-so you get full resolution, and the real extension (`jpg` / `png`) is kept.
-Multi‑image posts download every picture, numbered `_1`…`_4`.
+**Images** are read straight from the tweet’s `<img>` elements — both attached
+photos (`pbs.twimg.com/media/…`) and link‑preview card thumbnails
+(`…/card_img/…`). The `name=` size parameter is rewritten to `orig` so you get
+full resolution, and the real extension (`jpg` / `png`) is kept. Multi‑image
+posts download every picture, numbered `_1`…`_4`.
 
 ## Privacy
 
@@ -153,7 +154,7 @@ icons/             generated PNGs (see tools/genicons.mjs)
 npm run zip
 ```
 
-Produces `x-video-downloader-<version>.zip` suitable for uploading to the
+Produces `x-media-downloader-<version>.zip` suitable for uploading to the
 Chrome Web Store / Edge Add‑ons dashboard.
 
 ## Legal

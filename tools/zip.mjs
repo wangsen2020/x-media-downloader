@@ -8,7 +8,7 @@ import { platform } from 'node:process';
 const { version } = JSON.parse(
   readFileSync(new URL('../package.json', import.meta.url)),
 );
-const out = `x-video-downloader-${version}.zip`;
+const out = `x-media-downloader-${version}.zip`;
 if (existsSync(out)) rmSync(out);
 
 function run(cmd, args) {

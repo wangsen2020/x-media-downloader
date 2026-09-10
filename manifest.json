@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "X Video Downloader",
+  "name": "X Media Downloader",
   "version": "1.0.0",
-  "description": "Download videos and GIFs from X / Twitter. Pick the quality, choose a folder, and keep a full download history.",
+  "description": "Download videos, GIFs and images from X / Twitter. Pick the quality, choose a folder, and keep a full download history.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -10,7 +10,7 @@
   },
   "action": {
     "default_popup": "src/popup/popup.html",
-    "default_title": "X Video Downloader",
+    "default_title": "X Media Downloader",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
