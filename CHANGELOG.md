@@ -5,9 +5,10 @@
 Initial release — a full rewrite.
 
 - Download videos and GIFs from X / Twitter (progressive MP4 renditions).
-- Download images from photo posts — read from the tweet's `<img>` tags,
-  upgraded to original resolution, correct `jpg`/`png` extension,
-  multi-image posts numbered `_1`…`_4`. Alt-click offers Original/Large/Medium.
+- Download images from photo posts **and link‑preview cards** — read from the
+  tweet's `<img>` tags (`pbs.twimg.com/media` and `.../card_img`), upgraded to
+  original resolution, correct `jpg`/`png` extension, multi‑image posts
+  numbered `_1`…`_4`. Alt‑click offers Original/Large/Medium.
 - Timeline download icon is icon-only and sized to match X's native
   action-bar icons; label text is in the tooltip.
 - **Download history** on the options page: thumbnail, account, quality,

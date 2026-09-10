@@ -219,7 +219,9 @@
     return btn;
   }
 
-  const MEDIA_URL_RE = /pbs\.twimg\.com\/media\//;
+  // pbs.twimg.com/media/... = attached photos; .../card_img/... = the image on
+  // a link-preview card. Both are downloadable; profile_images / emoji are not.
+  const MEDIA_URL_RE = /pbs\.twimg\.com\/(media|card_img)\//;
 
   // Returns { kind:'video' } | { kind:'image', images:[url,...] } | null
   function articleMedia(article) {
@@ -232,7 +234,7 @@
     }
     const imgs = [];
     for (const img of article.querySelectorAll(
-      '[data-testid="tweetPhoto"] img, a[href*="/photo/"] img',
+      '[data-testid="tweetPhoto"] img, a[href*="/photo/"] img, [data-testid^="card."] img',
     )) {
       const src = img.currentSrc || img.src || '';
       if (MEDIA_URL_RE.test(src) && !imgs.includes(src)) imgs.push(src);
