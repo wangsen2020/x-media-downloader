@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">X Media Downloader feature overview</title>
+  <desc id="desc">Four connected panels explain media detection, quality selection, flexible saving and local download history.</desc>
+  <rect width="1280" height="520" fill="#0b1116"/>
+  <rect x="28" y="28" width="1224" height="464" rx="22" fill="#111b24" stroke="#263b4a" stroke-width="2"/>
+  <text x="70" y="91" fill="#f7fbff" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="30" font-weight="700">Made for a cleaner X media workflow</text>
+  <text x="70" y="123" fill="#9fb2c0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="18">Capture a post, choose what you need, then keep everything under your control.</text>
+  <path d="M302 269H347M611 269H656M920 269H965" stroke="#2e6080" stroke-width="3"/>
+  <path d="M340 261L350 269L340 277M649 261L659 269L649 277M958 261L968 269L958 277" fill="none" stroke="#55b8f7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect x="70" y="168" width="232" height="202" rx="16" fill="#152632" stroke="#2e6080" stroke-width="2"/>
+    <circle cx="112" cy="214" r="22" fill="#1d9bf0" opacity="0.2"/>
+    <path d="M103 214H121M112 205V223M99 240H126" fill="none" stroke="#55b8f7" stroke-width="3" stroke-linecap="round"/>
+    <text x="70" y="282" fill="#f7fbff" font-size="22" font-weight="700">Media-aware capture</text>
+    <text x="70" y="314" fill="#b8c7d3" font-size="16">Download videos, GIFs and</text>
+    <text x="70" y="338" fill="#b8c7d3" font-size="16">post images from the timeline</text>
+    <text x="70" y="393" fill="#55b8f7" font-size="14" font-weight="700" letter-spacing="1">X / TWITTER POSTS</text>
+
+    <rect x="379" y="168" width="232" height="202" rx="16" fill="#152632" stroke="#2e6080" stroke-width="2"/>
+    <circle cx="421" cy="214" r="22" fill="#1d9bf0" opacity="0.2"/>
+    <path d="M410 219L419 228L435 207M409 201H433" fill="none" stroke="#55b8f7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="379" y="282" fill="#f7fbff" font-size="22" font-weight="700">Pick the quality</text>
+    <text x="379" y="314" fill="#b8c7d3" font-size="16">Choose a default or select a</text>
+    <text x="379" y="338" fill="#b8c7d3" font-size="16">video rendition per download</text>
+    <text x="379" y="393" fill="#55b8f7" font-size="14" font-weight="700" letter-spacing="1">HIGHEST TO LOWEST</text>
+
+    <rect x="688" y="168" width="232" height="202" rx="16" fill="#152632" stroke="#2e6080" stroke-width="2"/>
+    <circle cx="730" cy="214" r="22" fill="#1d9bf0" opacity="0.2"/>
+    <path d="M718 204H742V224H718ZM723 204V199H737V204M724 213H736" fill="none" stroke="#55b8f7" stroke-width="3" stroke-linejoin="round"/>
+    <text x="688" y="282" fill="#f7fbff" font-size="22" font-weight="700">Save your way</text>
+    <text x="688" y="314" fill="#b8c7d3" font-size="16">Set a Downloads subfolder or</text>
+    <text x="688" y="338" fill="#b8c7d3" font-size="16">ask where to save each file</text>
+    <text x="688" y="393" fill="#55b8f7" font-size="14" font-weight="700" letter-spacing="1">BROWSER-NATIVE</text>
+
+    <rect x="997" y="168" width="185" height="202" rx="16" fill="#152632" stroke="#2e6080" stroke-width="2"/>
+    <circle cx="1039" cy="214" r="22" fill="#1d9bf0" opacity="0.2"/>
+    <path d="M1028 204H1050V225H1028ZM1033 212H1045M1033 218H1042" fill="none" stroke="#55b8f7" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="997" y="282" fill="#f7fbff" font-size="22" font-weight="700">Keep a record</text>
+    <text x="997" y="314" fill="#b8c7d3" font-size="16">Search, re-download,</text>
+    <text x="997" y="338" fill="#b8c7d3" font-size="16">export or import history</text>
+    <text x="997" y="393" fill="#55b8f7" font-size="14" font-weight="700" letter-spacing="1">STAYS LOCAL</text>
+  </g>
+  <path d="M70 436H1182" stroke="#263b4a" stroke-width="2"/>
+  <circle cx="84" cy="457" r="5" fill="#1d9bf0"/>
+  <text x="100" y="463" fill="#9fb2c0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16">No servers, no tracking, no account — your settings and history stay in browser storage.</text>
+</svg>

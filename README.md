@@ -1,3 +1,7 @@
+![X Media Downloader](docs/hero.svg)
+
+[![Manifest V3](https://img.shields.io/badge/Manifest-V3-1d9bf0?style=flat-square&labelColor=0b1116)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) [![MIT License](https://img.shields.io/badge/License-MIT-1d9bf0?style=flat-square&labelColor=0b1116)](LICENSE) [![Chrome](https://img.shields.io/badge/Chrome-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.google.com/chrome/) [![Edge](https://img.shields.io/badge/Edge-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.microsoft.com/edge)
+
 # X Media Downloader
 
 A rewritten, open‑source Chrome/Edge extension (Manifest V3) for downloading
@@ -13,6 +17,12 @@ get wrong:
 | **Always downloads the wrong quality** | A **default quality** setting (Highest / 1080p / 720p / 480p / 360p / Lowest, “closest below” your target) and a per‑download quality picker in the popup and the timeline button. |
 
 No servers, no tracking, no account. Everything runs locally in your browser.
+
+---
+
+## Features
+
+![Feature overview](docs/features.svg)
 
 ---
 
