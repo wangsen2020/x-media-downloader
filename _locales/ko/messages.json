@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "X(트위터) 미디어 다운로더: 동영상/GIF/사진 저장",
+    "message": "X(트위터) 동영상 다운로더 - 영상/GIF/사진 저장",
     "description": "Extension name shown in the browser and the Chrome Web Store"
   },
   "extDesc": {

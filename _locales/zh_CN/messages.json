@@ -1,10 +1,10 @@
 {
   "extName": {
-    "message": "X（推特）媒体下载器：视频/动图/图片保存",
+    "message": "X（推特）视频下载器 - 一键保存视频/GIF动图/图片",
     "description": "Extension name shown in the browser and the Chrome Web Store"
   },
   "extDesc": {
-    "message": "一键下载 X（推特）上的视频、GIF 动图和图片。支持清晰度选择、自定义保存目录、完整下载历史。免费，不追踪、不收集数据。",
+    "message": "一键下载 X（推特）视频、GIF 动图和原图。可选清晰度与保存目录，自带完整下载历史。免费，不追踪、不收集数据。",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
   }
 }
