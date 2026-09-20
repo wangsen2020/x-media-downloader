@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "X（Twitter）メディアダウンローダー：動画・GIF・画像保存",
+    "description": "Extension name shown in the browser and the Chrome Web Store"
+  },
+  "extDesc": {
+    "message": "X（Twitter）の動画・GIF・画像をワンクリックで保存。画質選択、保存フォルダ指定、ダウンロード履歴に対応。無料・追跡なし。",
+    "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  }
+}

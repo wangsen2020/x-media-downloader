@@ -18,6 +18,10 @@ get wrong:
 
 No servers, no tracking, no account. Everything runs locally in your browser.
 
+**Languages:** English, 简体中文, 日本語, Español, Português (Brasil), 한국어, Deutsch —
+the extension name/description follow your Chrome UI language automatically
+(`_locales/`); everything else in the interface is in English.
+
 ---
 
 ## Features

@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "X Media Downloader: Video, GIF & Photo Saver",
+    "description": "Extension name shown in the browser and the Chrome Web Store"
+  },
+  "extDesc": {
+    "message": "Download videos, GIFs and photos from X (Twitter). Pick the quality, choose a save folder, and keep a full download history.",
+    "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  }
+}

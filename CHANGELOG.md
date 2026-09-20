@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- Localized the extension name/description into 7 languages via `_locales/`:
+  English (default), 简体中文, 日本語, Español, Português (Brasil), 한국어,
+  Deutsch. Chrome shows the right one automatically based on the browser's
+  UI language; this is what the Chrome Web Store listing search/snippet uses
+  too. Rest of the interface (popup/options) stays English for now.
+
 ## 1.0.0
 
 Initial release — a full rewrite.

@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "X(트위터) 미디어 다운로더: 동영상/GIF/사진 저장",
+    "description": "Extension name shown in the browser and the Chrome Web Store"
+  },
+  "extDesc": {
+    "message": "X(트위터)의 동영상, GIF, 사진을 한 번에 저장하세요. 화질 선택, 저장 폴더 지정, 다운로드 기록까지. 무료이며 추적하지 않습니다.",
+    "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  }
+}

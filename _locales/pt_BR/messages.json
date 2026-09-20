@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "Downloader de Mídia do X (Twitter): Vídeo, GIF e Fotos",
+    "description": "Extension name shown in the browser and the Chrome Web Store"
+  },
+  "extDesc": {
+    "message": "Baixe vídeos, GIFs e fotos do X (Twitter). Escolha a qualidade, a pasta de download e veja seu histórico. Grátis, sem rastreamento.",
+    "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  }
+}
