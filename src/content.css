@@ -1,19 +1,38 @@
-/* The glyph IS the control. No wrapper element, no circular hit-area, no
-   hover pill -- a filled circle growing under the cursor made this read as a
-   heavier affordance than any of X's own action icons, which is exactly what
-   an injected control should not do. Just a blue icon sitting in the bar. */
-.xvd-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  color: rgb(29, 155, 240);
+/* The glyph IS the control: no wrapper element, no circular hit-area, no hover
+   pill, no focus ring. Always X blue, in every state.
+
+   This lives inside someone else's page, so every one of these is !important
+   and every state is spelled out. Without that, a single rule in X's stylesheet
+   matching `button` is enough to put a background back behind the icon, and it
+   would look exactly like a bug in this extension. */
+.xvd-btn,
+.xvd-btn:hover,
+.xvd-btn:focus,
+.xvd-btn:focus-visible,
+.xvd-btn:active {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transform: none !important;
+  transition: none !important;
+  color: rgb(29, 155, 240) !important;
   cursor: pointer;
   line-height: 0;
   -webkit-appearance: none;
   appearance: none;
+}
+
+/* Inherit the blue above; X's `svg { fill: currentColor }` resets are harmless
+   but be explicit so nothing repaints the glyph grey. */
+.xvd-btn svg path {
+  fill: currentColor !important;
 }
 
 /* X's action icons are 1.25em at font-size 15px = 18.75px. Ours is nudged to

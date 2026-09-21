@@ -11,8 +11,13 @@
   should be findable at a glance.
 - Dropped the button's wrapper `<div>`, its circular hit-area and the hover
   pill. The glyph is now the whole control: a bare blue icon in the action bar,
-  with no background that darkens on hover. The circle made an injected control
-  look heavier than X's own icons — the opposite of the intent.
+  with no background in any state. The circle made an injected control look
+  heavier than X's own icons — the opposite of the intent.
+- Every one of those declarations is now `!important` and spelled out for
+  `:hover`, `:focus`, `:focus-visible` and `:active`. This markup lives inside
+  X's page, so a single rule in their stylesheet matching `button` could
+  otherwise paint the background back and it would read as a bug here.
+  Verified against a rule deliberately trying to do exactly that.
 - Published to the Chrome Web Store: <https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm>
 - README: store install instructions, and fixed the language list (Arabic
   replaced German back in 1.1.0; the docs still said Deutsch).
