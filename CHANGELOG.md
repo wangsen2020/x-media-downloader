@@ -1,7 +1,18 @@
 # Changelog
 
-## 1.1.1
+## 1.2.0
 
+- **Right-click the timeline button to pick a quality.** Left-click downloads
+  straight away at your default (`Highest` out of the box); right-click opens a
+  picker at the cursor listing every rendition X actually served for that post,
+  best first, with `4K` / `HD` tags and a tick on whichever one a plain
+  left-click would have taken. Alt-click still works, and the keyboard
+  context-menu key opens the same picker anchored on the button.
+- The picker now stays on screen: it flips above the button when there is no
+  room below and clamps to the viewport on both axes. X's action bar is often
+  near the bottom of the window, where the old menu was simply clipped.
+- Picker styling: a header naming the action, X's dark-theme card colours, and
+  the same host-proof specificity as the button.
 - Timeline button now matches X's own action buttons exactly: the same 34.75px
   circular hit-area, the same 18.75px glyph, the same muted grey at rest, and
   the same X-blue icon over a 10%-blue disc on hover.

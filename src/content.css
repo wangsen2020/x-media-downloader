@@ -65,36 +65,90 @@ button.xvd-btn.xvd-btn.xvd-btn svg {
   display: block !important;
 }
 
-.xvd-menu {
-  position: absolute;
-  z-index: 2147483647;
-  min-width: 120px;
-  padding: 6px;
-  border-radius: 12px;
-  background: #fff;
-  color: #0f1419;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 8px 28px rgba(0, 0, 0, 0.25);
+/* The quality picker. It is appended to document.body, so it is exposed to X's
+   global resets -- every property that matters is stated rather than inherited.
+   Font stack matches X's own UI. */
+.xvd-menu.xvd-menu {
+  position: absolute !important;
+  z-index: 2147483647 !important;
+  box-sizing: border-box !important;
+  min-width: 168px !important;
+  max-width: 260px !important;
+  padding: 6px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: #0f1419 !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 8px 28px rgba(0, 0, 0, 0.25) !important;
+  font: 400 13px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+.xvd-menu.xvd-menu .xvd-menu__title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 7px 12px 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  color: inherit !important;
+  opacity: 0.55;
+}
+
+.xvd-menu.xvd-menu .xvd-menu__item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  padding: 8px 12px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: inherit !important;
+  text-align: left !important;
+  font: 500 13px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  cursor: pointer !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.xvd-menu.xvd-menu .xvd-menu__item:hover,
+.xvd-menu.xvd-menu .xvd-menu__item:focus-visible {
+  background: rgba(29, 155, 240, 0.14) !important;
+  outline: none !important;
+}
+
+.xvd-menu.xvd-menu .xvd-menu__label {
+  flex: 1 1 auto !important;
+  white-space: nowrap !important;
+}
+
+/* 4K / HD tag, same blue as the button's hover state. */
+.xvd-menu.xvd-menu .xvd-menu__badge {
+  flex: 0 0 auto !important;
+  padding: 1px 5px !important;
+  border-radius: 4px !important;
+  background: rgba(29, 155, 240, 0.15) !important;
+  color: rgb(29, 155, 240) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Marks the rendition a plain left-click downloads. */
+.xvd-menu.xvd-menu .xvd-menu__check {
+  flex: 0 0 auto !important;
+  color: rgb(29, 155, 240) !important;
+  font-weight: 700 !important;
 }
 
 @media (prefers-color-scheme: dark) {
-  .xvd-menu { background: #1e2732; color: #e7e9ea; }
-}
-
-.xvd-menu__item {
-  display: block;
-  width: 100%;
-  padding: 8px 12px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  font: 500 13px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  cursor: pointer;
-}
-
-.xvd-menu__item:hover {
-  background: rgba(29, 155, 240, 0.14);
+  .xvd-menu.xvd-menu {
+    background: #1e2732 !important;
+    color: #e7e9ea !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 8px 28px rgba(0, 0, 0, 0.5) !important;
+  }
 }
 
 .xvd-toast {
