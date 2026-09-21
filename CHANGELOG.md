@@ -1,10 +1,23 @@
 # Changelog
 
+## 1.1.1
+
+- Timeline button: redrew the download glyph so it fills its 24×24 box the way
+  X's own action icons do, and nudged the rendered size from 18.75px to
+  20.25px. The old glyph sat in ~70% of its box, which made an
+  identically-sized button read as smaller than the icons beside it.
+- Timeline button is now X blue (`#1d9bf0`) at rest instead of the muted grey
+  of the native icons — it is the one control on that bar that isn't X's, so it
+  should be findable at a glance.
+- Published to the Chrome Web Store: <https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm>
+- README: store install instructions, and fixed the language list (Arabic
+  replaced German back in 1.1.0; the docs still said Deutsch).
+
 ## 1.1.0
 
 - Localized the extension name/description into 7 languages via `_locales/`:
   English (default), 简体中文, 日本語, Español, Português (Brasil), 한국어,
-  Deutsch. Chrome shows the right one automatically based on the browser's
+  العربية (Arabic). Chrome shows the right one automatically based on the browser's
   UI language; this is what the Chrome Web Store listing search/snippet uses
   too. Rest of the interface (popup/options) stays English for now.
 

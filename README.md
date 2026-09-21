@@ -1,6 +1,6 @@
 ![X Media Downloader](docs/hero.svg)
 
-[![Manifest V3](https://img.shields.io/badge/Manifest-V3-1d9bf0?style=flat-square&labelColor=0b1116)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) [![MIT License](https://img.shields.io/badge/License-MIT-1d9bf0?style=flat-square&labelColor=0b1116)](LICENSE) [![Chrome](https://img.shields.io/badge/Chrome-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.google.com/chrome/) [![Edge](https://img.shields.io/badge/Edge-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.microsoft.com/edge)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-1d9bf0?style=flat-square&labelColor=0b1116&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm) [![Manifest V3](https://img.shields.io/badge/Manifest-V3-1d9bf0?style=flat-square&labelColor=0b1116)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) [![MIT License](https://img.shields.io/badge/License-MIT-1d9bf0?style=flat-square&labelColor=0b1116)](LICENSE) [![Chrome](https://img.shields.io/badge/Chrome-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.google.com/chrome/) [![Edge](https://img.shields.io/badge/Edge-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.microsoft.com/edge)
 
 # X Media Downloader
 
@@ -18,7 +18,12 @@ get wrong:
 
 No servers, no tracking, no account. Everything runs locally in your browser.
 
-**Languages:** English, 简体中文, 日本語, Español, Português (Brasil), 한국어, Deutsch —
+### → [Install from the Chrome Web Store](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm)
+
+<img src="docs/promo-quality.webp" alt="Pick any rendition X served, up to 2160p" width="420">
+
+
+**Languages:** English, 简体中文, 日本語, Español, Português (Brasil), 한국어, العربية —
 the extension name/description follow your Chrome UI language automatically
 (`_locales/`); everything else in the interface is in English.
 
@@ -30,10 +35,19 @@ the extension name/description follow your Chrome UI language automatically
 
 ---
 
-## Install (unpacked)
+## Install
 
-There is no build step and it is not on the Web Store yet — you load the folder
-directly. Takes about a minute.
+### From the Chrome Web Store (recommended)
+
+**[⬇ X (Twitter) Video Downloader — Chrome Web Store](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm)**
+
+One click, automatic updates. Works in Chrome, Edge and any other Chromium
+browser that can install from the Web Store.
+
+### From source (unpacked)
+
+For development, or if you would rather run the code you can read. There is no
+build step — you load the folder directly. Takes about a minute.
 
 ![Install in four steps](docs/install-steps.svg)
 
@@ -71,6 +85,8 @@ Then go back to `chrome://extensions` and click the **↻ reload** icon on the
 X Media Downloader card.
 
 ## Usage
+
+<img src="docs/promo-simple.webp" alt="The download icon sits in the post's action bar, next to Share" width="420">
 
 - **From the timeline:** a **⬇** download icon appears in the action bar of
   every post that has a video **or image(s)**. Click it to grab the video at
@@ -169,7 +185,8 @@ npm run zip
 ```
 
 Produces `x-media-downloader-<version>.zip` suitable for uploading to the
-Chrome Web Store / Edge Add‑ons dashboard.
+Chrome Web Store / Edge Add‑ons dashboard. The published listing lives
+[here](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm).
 
 ## Legal
 

@@ -207,9 +207,11 @@
     btn.title = `Download ${what} · Alt-click for options`;
     btn.setAttribute('aria-label', `Download ${what}`);
     btn.innerHTML =
-      '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +
-      '<path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.585l3.293-3.292a1 1 0 0 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L11 13.585V4a1 1 0 0 1 1-1Z"/>' +
-      '<path fill="currentColor" d="M4 19a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z"/></svg>';
+      // Drawn to fill the 24x24 box the way X's own action icons do: a thin
+      // glyph floating in the middle reads as a smaller button next to them.
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path fill="currentColor" d="M12 2.25c.69 0 1.25.56 1.25 1.25v10.23l3.16-3.16a1.25 1.25 0 0 1 1.77 1.77l-5.29 5.3a1.25 1.25 0 0 1-1.78 0l-5.29-5.3a1.25 1.25 0 0 1 1.77-1.77l3.16 3.16V3.5c0-.69.56-1.25 1.25-1.25Z"/>' +
+      '<path fill="currentColor" d="M3.6 19.35h16.8a1.2 1.2 0 0 1 0 2.4H3.6a1.2 1.2 0 0 1 0-2.4Z"/></svg>';
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();

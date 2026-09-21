@@ -15,21 +15,27 @@
   border: 0;
   border-radius: 9999px;
   background: transparent;
-  color: rgb(113, 118, 123);
+  /* X blue rather than the muted grey of the native icons: this is the one
+     control on the bar that is not X's, and it should be findable at a glance
+     (see docs/promo-quality.webp). */
+  color: rgb(29, 155, 240);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 
+/* X's action icons are 1.25em at font-size 15px = 18.75px. Ours is nudged to
+   1.35em (20.25px) so the glyph's optical size matches theirs -- an identical
+   box reads smaller when the icon inside it is a lighter weight. */
 .xvd-btn svg {
-  width: 1.25em;
-  height: 1.25em;
+  width: 1.35em;
+  height: 1.35em;
   font-size: 15px;
   display: block;
 }
 
 .xvd-btn:hover {
   background: rgba(29, 155, 240, 0.1);
-  color: rgb(29, 155, 240);
+  color: rgb(26, 140, 216);
 }
 
 .xvd-btn:active {
