@@ -261,10 +261,7 @@
     info.article = article; // re-scanned at click time for freshly-loaded images
     const group = article.querySelector('[role="group"]');
     if (!group) return;
-    const holder = document.createElement('div');
-    holder.className = 'xvd-slot';
-    holder.appendChild(makeButton(info));
-    group.appendChild(holder);
+    group.appendChild(makeButton(info));
   }
 
   function scan() {

@@ -9,6 +9,10 @@
 - Timeline button is now X blue (`#1d9bf0`) at rest instead of the muted grey
   of the native icons — it is the one control on that bar that isn't X's, so it
   should be findable at a glance.
+- Dropped the button's wrapper `<div>`, its circular hit-area and the hover
+  pill. The glyph is now the whole control: a bare blue icon in the action bar,
+  with no background that darkens on hover. The circle made an injected control
+  look heavier than X's own icons — the opposite of the intent.
 - Published to the Chrome Web Store: <https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm>
 - README: store install instructions, and fixed the language list (Arabic
   replaced German back in 1.1.0; the docs still said Deutsch).

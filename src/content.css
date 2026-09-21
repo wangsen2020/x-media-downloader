@@ -1,26 +1,19 @@
-.xvd-slot {
-  display: flex;
-  align-items: center;
-}
-
-/* Icon-only, sized to match X's own action-bar icons (reply / repost / like). */
+/* The glyph IS the control. No wrapper element, no circular hit-area, no
+   hover pill -- a filled circle growing under the cursor made this read as a
+   heavier affordance than any of X's own action icons, which is exactly what
+   an injected control should not do. Just a blue icon sitting in the bar. */
 .xvd-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 34.75px;
-  height: 34.75px;
   padding: 0;
   margin: 0;
   border: 0;
-  border-radius: 9999px;
   background: transparent;
-  /* X blue rather than the muted grey of the native icons: this is the one
-     control on the bar that is not X's, and it should be findable at a glance
-     (see docs/promo-quality.webp). */
   color: rgb(29, 155, 240);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  line-height: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* X's action icons are 1.25em at font-size 15px = 18.75px. Ours is nudged to
@@ -31,15 +24,6 @@
   height: 1.35em;
   font-size: 15px;
   display: block;
-}
-
-.xvd-btn:hover {
-  background: rgba(29, 155, 240, 0.1);
-  color: rgb(26, 140, 216);
-}
-
-.xvd-btn:active {
-  transform: scale(0.92);
 }
 
 .xvd-menu {
