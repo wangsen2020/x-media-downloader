@@ -1,27 +1,36 @@
 /* The glyph IS the control: no wrapper element, no circular hit-area, no hover
    pill, no focus ring. Always X blue, in every state.
 
-   This lives inside someone else's page, so every one of these is !important
-   and every state is spelled out. Without that, a single rule in X's stylesheet
-   matching `button` is enough to put a background back behind the icon, and it
-   would look exactly like a bug in this extension. */
-.xvd-btn,
-.xvd-btn:hover,
-.xvd-btn:focus,
-.xvd-btn:focus-visible,
-.xvd-btn:active {
+   Specificity note, learned the hard way: `!important` alone is not enough.
+   When two author-origin !important declarations collide, the more specific
+   selector wins -- so a single `button.xvd-btn:hover {...!important}` in the
+   host page's stylesheet (0,2,1) beat `.xvd-btn:hover` (0,2,0) and put the
+   circle straight back. The class is repeated to raise specificity to (0,3,1),
+   and the pseudo-elements are shut down too, because a `::before` with a
+   background is the other way to draw a circle behind an icon. */
+button.xvd-btn.xvd-btn.xvd-btn,
+button.xvd-btn.xvd-btn.xvd-btn:hover,
+button.xvd-btn.xvd-btn.xvd-btn:focus,
+button.xvd-btn.xvd-btn.xvd-btn:focus-visible,
+button.xvd-btn.xvd-btn.xvd-btn:active {
   display: inline-flex !important;
   align-items: center !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: none !important;
   background-color: transparent !important;
+  background-image: none !important;
   box-shadow: none !important;
   outline: none !important;
   transform: none !important;
   transition: none !important;
+  filter: none !important;
   color: rgb(29, 155, 240) !important;
   cursor: pointer;
   line-height: 0;
@@ -29,9 +38,24 @@
   appearance: none;
 }
 
-/* Inherit the blue above; X's `svg { fill: currentColor }` resets are harmless
-   but be explicit so nothing repaints the glyph grey. */
-.xvd-btn svg path {
+/* The other way to paint a circle behind an icon. */
+button.xvd-btn.xvd-btn.xvd-btn::before,
+button.xvd-btn.xvd-btn.xvd-btn::after,
+button.xvd-btn.xvd-btn.xvd-btn:hover::before,
+button.xvd-btn.xvd-btn.xvd-btn:hover::after,
+button.xvd-btn.xvd-btn.xvd-btn:focus::before,
+button.xvd-btn.xvd-btn.xvd-btn:focus::after,
+button.xvd-btn.xvd-btn.xvd-btn:active::before,
+button.xvd-btn.xvd-btn.xvd-btn:active::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Inherit the blue above; be explicit so nothing repaints the glyph grey. */
+button.xvd-btn.xvd-btn.xvd-btn svg path {
   fill: currentColor !important;
 }
 

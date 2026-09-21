@@ -13,11 +13,14 @@
   pill. The glyph is now the whole control: a bare blue icon in the action bar,
   with no background in any state. The circle made an injected control look
   heavier than X's own icons — the opposite of the intent.
-- Every one of those declarations is now `!important` and spelled out for
-  `:hover`, `:focus`, `:focus-visible` and `:active`. This markup lives inside
-  X's page, so a single rule in their stylesheet matching `button` could
-  otherwise paint the background back and it would read as a bug here.
-  Verified against a rule deliberately trying to do exactly that.
+- Hardened those declarations against the host page. `!important` on its own
+  turned out to be insufficient: when two author-origin `!important`
+  declarations collide the more specific selector wins, so a single
+  `button.xvd-btn:hover` rule in X's stylesheet (0,2,1) beat `.xvd-btn:hover`
+  (0,2,0) and painted the circle straight back. The class is now repeated to
+  reach (0,3,1), and `::before` / `::after` are shut down as well — a generated
+  box with a background is the other way to draw a circle behind an icon.
+  Verified against rules deliberately doing both.
 - Published to the Chrome Web Store: <https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm>
 - README: store install instructions, and fixed the language list (Arabic
   replaced German back in 1.1.0; the docs still said Deutsch).
