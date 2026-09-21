@@ -1,72 +1,68 @@
-/* The glyph IS the control: no wrapper element, no circular hit-area, no hover
-   pill, no focus ring. Always X blue, in every state.
+/* Match X's own action-bar buttons (reply / repost / like) exactly: a 34.75px
+   circular hit-area that is invisible at rest, the icon in the same muted grey
+   as its neighbours, and on hover the icon turns X blue over a 10% blue disc.
 
    Specificity note, learned the hard way: `!important` alone is not enough.
-   When two author-origin !important declarations collide, the more specific
-   selector wins -- so a single `button.xvd-btn:hover {...!important}` in the
-   host page's stylesheet (0,2,1) beat `.xvd-btn:hover` (0,2,0) and put the
-   circle straight back. The class is repeated to raise specificity to (0,3,1),
-   and the pseudo-elements are shut down too, because a `::before` with a
-   background is the other way to draw a circle behind an icon. */
-button.xvd-btn.xvd-btn.xvd-btn,
-button.xvd-btn.xvd-btn.xvd-btn:hover,
-button.xvd-btn.xvd-btn.xvd-btn:focus,
-button.xvd-btn.xvd-btn.xvd-btn:focus-visible,
-button.xvd-btn.xvd-btn.xvd-btn:active {
+   When two author-origin !important declarations collide the more specific
+   selector wins, so a plain `.xvd-btn:hover` (0,2,0) loses to a host rule like
+   `button.xvd-btn:hover` (0,2,1). The class is repeated to reach (0,3,1) so
+   this button looks the same no matter what X ships, and the pseudo-elements
+   are pinned shut so nothing can double up behind our own background. */
+button.xvd-btn.xvd-btn.xvd-btn {
   display: inline-flex !important;
   align-items: center !important;
-  width: auto !important;
-  height: auto !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
+  justify-content: center !important;
+  width: 34.75px !important;
+  height: 34.75px !important;
   padding: 0 !important;
   margin: 0 !important;
   border: 0 !important;
-  border-radius: 0 !important;
-  background: none !important;
+  border-radius: 9999px !important;
   background-color: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
   outline: none !important;
-  transform: none !important;
-  transition: none !important;
-  filter: none !important;
-  color: rgb(29, 155, 240) !important;
+  color: rgb(83, 100, 113) !important;
   cursor: pointer;
   line-height: 0;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
   -webkit-appearance: none;
   appearance: none;
 }
 
-/* The other way to paint a circle behind an icon. */
+button.xvd-btn.xvd-btn.xvd-btn:hover,
+button.xvd-btn.xvd-btn.xvd-btn:focus-visible {
+  background-color: rgba(29, 155, 240, 0.1) !important;
+  color: rgb(29, 155, 240) !important;
+}
+
+/* X's "lights out" / dim themes put the action icons in a lighter grey. */
+@media (prefers-color-scheme: dark) {
+  button.xvd-btn.xvd-btn.xvd-btn {
+    color: rgb(113, 118, 123) !important;
+  }
+}
+
+/* Nothing may draw a second disc behind the icon. */
 button.xvd-btn.xvd-btn.xvd-btn::before,
 button.xvd-btn.xvd-btn.xvd-btn::after,
 button.xvd-btn.xvd-btn.xvd-btn:hover::before,
-button.xvd-btn.xvd-btn.xvd-btn:hover::after,
-button.xvd-btn.xvd-btn.xvd-btn:focus::before,
-button.xvd-btn.xvd-btn.xvd-btn:focus::after,
-button.xvd-btn.xvd-btn.xvd-btn:active::before,
-button.xvd-btn.xvd-btn.xvd-btn:active::after {
+button.xvd-btn.xvd-btn.xvd-btn:hover::after {
   content: none !important;
   display: none !important;
-  background: none !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
 }
 
-/* Inherit the blue above; be explicit so nothing repaints the glyph grey. */
 button.xvd-btn.xvd-btn.xvd-btn svg path {
   fill: currentColor !important;
 }
 
-/* X's action icons are 1.25em at font-size 15px = 18.75px. Ours is nudged to
-   1.35em (20.25px) so the glyph's optical size matches theirs -- an identical
-   box reads smaller when the icon inside it is a lighter weight. */
-.xvd-btn svg {
-  width: 1.35em;
-  height: 1.35em;
-  font-size: 15px;
-  display: block;
+/* Same 1.25em / 18.75px as X's own action icons. The glyph fills its 24x24
+   viewBox at their weight, so identical numbers now read as identical size. */
+button.xvd-btn.xvd-btn.xvd-btn svg {
+  width: 1.25em !important;
+  height: 1.25em !important;
+  font-size: 15px !important;
+  display: block !important;
 }
 
 .xvd-menu {

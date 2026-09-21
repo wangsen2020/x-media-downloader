@@ -2,28 +2,26 @@
 
 ## 1.1.1
 
-- Timeline button: redrew the download glyph so it fills its 24×24 box the way
-  X's own action icons do, and nudged the rendered size from 18.75px to
-  20.25px. The old glyph sat in ~70% of its box, which made an
-  identically-sized button read as smaller than the icons beside it.
-- Timeline button is now X blue (`#1d9bf0`) at rest instead of the muted grey
-  of the native icons — it is the one control on that bar that isn't X's, so it
-  should be findable at a glance.
-- Dropped the button's wrapper `<div>`, its circular hit-area and the hover
-  pill. The glyph is now the whole control: a bare blue icon in the action bar,
-  with no background in any state. The circle made an injected control look
-  heavier than X's own icons — the opposite of the intent.
-- Hardened those declarations against the host page. `!important` on its own
-  turned out to be insufficient: when two author-origin `!important`
-  declarations collide the more specific selector wins, so a single
-  `button.xvd-btn:hover` rule in X's stylesheet (0,2,1) beat `.xvd-btn:hover`
-  (0,2,0) and painted the circle straight back. The class is now repeated to
-  reach (0,3,1), and `::before` / `::after` are shut down as well — a generated
-  box with a background is the other way to draw a circle behind an icon.
-  Verified against rules deliberately doing both.
+- Timeline button now matches X's own action buttons exactly: the same 34.75px
+  circular hit-area, the same 18.75px glyph, the same muted grey at rest, and
+  the same X-blue icon over a 10%-blue disc on hover.
+- Redrew the download glyph so it fills its 24×24 viewBox at the weight X uses.
+  The old one sat in about 70% of its box with lighter strokes, which made an
+  identically-sized button read as visibly smaller than its neighbours — the
+  size numbers had been right all along, the drawing was not.
+- Dropped the button's wrapper `<div>`; it is now a direct child of the action
+  bar.
+- Hardened the styles against the host page. `!important` on its own is not
+  enough: when two author-origin `!important` declarations collide the more
+  specific selector wins, so a rule like `button.xvd-btn:hover` (0,2,1) in X's
+  stylesheet beats `.xvd-btn:hover` (0,2,0). The class is repeated to reach
+  (0,3,1), sizes are pinned, and `::before` / `::after` are shut off so nothing
+  can draw a second disc behind the icon. Verified by injecting both attacks
+  and reading computed styles with `:hover` force-enabled.
+- Follow X's dim/dark themes with the lighter action-icon grey.
 - Published to the Chrome Web Store: <https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm>
-- README: store install instructions, and fixed the language list (Arabic
-  replaced German back in 1.1.0; the docs still said Deutsch).
+- README: store install instructions and promo art, and fixed the language list
+  (Arabic replaced German back in 1.1.0; the docs still said Deutsch).
 
 ## 1.1.0
 
