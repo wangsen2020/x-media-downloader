@@ -276,12 +276,20 @@
     btn.title = `Download ${what} · right-click to pick quality`;
     btn.setAttribute('aria-label', `Download ${what}`);
     btn.setAttribute('aria-haspopup', 'menu');
+    // Same anatomy X gives its own action buttons (bookmark / reply / like):
+    // an unstyled <button>, a div carrying the colour, a positioning context,
+    // an empty div that IS the hover disc, then the glyph. The disc is
+    // absolutely positioned so it overflows the button, which keeps the
+    // button's layout box the size of the ICON rather than the size of the
+    // circle -- that is what makes the spacing in the action bar line up.
     btn.innerHTML =
-      // Drawn to fill the 24x24 box the way X's own action icons do: a thin
-      // glyph floating in the middle reads as a smaller button next to them.
+      '<div class="xvd-btn__color">' +
+      '<div class="xvd-btn__stack">' +
+      '<div class="xvd-btn__disc"></div>' +
       '<svg viewBox="0 0 24 24" aria-hidden="true">' +
       '<path fill="currentColor" d="M12 2.25c.69 0 1.25.56 1.25 1.25v10.23l3.16-3.16a1.25 1.25 0 0 1 1.77 1.77l-5.29 5.3a1.25 1.25 0 0 1-1.78 0l-5.29-5.3a1.25 1.25 0 0 1 1.77-1.77l3.16 3.16V3.5c0-.69.56-1.25 1.25-1.25Z"/>' +
-      '<path fill="currentColor" d="M3.6 19.35h16.8a1.2 1.2 0 0 1 0 2.4H3.6a1.2 1.2 0 0 1 0-2.4Z"/></svg>';
+      '<path fill="currentColor" d="M3.6 19.35h16.8a1.2 1.2 0 0 1 0 2.4H3.6a1.2 1.2 0 0 1 0-2.4Z"/></svg>' +
+      '</div></div>';
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -340,7 +348,12 @@
     info.article = article; // re-scanned at click time for freshly-loaded images
     const group = article.querySelector('[role="group"]');
     if (!group) return;
-    group.appendChild(makeButton(info));
+    // X wraps each action button in a flex-row layout div; match that so the
+    // button sits in the bar the same way its neighbours do.
+    const slot = document.createElement('div');
+    slot.className = 'xvd-slot';
+    slot.appendChild(makeButton(info));
+    group.appendChild(slot);
   }
 
   function scan() {

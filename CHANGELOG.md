@@ -13,7 +13,15 @@
   near the bottom of the window, where the old menu was simply clipped.
 - Picker styling: a header naming the action, X's dark-theme card colours, and
   the same host-proof specificity as the button.
-- Timeline button now matches X's own action buttons exactly: the same 34.75px
+- Timeline button now mirrors the DOM anatomy X gives its own action buttons,
+  not just their colours: a flex layout wrapper, an unstyled `<button>`, a div
+  carrying the colour, and an **absolutely positioned empty div that is the
+  hover disc**. Because the disc overflows the button instead of being its
+  background, the button's own layout box is 18.75px — the size of the icon —
+  rather than 34.75px. A button sized to the circle takes more room in the
+  action bar than X's do, which pushed the icon out of line with its
+  neighbours. Measured: all five icons now share a vertical centre.
+- Timeline button matches X's own action buttons: the same 34.75px
   circular hit-area, the same 18.75px glyph, the same muted grey at rest, and
   the same X-blue icon over a 10%-blue disc on hover.
 - Redrew the download glyph so it fills its 24×24 viewBox at the weight X uses.

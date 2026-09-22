@@ -1,53 +1,103 @@
-/* Match X's own action-bar buttons (reply / repost / like) exactly: a 34.75px
-   circular hit-area that is invisible at rest, the icon in the same muted grey
-   as its neighbours, and on hover the icon turns X blue over a 10% blue disc.
+/* Mirrors the anatomy X uses for its own action buttons (bookmark / reply /
+   like), because matching their structure is what makes this button sit in the
+   bar exactly like its neighbours:
 
-   Specificity note, learned the hard way: `!important` alone is not enough.
-   When two author-origin !important declarations collide the more specific
-   selector wins, so a plain `.xvd-btn:hover` (0,2,0) loses to a host rule like
-   `button.xvd-btn:hover` (0,2,1). The class is repeated to reach (0,3,1) so
-   this button looks the same no matter what X ships, and the pseudo-elements
-   are pinned shut so nothing can double up behind our own background. */
+     div.xvd-slot        flex row, centred            <- X's layout wrapper
+     button.xvd-btn      interactive, no styling
+       div __color       carries the colour
+         div __stack     positioning context
+           div __disc    empty, absolute = the hover circle
+           svg           the glyph
+
+   The disc is absolutely positioned and inset by -8px, so it paints 34.75px
+   across (18.75 + 8 + 8) while the button's own layout box stays the size of
+   the ICON. A button sized to the circle occupies more of the flex row than
+   X's do, which is what pushed this icon out of line with the rest.
+
+   Specificity note: `!important` alone is not enough. When two author-origin
+   !important declarations collide the more specific selector wins, so a rule
+   like `button.xvd-btn:hover` (0,2,1) in X's stylesheet beats `.xvd-btn:hover`
+   (0,2,0). The class is repeated to reach (0,3,1). */
+.xvd-slot.xvd-slot {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 button.xvd-btn.xvd-btn.xvd-btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 34.75px !important;
-  height: 34.75px !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
   border: 0 !important;
-  border-radius: 9999px !important;
+  border-radius: 0 !important;
+  background: none !important;
   background-color: transparent !important;
-  background-image: none !important;
   box-shadow: none !important;
   outline: none !important;
-  color: rgb(83, 100, 113) !important;
+  transform: none !important;
+  color: inherit !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
   cursor: pointer;
-  line-height: 0;
-  transition: background-color 0.2s ease, color 0.2s ease !important;
   -webkit-appearance: none;
   appearance: none;
 }
 
-button.xvd-btn.xvd-btn.xvd-btn:hover,
-button.xvd-btn.xvd-btn.xvd-btn:focus-visible {
+button.xvd-btn.xvd-btn.xvd-btn .xvd-btn__color {
+  display: flex !important;
+  align-items: center !important;
+  color: rgb(83, 100, 113) !important;
+  transition: color 0.2s ease !important;
+}
+
+button.xvd-btn.xvd-btn.xvd-btn .xvd-btn__stack {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* The hover circle. Empty by design -- it exists only to be a background. */
+button.xvd-btn.xvd-btn.xvd-btn .xvd-btn__disc {
+  position: absolute !important;
+  top: -8px !important;
+  right: -8px !important;
+  bottom: -8px !important;
+  left: -8px !important;
+  border-radius: 9999px !important;
+  background-color: transparent !important;
+  transition: background-color 0.2s ease !important;
+  pointer-events: none !important;
+}
+
+button.xvd-btn.xvd-btn.xvd-btn:hover .xvd-btn__disc,
+button.xvd-btn.xvd-btn.xvd-btn:focus-visible .xvd-btn__disc {
   background-color: rgba(29, 155, 240, 0.1) !important;
+}
+
+button.xvd-btn.xvd-btn.xvd-btn:hover .xvd-btn__color,
+button.xvd-btn.xvd-btn.xvd-btn:focus-visible .xvd-btn__color {
   color: rgb(29, 155, 240) !important;
 }
 
-/* X's "lights out" / dim themes put the action icons in a lighter grey. */
+/* X's dim / lights-out themes use a lighter grey for action icons. */
 @media (prefers-color-scheme: dark) {
-  button.xvd-btn.xvd-btn.xvd-btn {
+  button.xvd-btn.xvd-btn.xvd-btn .xvd-btn__color {
     color: rgb(113, 118, 123) !important;
   }
 }
 
-/* Nothing may draw a second disc behind the icon. */
 button.xvd-btn.xvd-btn.xvd-btn::before,
-button.xvd-btn.xvd-btn.xvd-btn::after,
-button.xvd-btn.xvd-btn.xvd-btn:hover::before,
-button.xvd-btn.xvd-btn.xvd-btn:hover::after {
+button.xvd-btn.xvd-btn.xvd-btn::after {
   content: none !important;
   display: none !important;
 }
@@ -56,13 +106,16 @@ button.xvd-btn.xvd-btn.xvd-btn svg path {
   fill: currentColor !important;
 }
 
-/* Same 1.25em / 18.75px as X's own action icons. The glyph fills its 24x24
-   viewBox at their weight, so identical numbers now read as identical size. */
+/* Same 1.25em / 18.75px as X's own action icons. `display: block` kills the
+   inline baseline gap, which is what lifted the icon above the row. `position:
+   relative` puts it over the disc without a z-index on either. */
 button.xvd-btn.xvd-btn.xvd-btn svg {
+  position: relative !important;
   width: 1.25em !important;
   height: 1.25em !important;
   font-size: 15px !important;
   display: block !important;
+  vertical-align: middle !important;
 }
 
 /* The quality picker. It is appended to document.body, so it is exposed to X's
