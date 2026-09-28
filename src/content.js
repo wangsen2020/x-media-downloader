@@ -154,6 +154,9 @@
   function openQualityMenu(anchor, info, point) {
     closeMenu();
     const menu = document.createElement('div');
+    // Only one picker exists at a time (closeMenu runs first), so it can carry
+    // an id -- that is what lets content.css win without !important.
+    menu.id = 'xvd-menu';
     menu.className = 'xvd-menu';
     menu.setAttribute('role', 'menu');
 
