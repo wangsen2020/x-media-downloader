@@ -31,7 +31,7 @@ No servers, no tracking, no account. Everything runs locally in your browser.
 <img src="docs/promo-quality.webp" alt="Pick any rendition X served, up to 2160p" width="420">
 
 
-**Languages:** English, 简体中文, 日本語, Español, Português (Brasil), 한국어, العربية —
+**Languages:** English, 简体中文, 日本語, Español (España), Español (Latinoamérica), Português (Brasil), 한국어, العربية —
 the extension name/description follow your Chrome UI language automatically
 (`_locales/`); everything else in the interface is in English.
 

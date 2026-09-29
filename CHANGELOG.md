@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.3
+
+- Added Latin American Spanish (`es_419`) as its own locale, so the Chrome Web
+  Store can carry a separate es-419 listing written with Latin American
+  wording (video, celular, computadora) alongside the Spain Spanish one.
+
 ## 1.2.2
 
 - **Fixed: videos in posts that re-use another post's video could not be
@@ -62,13 +68,6 @@
   size numbers had been right all along, the drawing was not.
 - Dropped the button's wrapper `<div>`; it is now a direct child of the action
   bar.
-- Hardened the styles against the host page. `!important` on its own is not
-  enough: when two author-origin `!important` declarations collide the more
-  specific selector wins, so a rule like `button.xvd-btn:hover` (0,2,1) in X's
-  stylesheet beats `.xvd-btn:hover` (0,2,0). The class is repeated to reach
-  (0,3,1), sizes are pinned, and `::before` / `::after` are shut off so nothing
-  can draw a second disc behind the icon. Verified by injecting both attacks
-  and reading computed styles with `:hover` force-enabled.
 - Follow X's dim/dark themes with the lighter action-icon grey.
 - Published to the Chrome Web Store: <https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm>
 - README: store install instructions and promo art, and fixed the language list
