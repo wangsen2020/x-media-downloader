@@ -60,12 +60,14 @@
       }
       if (node.rest_id && /^\d+$/.test(node.rest_id)) curId = node.rest_id || curId;
 
-      const userLegacy =
-        (node.core && node.core.user_results && node.core.user_results.result &&
-          node.core.user_results.result.legacy) ||
-        (node.user && node.user.legacy) ||
-        (node.user_results && node.user_results.result && node.user_results.result.legacy);
-      if (userLegacy && userLegacy.screen_name) curScreen = userLegacy.screen_name;
+      // X moved screen_name from user.legacy to user.core; accept either.
+      const user =
+        (node.core && node.core.user_results && node.core.user_results.result) ||
+        (node.user_results && node.user_results.result) ||
+        node.user;
+      const screenName =
+        user && ((user.core && user.core.screen_name) || (user.legacy && user.legacy.screen_name));
+      if (screenName) curScreen = screenName;
 
       // Media containers.
       const mediaLists = [];
@@ -77,13 +79,17 @@
       for (const list of mediaLists) {
         for (const media of list) {
           if (!media || !media.video_info || !media.video_info.variants) continue;
-          const id =
-            (media.source_status_id_str) ||
-            curId ||
-            (media.expanded_url && (media.expanded_url.match(/status\/(\d+)/) || [])[1]);
-          if (!id) continue;
           const variants = variantsOf(media.video_info);
           if (!variants.length) continue;
+          // File the record under the post that shows the video (curId) - that is
+          // the id the button asks for. A post re-using someone else's video
+          // carries source_status_id_str pointing at the original; keying on that
+          // made the button miss and fall through to the public API.
+          const id =
+            curId ||
+            media.source_status_id_str ||
+            (media.expanded_url && (media.expanded_url.match(/status\/(\d+)/) || [])[1]);
+          if (!id) continue;
           const dedupe = id + ':' + variants[0].url;
           if (seenTweets.has(dedupe)) continue;
           seenTweets.add(dedupe);

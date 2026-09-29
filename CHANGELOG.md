@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.2
+
+- **Fixed: videos in posts that re-use another post's video could not be
+  downloaded.** When a post embeds a video originally uploaded elsewhere, X
+  tags the media with `source_status_id_str` pointing at the original post.
+  The capture hook preferred that id, so the variants were filed under the
+  original post while the button asked for the one on screen — a cache miss
+  that fell through to the public API and failed. Records are now filed under
+  the post that shows the video.
+- **Fixed: `{user}` in filenames was always `unknown` for captured videos.** X
+  moved `screen_name` from `user.legacy` to `user.core`; both are now read.
+
 ## 1.2.1
 
 - **Fixed: videos that played but could not be downloaded when a post was
