@@ -15,8 +15,6 @@ and this extension puts a download icon right next to Like and Bookmark. If the
 video plays in your browser, one click saves it as a normal MP4, in the highest
 quality X serves. Right‑click the icon to pick another resolution.
 
-<img src="docs/phone-no-download.webp" alt="Download icon and quality menu on an X post (author and video pixelated)" width="560">
-
 It was also built to fix three things that the older “x‑downloader” style extensions
 get wrong:
 
