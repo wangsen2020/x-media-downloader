@@ -45,14 +45,33 @@
         "*://mobile.x.com/*",
         "*://pro.x.com/*"
       ],
-      "js": ["src/content.js"],
-      "css": ["src/content.css"],
+      "js": [
+        "src/injected.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://x.com/*",
+        "*://twitter.com/*",
+        "*://mobile.x.com/*",
+        "*://pro.x.com/*"
+      ],
+      "js": [
+        "src/content.js"
+      ],
+      "css": [
+        "src/content.css"
+      ],
       "run_at": "document_start"
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["src/injected.js"],
+      "resources": [
+        "src/injected.js"
+      ],
       "matches": [
         "*://x.com/*",
         "*://twitter.com/*",
@@ -60,5 +79,6 @@
         "*://pro.x.com/*"
       ]
     }
-  ]
+  ],
+  "minimum_chrome_version": "116"
 }

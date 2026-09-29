@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.2.1
+
+- **Fixed: videos that played but could not be downloaded when a post was
+  opened directly by its link.** The page-context hook was injected with a
+  `<script src>` tag, and an external script still has to be fetched even with
+  `async = false`. On a fresh page load X's bundle could issue its TweetDetail
+  request inside that window, so the variants were never seen. Scrolling the
+  timeline always worked because the hook was long since installed — which is
+  why this looked random. The hook is now declared in `manifest.json` as a
+  `world: "MAIN"` content script at `document_start`, which the browser
+  guarantees to run before any page script. The tag is kept as a fallback and
+  is idempotent.
+- Download failures now say what actually went wrong instead of
+  `no media found`: a post the public fallback cannot read (it returns a
+  tombstone for anything restricted to signed-in viewers) is now distinguished
+  from a video X only publishes as an HLS playlist, which cannot be saved as a
+  single file.
+- Declared `minimum_chrome_version: 116`, which the extension already required
+  for `chrome.storage.session` and module service workers.
+
 ## 1.2.0
 
 - **Right-click the timeline button to pick a quality.** Left-click downloads

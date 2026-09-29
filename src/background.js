@@ -54,7 +54,33 @@ async function fromSyndication(tweetId) {
   });
   if (!res.ok) throw new Error(`syndication ${res.status}`);
   const json = await res.json();
+
+  // This endpoint is unauthenticated, so anything the author or X restricts to
+  // signed-in viewers comes back as a tombstone rather than an error. The page
+  // itself plays fine for the logged-in user, which makes a generic "no media"
+  // message actively misleading - say what actually happened.
+  if (json && (json.tombstone || json.__typename === 'TweetTombstone')) {
+    throw new Error(
+      'This post is not visible to the public API, so the fallback could not ' +
+        'read it. Reload the page with the video on screen and try again.',
+    );
+  }
+
   const records = parseSyndicationResponse(json, tweetId);
+
+  // video_info present but nothing survived parseVariants = HLS only. X serves
+  // some uploads as m3u8 playlists with no progressive MP4, and chrome.downloads
+  // cannot save a playlist as one file. That is a limit, not a failure.
+  if (!records.length) {
+    const details = [].concat(json?.mediaDetails || [], json?.video ? [json.video] : []);
+    if (details.some((d) => (d.video_info || d).variants)) {
+      throw new Error(
+        'X only provides this video as a streaming playlist (HLS), which cannot ' +
+          'be saved as a single file.',
+      );
+    }
+  }
+
   await cacheRecords(records);
   return records.find((r) => r.tweetId === String(tweetId)) || records[0] || null;
 }
@@ -74,7 +100,7 @@ async function resolveMedia(tweetId, hint) {
 async function startDownload(req) {
   const settings = await getSettings();
   const record = await resolveMedia(req.tweetId, req.record);
-  if (!record) throw new Error('no media found');
+  if (!record) throw new Error('No downloadable video found for this post.');
 
   const variants =
     record.variants && record.variants.length

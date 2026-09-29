@@ -5,7 +5,16 @@
 
   const origin = window.location.origin;
 
-  // 1. Inject the page-context hook as early as possible.
+  // 1. Fallback injection of the page-context hook.
+  //
+  // The hook is primarily registered in manifest.json as a `world: "MAIN"`
+  // content script, which the browser guarantees to run at document_start
+  // BEFORE any page script. This tag is only a safety net for builds where
+  // that is unavailable: a dynamically inserted external script still has to
+  // be fetched, and X's bundle can issue its TweetDetail request inside that
+  // window - which is exactly how a directly-opened permalink ended up with
+  // no captured variants while timeline browsing worked fine.
+  // injected.js guards on window.__xvdInjected, so running twice is harmless.
   try {
     const s = document.createElement('script');
     s.src = chrome.runtime.getURL('src/injected.js');
