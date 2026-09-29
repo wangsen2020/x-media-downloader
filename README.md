@@ -7,7 +7,17 @@
 A rewritten, open‑source Chrome/Edge extension (Manifest V3) for downloading
 videos, GIFs **and images** from **X / Twitter**.
 
-It was built to fix three things that the older “x‑downloader” style extensions
+### Save the videos your phone can't
+
+In the X mobile app many videos have no Download or Save option at all — you
+can watch them, but you can't keep them. Open the same post on your computer
+and this extension puts a download icon right next to Like and Bookmark. If the
+video plays in your browser, one click saves it as a normal MP4, in the highest
+quality X serves. Right‑click the icon to pick another resolution.
+
+<img src="docs/phone-no-download.webp" alt="Download icon and quality menu on an X post (author and video pixelated)" width="560">
+
+It was also built to fix three things that the older “x‑downloader” style extensions
 get wrong:
 
 | Problem in the old extension | What this one does |
