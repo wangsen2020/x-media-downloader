@@ -6,6 +6,7 @@ import {
   getHistory,
   removeHistoryEntry,
   clearHistory,
+  clearDownloaded,
   importHistory,
 } from '../lib/store.js';
 
@@ -46,7 +47,7 @@ for (const opt of QUALITY_OPTIONS) {
 }
 
 function updatePreview(s) {
-  $('filenamePreview').textContent = buildFilename(
+  const filename = buildFilename(
     s.filenameTemplate,
     {
       user: 'NASA',
@@ -61,6 +62,9 @@ function updatePreview(s) {
     },
     s.subfolder,
   );
+  $('filenamePreview').textContent = filename;
+  $('subfolderPreview').textContent = filename.includes('/')
+    ? filename.slice(0, filename.lastIndexOf('/')) : 'Downloads';
 }
 
 async function loadSettings() {
@@ -202,6 +206,7 @@ function renderHistory() {
         btn.textContent = '…';
         const res = await chrome.runtime.sendMessage({
           type: 'xvd:redownload',
+          force: true,
           key: r.key,
           quality: String(r.height || 'highest'),
         });
@@ -247,6 +252,11 @@ $('clearBtn').addEventListener('click', async () => {
   if (!historyCache.length) return;
   if (!confirm(`Delete all ${historyCache.length} history entries? This does not delete downloaded files.`)) return;
   await clearHistory();
+});
+
+$('clearDownloadedBtn').addEventListener('click', async () => {
+  if (!confirm('Clear downloaded records? Previously saved media will be downloaded again. Files and history are kept.')) return;
+  await clearDownloaded();
 });
 
 $('exportBtn').addEventListener('click', async () => {

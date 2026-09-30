@@ -36,6 +36,7 @@
           <button id="exportBtn" class="btn" type="button">Export JSON</button>
           <label class="btn" for="importInput">Import JSON</label>
           <input id="importInput" type="file" accept="application/json,.json" hidden />
+          <button id="clearDownloadedBtn" class="btn btn-danger" type="button">Clear downloaded records</button>
           <button id="clearBtn" class="btn btn-danger" type="button">Clear all</button>
         </div>
 
@@ -82,9 +83,14 @@
             Chrome extensions can only write inside the browser’s Downloads folder.
             A relative subfolder is the closest thing to “choose a path”. Leave blank
             to save straight into Downloads. To pick a location every time, turn on
-            the option below.
+            the option below. Tokens: <code>{user}</code> <code>{id}</code>
+            <code>{text}</code> <code>{date}</code> <code>{time}</code>
+            <code>{datetime}</code> <code>{quality}</code> <code>{height}</code>
+            <code>{bitrate}</code> <code>{index}</code> <code>{count}</code>.
+            Use <code>/</code> to nest folders.
           </p>
-          <input id="subfolder" type="text" placeholder="X Media Downloader" />
+          <input id="subfolder" type="text" placeholder="X Media Downloader/{user}" />
+          <p class="preview">Folder preview: <code id="subfolderPreview"></code></p>
         </div>
 
         <div class="setting setting-row">

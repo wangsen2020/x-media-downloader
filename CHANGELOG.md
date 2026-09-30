@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0
+
+- Serialize storage updates to prevent concurrent downloads from losing history;
+  raise the default history limit to 3000.
+- Detect completed media across posts and qualities, check for deleted files,
+  and offer an icon-only Download again action. Quality picks and history
+  re-downloads bypass duplicate checks. Downloaded records can be cleared separately.
+- Support filename tokens in subfolders and default to `X Media Downloader/{user}`.
+  Migrate the old default once while preserving custom folders; add a live folder preview.
+- Add dependency-free Node tests for media identity, folder tokens, storage
+  concurrency, and settings migration.
+
 ## 1.2.3
 
 - Added Latin American Spanish (`es_419`) as its own locale, so the Chrome Web

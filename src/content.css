@@ -207,7 +207,7 @@ body > #xvd-menu .xvd-menu__check {
   }
 }
 
-.xvd-toast {
+body > .xvd-toast {
   position: fixed;
   left: 50%;
   bottom: 28px;
@@ -225,10 +225,38 @@ body > #xvd-menu .xvd-menu__check {
   pointer-events: none;
 }
 
-.xvd-toast--in {
+body > .xvd-toast--in {
   opacity: 1;
   transform: translate(-50%, 0);
 }
 
-.xvd-toast--error { background: #f4212e; }
-.xvd-toast--ok { background: #00ba7c; }
+body > .xvd-toast--error { background: #f4212e; }
+body > .xvd-toast--ok { background: #00ba7c; }
+
+body > .xvd-toast > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  margin: 0 0 0 10px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  vertical-align: middle;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+body > .xvd-toast > button:hover,
+body > .xvd-toast > button:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+body > .xvd-toast > button > svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}

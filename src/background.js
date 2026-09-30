@@ -1,5 +1,6 @@
 // Service worker (ES module).
 import {
+  mediaKeyFromUrl,
   parseVariants,
   pickVariant,
   labelForVariant,
@@ -14,10 +15,14 @@ import {
   addHistoryEntry,
   updateHistoryEntry,
   getHistory,
+  getDownloaded,
+  recordDownloaded,
 } from './lib/store.js';
 
 const SESSION_PREFIX = 'media:';
 const MAX_SESSION = 150;
+// Chrome search triggers an asynchronous file-existence check; allow it to refresh.
+const DOWNLOAD_EXISTS_REFRESH_DELAY_MS = 300;
 
 // --- capture cache ---------------------------------------------------------
 
@@ -97,6 +102,29 @@ async function resolveMedia(tweetId, hint) {
 
 // --- download ------------------------------------------------------------
 
+async function duplicateResponse(url, force) {
+  if (force) return null;
+  const key = mediaKeyFromUrl(url);
+  const saved = key && (await getDownloaded())[key];
+  if (!saved) return null;
+  if (saved.downloadId != null) {
+    await chrome.downloads.search({ id: saved.downloadId });
+    await new Promise((resolve) => setTimeout(resolve, DOWNLOAD_EXISTS_REFRESH_DELAY_MS));
+    const [item] = await chrome.downloads.search({ id: saved.downloadId });
+    if (item && item.exists === false) return null;
+  }
+  return { ok: false, duplicate: true, at: saved.at, filename: saved.filename };
+}
+
+// A small file can finish before its download id is attached to history.
+async function attachDownload(entry, downloadId) {
+  await updateHistoryEntry({ key: entry.key }, { downloadId });
+  const [item] = await chrome.downloads.search({ id: downloadId });
+  if (item && (item.state === 'complete' || item.state === 'interrupted')) {
+    await updateDownload({ id: downloadId, state: { current: item.state } });
+  }
+}
+
 async function startDownload(req) {
   const settings = await getSettings();
   const record = await resolveMedia(req.tweetId, req.record);
@@ -110,6 +138,8 @@ async function startDownload(req) {
 
   const quality = req.quality || settings.defaultQuality;
   const chosen = pickVariant(variants, quality) || variants[0];
+  const duplicate = await duplicateResponse(chosen.url, req.force);
+  if (duplicate) return duplicate;
   const label = labelForVariant(chosen);
   const realName = (n) => (n && n !== 'unknown' ? n : null);
   const screenName = realName(record.screenName) || realName(req.screenName) || 'unknown';
@@ -163,7 +193,7 @@ async function startDownload(req) {
     throw e;
   }
 
-  await updateHistoryEntry({ key: entry.key }, { downloadId });
+  await attachDownload(entry, downloadId);
   return { ok: true, filename, label, downloadId, key: entry.key };
 }
 
@@ -182,6 +212,12 @@ async function startImageDownload(req) {
     });
   const uniq = [...new Set(urls)];
   if (!uniq.length) throw new Error('no images on this tweet');
+
+  // Check the whole photo set before starting, so retrying cannot copy a partial set.
+  for (const url of uniq) {
+    const duplicate = await duplicateResponse(url, req.force);
+    if (duplicate) return duplicate;
+  }
 
   const tweetUrl =
     req.tweetUrl || `https://x.com/${screenName}/status/${req.tweetId}`;
@@ -225,7 +261,7 @@ async function startImageDownload(req) {
         saveAs: !!settings.askWhereToSave && i === 0,
         conflictAction: 'uniquify',
       });
-      await updateHistoryEntry({ key: entry.key }, { downloadId });
+      await attachDownload(entry, downloadId);
       started++;
     } catch (e) {
       await updateHistoryEntry(
@@ -250,7 +286,7 @@ async function startImageDownload(req) {
 
 // --- download progress -> history ---------------------------------------
 
-chrome.downloads.onChanged.addListener(async (delta) => {
+async function updateDownload(delta) {
   const patch = {};
   if (delta.state) {
     if (delta.state.current === 'complete') patch.state = 'complete';
@@ -266,15 +302,26 @@ chrome.downloads.onChanged.addListener(async (delta) => {
     try {
       const [item] = await chrome.downloads.search({ id: delta.id });
       if (item) {
-        await updateHistoryEntry(
+        updated = await updateHistoryEntry(
           { downloadId: delta.id },
           { bytes: item.fileSize || item.totalBytes || 0, filename: item.filename || updated.filename },
-        );
+        ) || updated;
       }
     } catch (_) {
       /* ignore */
     }
+    const key = mediaKeyFromUrl(updated.url);
+    if (key) {
+      await recordDownloaded(key, {
+        at: Date.now(), filename: updated.filename,
+        downloadId: delta.id, quality: updated.quality,
+      });
+    }
   }
+}
+
+chrome.downloads.onChanged.addListener((delta) => {
+  return updateDownload(delta).catch((e) => console.warn('Download history update failed:', e));
 });
 
 // --- messaging ---------------------------------------------------------
@@ -309,6 +356,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         if (!rec) throw new Error('history entry gone');
         if (rec.type === 'image') {
           return startImageDownload({
+            force: true,
             tweetId: rec.tweetId,
             screenName: rec.screenName,
             tweetUrl: rec.tweetUrl,
@@ -318,6 +366,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           });
         }
         return startDownload({
+          force: true,
           tweetId: rec.tweetId,
           screenName: rec.screenName,
           tweetUrl: rec.tweetUrl,

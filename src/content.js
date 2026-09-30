@@ -80,23 +80,37 @@
     return p ? { screenName: p[1], tweetId: p[2] } : null;
   }
 
-  function toast(text, kind) {
+  function toast(text, kind, action) {
     const el = document.createElement('div');
     el.className = 'xvd-toast' + (kind ? ' xvd-toast--' + kind : '');
     el.textContent = text;
+    el.setAttribute('role', 'status');
+    if (action) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.title = 'Download again';
+      button.setAttribute('aria-label', 'Download again');
+      button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4a8 8 0 1 0 8 8h-2a6 6 0 1 1-2-4.47L13 11h8V3l-3.57 3.57A7.97 7.97 0 0 0 12 4Z"/></svg>';
+      button.addEventListener('click', () => {
+        el.remove();
+        action();
+      }, { once: true });
+      el.appendChild(button);
+    }
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('xvd-toast--in'));
     setTimeout(() => {
       el.classList.remove('xvd-toast--in');
       setTimeout(() => el.remove(), 300);
-    }, 3200);
+    }, action ? 10000 : 3200);
   }
 
-  function requestDownload(info, choice) {
+  function requestDownload(info, choice, force = false) {
     const isImage = info.kind === 'image';
     toast('Preparing download…');
     const msg = {
       type: 'xvd:download',
+      force,
       kind: info.kind || 'video',
       tweetId: info.tweetId,
       screenName: info.screenName,
@@ -118,7 +132,10 @@
           toast('Download failed: ' + chrome.runtime.lastError.message, 'error');
           return;
         }
-        if (!res || !res.ok) {
+        if (res && res.duplicate) {
+          toast(`Already downloaded · ${new Date(res.at).toLocaleDateString()}`, '',
+            () => requestDownload(info, choice, true));
+        } else if (!res || !res.ok) {
           toast(
             `Could not find a downloadable ${isImage ? 'image' : 'video'} for this tweet` +
               (res && res.error ? ` (${res.error})` : ''),
@@ -238,7 +255,7 @@
         e.preventDefault();
         e.stopPropagation();
         closeMenu();
-        requestDownload(info, r.choice);
+        requestDownload(info, r.choice, true);
       });
       menu.appendChild(b);
     });
