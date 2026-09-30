@@ -208,7 +208,7 @@ downloaded media without permission. This project is not affiliated with X Corp.
 
 X Media Downloader is part of [GoodExts](https://goodexts.com), a set of small, focused browser extensions:
 
-- [X Article to PDF](https://github.com/wangsen2020/x-article-exporter) — export X Articles and threads as searchable PDF, Markdown or HTML
+- [X Article to PDF](https://xexport.goodexts.com) — export X Articles and threads as searchable PDF, Markdown or HTML
 - [X Blocker](https://github.com/wangsen2020/x-quick-blocker) — one-click block and keyword / regex batch blocking for spam accounts on X
 
 ## License
