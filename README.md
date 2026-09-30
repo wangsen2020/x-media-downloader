@@ -1,6 +1,6 @@
 ![X Media Downloader](docs/hero.svg)
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-1d9bf0?style=flat-square&labelColor=0b1116&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm) [![Manifest V3](https://img.shields.io/badge/Manifest-V3-1d9bf0?style=flat-square&labelColor=0b1116)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) [![MIT License](https://img.shields.io/badge/License-MIT-1d9bf0?style=flat-square&labelColor=0b1116)](LICENSE) [![Chrome](https://img.shields.io/badge/Chrome-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.google.com/chrome/) [![Edge](https://img.shields.io/badge/Edge-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.microsoft.com/edge)
+[![Website](https://img.shields.io/badge/Website-xdown.goodexts.com-1d9bf0?style=flat-square&labelColor=0b1116)](https://xdown.goodexts.com) [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-1d9bf0?style=flat-square&labelColor=0b1116&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm) [![Manifest V3](https://img.shields.io/badge/Manifest-V3-1d9bf0?style=flat-square&labelColor=0b1116)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3) [![MIT License](https://img.shields.io/badge/License-MIT-1d9bf0?style=flat-square&labelColor=0b1116)](LICENSE) [![Chrome](https://img.shields.io/badge/Chrome-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.google.com/chrome/) [![Edge](https://img.shields.io/badge/Edge-116%2B-1d9bf0?style=flat-square&labelColor=0b1116)](https://www.microsoft.com/edge)
 
 # X Media Downloader
 
@@ -27,6 +27,8 @@ get wrong:
 No servers, no tracking, no account. Everything runs locally in your browser.
 
 ### → [Install from the Chrome Web Store](https://chromewebstore.google.com/detail/x-twitter-video-downloade/honcfokhpcchcffjhaahkcjiifkidolm)
+
+**Website, guides & support:** [xdown.goodexts.com](https://xdown.goodexts.com) — e.g. [how to download X videos](https://xdown.goodexts.com/blog/how-to-download-x-twitter-videos), [getting the 1080p version](https://xdown.goodexts.com/blog/download-x-videos-in-1080p).
 
 <img src="docs/promo-quality.webp" alt="Pick any rendition X served, up to 2160p" width="420">
 
@@ -201,6 +203,13 @@ Chrome Web Store / Edge Add‑ons dashboard. The published listing lives
 For personal use. Respect the rights of content owners and
 [X’s Terms of Service](https://twitter.com/en/tos). Don’t redistribute
 downloaded media without permission. This project is not affiliated with X Corp.
+
+## More extensions
+
+X Media Downloader is part of [GoodExts](https://goodexts.com), a set of small, focused browser extensions:
+
+- [X Article to PDF](https://github.com/wangsen2020/x-article-exporter) — export X Articles and threads as searchable PDF, Markdown or HTML
+- [X Blocker](https://github.com/wangsen2020/x-quick-blocker) — one-click block and keyword / regex batch blocking for spam accounts on X
 
 ## License
 
