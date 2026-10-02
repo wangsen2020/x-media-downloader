@@ -1,6 +1,6 @@
 # 方案：界面国际化（1.5.0）
 
-状态：已批准，待实施。基于 1.4.0（分支 `feat/batch-i18n`）。
+状态：已实施，于 1.5.0 交付（1.5.1 修复混合媒体帖）。中文界面已在真实浏览器验收；阿拉伯语和法语回退只经过单元测试和代码审查。
 
 ## 问题
 
@@ -59,7 +59,7 @@
 
 | 步骤 | 执行 | 内容 |
 |---|---|---|
-| 1 | Grok | helper、改造所有界面、写 `en` 和 `zh_CN` 全量文案、RTL、测试；新增 `zh_TW` 目录，但只放 extName/extDesc 和 en 的 key 占位（第 2 步补全） |
+| 1 | Grok（原定 Codex，因订阅到期改派） | helper、改造所有界面、写 `en` 和 `zh_CN` 全量文案、RTL、测试；新增 `zh_TW` 目录，但只放 extName/extDesc 和 en 的 key 占位（第 2 步补全） |
 | 2 | Grok | 依据 `en` + `description`，补全 `zh_TW`、`ja`、`ko`、`es`、`es_419`、`pt_BR`、`ar` 的全部 key；es 与 es_419 要有区分（如 es_419 用 "descargar video" 的拉美习惯用词，避免西班牙本土用语） |
 | 3 | Claude | 代码审查、测试、真实浏览器里切换语言（`--lang=zh-CN`、`--lang=ar` 启动）截图验收 |
 

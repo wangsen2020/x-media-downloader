@@ -23,6 +23,8 @@ get wrong:
 | **No download history** | Every download is recorded on the options page — thumbnail, account, quality, size, date, state — with search, re‑download, “show file”, export/import JSON. |
 | **No control over where files go** | A configurable **subfolder** inside your Downloads folder, plus an optional **“Ask where to save every time”** mode that opens Chrome’s Save‑As dialog so you can pick any location. |
 | **Always downloads the wrong quality** | A **default quality** setting (Highest / 1080p / 720p / 480p / 360p / Lowest, “closest below” your target) and a per‑download quality picker in the popup and the timeline button. |
+| **Saves the same file twice** | Already‑downloaded media is recognised (by the media itself, not the post, so reposts count too). One click shows “Already downloaded” instead of a `(1)` copy; a second icon downloads it anyway. |
+| **Everything in one heap** | Files go into one folder per account by default: `Downloads/X Media Downloader/<user>/`. |
 
 No servers, no tracking, no account. Everything runs locally in your browser.
 
@@ -33,9 +35,11 @@ No servers, no tracking, no account. Everything runs locally in your browser.
 <img src="docs/promo-quality.webp" alt="Pick any rendition X served, up to 2160p" width="420">
 
 
-**Languages:** English, 简体中文, 日本語, Español (España), Español (Latinoamérica), Português (Brasil), 한국어, العربية —
-the extension name/description follow your Chrome UI language automatically
-(`_locales/`); everything else in the interface is in English.
+**Languages:** English, 简体中文, 繁體中文, 日本語, 한국어, Español (España),
+Español (Latinoamérica), Português (Brasil), العربية. The whole interface (popup,
+history page, the icon's tooltip, menus and notices on X) follows your
+browser's language automatically, and falls back to English otherwise. Arabic
+gets a right‑to‑left popup and history page.
 
 ---
 
@@ -103,6 +107,16 @@ X Media Downloader card.
   your default quality, or all images at original resolution. **Alt‑click**
   (or disable *“downloads immediately”* in settings) to open a menu — video
   renditions, or image sizes (Original / Large / Medium).
+- **Posts with a video and photos:** one click saves both. The right‑click
+  menu lists the video qualities plus an entry for the photos.
+- **Already downloaded:** a second click shows *Already downloaded · date*
+  with a retry icon, instead of saving a duplicate. Picking a quality from the
+  right‑click menu always downloads. If you deleted the file, it downloads
+  again normally.
+- **A whole profile:** open someone's **Media** tab (`x.com/<user>/media`),
+  click the toolbar icon and choose **Download all media from @user**. A small
+  panel at the top of the page shows progress, with pause and stop icons. See
+  [Batch download](#batch-download) below.
 - **From the popup:** open a tweet that has a video, click the toolbar icon,
   choose a quality, hit **Download video**. The popup also shows your last few
   downloads.
@@ -115,11 +129,27 @@ X Media Downloader card.
 | --- | --- |
 | **Default video quality** | `Highest`, a target height (`1080/720/480/360`, resolved as the best rendition that does not exceed it), or `Lowest`. |
 | **Filename template** | Default `{user}_{text}_{datetime}_{id}` — author + first words of the tweet + the tweet's post time + its id, so names are descriptive **and** collision-proof. Tokens: `{user} {text} {datetime} {date} {time} {id} {quality} {height} {bitrate} {index}`. `.mp4` is appended automatically; `/` nests folders. |
-| **Subfolder** | A relative folder inside your browser’s Downloads directory. Blank = straight into Downloads. |
+| **Subfolder** | A relative folder inside your browser’s Downloads directory. Default `X Media Downloader/{user}` (one folder per account); takes the same tokens as the filename. Blank = straight into Downloads. |
 | **Ask where to save every time** | Opens the native Save‑As dialog for every download. Overrides the subfolder. |
 | **Show a Download button in the timeline** | Toggle the injected button. |
 | **Timeline button downloads immediately** | Off = the button opens a quality menu instead. |
 | **Keep at most** | History is trimmed to this many entries (oldest dropped). |
+
+### Batch download
+
+Batch download is built to look like a person scrolling, not a scraper:
+
+- It **never calls X's API itself**. It only reads the responses X already
+  sends while the page scrolls, the same way the single‑post button works.
+- The page scrolls one screen every **2–4 seconds**, with a 10–20 second pause
+  every ~20 screens. Collection stops at the end of the tab or at **500 files**
+  per run; run it again to continue (already downloaded files are skipped).
+- At most **3 downloads** run at once, 300–800 ms apart. A failed file is
+  retried twice (after 5 s and 15 s).
+- If X answers **429 / rate limited**, scrolling stops immediately and waits
+  for you to resume. It does not retry on its own.
+- Nothing opens by itself. When it finishes, the panel offers **View in
+  history** (filtered to that batch) and **Open folder**.
 
 ### Why can’t I just pick an absolute path?
 
@@ -178,14 +208,24 @@ Plain JS, no build step. Edit files, then hit **Reload** on the extensions page.
 ```
 src/
   injected.js      page hook
-  content.js       content script + timeline UI
+  content.js       content script + timeline UI (classic script, no imports)
+  content-batch.js Media-tab batch controller (loaded with dynamic import)
   content.css
   background.js     service worker
   lib/media.js      variant parsing, quality pick, filename builder, syndication
-  lib/store.js      settings + history persistence
+  lib/store.js      settings, history and downloaded-index persistence
+  lib/batch.js      batch pacing / rate-limit / queue policy (pure)
+  lib/i18n.js       chrome.i18n helpers for popup and options
   popup/            toolbar popup
   options/          history + settings page
+_locales/          9 languages; every locale has the same keys as en
 icons/             generated PNGs (see tools/genicons.mjs)
+test/              node --test unit tests
+```
+
+```bash
+npm run lint
+npm test
 ```
 
 ### Package a zip
