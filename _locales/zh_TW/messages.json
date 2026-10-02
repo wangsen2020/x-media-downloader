@@ -4,7 +4,7 @@
     "description": "Extension name shown in the browser and the Chrome Web Store"
   },
   "extDesc": {
-    "message": "一鍵下載 X（推特）影片、GIF 動圖和原圖，也能一次存下整個主頁的媒體。可選畫質與儲存目錄，自帶完整下載紀錄。免費，不追蹤。",
+    "message": "一鍵下載 X（推特）影片、GIF 動圖和原圖，也能一次存下整個主頁的影片。可選畫質與儲存目錄，自帶完整下載紀錄。免費，不追蹤。",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
   },
   "popupTitle": {
