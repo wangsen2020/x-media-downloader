@@ -6,5 +6,617 @@
   "extDesc": {
     "message": "Download videos, GIFs and photos from X (Twitter) in one click. Choose the quality and folder, with a full download history.",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  },
+  "popupTitle": {
+    "message": "X Media Downloader",
+    "description": "Popup title and brand name; also the options page heading"
+  },
+  "popupOpenOptions": {
+    "message": "History & settings",
+    "description": "Popup gear button tooltip"
+  },
+  "popupOpenTweet": {
+    "message": "open tweet ↗",
+    "description": "Popup link to the current tweet"
+  },
+  "popupQuality": {
+    "message": "Quality",
+    "description": "Popup quality dropdown label"
+  },
+  "popupDownloadVideo": {
+    "message": "Download video",
+    "description": "Popup primary download button"
+  },
+  "popupEmpty": {
+    "message": "Open a tweet (or a timeline) that contains a video, then click the extension again.",
+    "description": "Popup empty state when the tab is not a tweet with video"
+  },
+  "popupEmptyTip": {
+    "message": "Tip: a Download button also appears under every video in the feed.",
+    "description": "Popup empty-state hint about the timeline button"
+  },
+  "popupRecent": {
+    "message": "Recent downloads",
+    "description": "Popup recent-downloads heading"
+  },
+  "popupViewAll": {
+    "message": "View all",
+    "description": "Popup link that opens the history page"
+  },
+  "popupQualityDefault": {
+    "message": "Default ($LABEL$)",
+    "description": "Popup quality option that uses the user's default setting",
+    "placeholders": {
+      "label": { "content": "$1", "example": "Highest available" }
+    }
+  },
+  "popupBatchDownload": {
+    "message": "Download all media from @$USER$",
+    "description": "Popup button on a profile Media tab",
+    "placeholders": {
+      "user": { "content": "$1", "example": "NASA" }
+    }
+  },
+  "popupBatchStarting": {
+    "message": "Starting…",
+    "description": "Popup status while a batch is starting"
+  },
+  "popupBatchAlready": {
+    "message": "A batch is already running on this page.",
+    "description": "Popup status when a batch is already in progress"
+  },
+  "popupBatchStarted": {
+    "message": "Started. Progress stays on the page.",
+    "description": "Popup status after a batch starts successfully"
+  },
+  "popupBatchFailed": {
+    "message": "Could not start.",
+    "description": "Popup status when a batch could not start"
+  },
+  "popupBatchReload": {
+    "message": "Reload the media page, then try again.",
+    "description": "Popup status when the content script is missing"
+  },
+  "popupPreparing": {
+    "message": "Preparing…",
+    "description": "Popup status while a single download is prepared"
+  },
+  "popupDownloading": {
+    "message": "Downloading $LABEL$ → $FILE$",
+    "description": "Popup status after a download starts",
+    "placeholders": {
+      "label": { "content": "$1", "example": "720p" },
+      "file": { "content": "$2", "example": "NASA_id.mp4" }
+    }
+  },
+  "popupFailed": {
+    "message": "Failed: $ERROR$",
+    "description": "Popup status when a download fails",
+    "placeholders": {
+      "error": { "content": "$1", "example": "network error" }
+    }
+  },
+  "popupUnknownError": {
+    "message": "unknown error",
+    "description": "Popup fallback when a failure has no message"
+  },
+  "popupRecentEmpty": {
+    "message": "Nothing yet.",
+    "description": "Popup recent list when history is empty"
+  },
+  "popupNoCapture": {
+    "message": "No video captured yet. Scroll the video into view or open the tweet, then reopen this popup.",
+    "description": "Popup status when the tweet is known but variants are not cached"
+  },
+  "popupVariant": {
+    "message": "$HEIGHT$p · $BITRATE$ kbps",
+    "description": "Popup quality option for a captured rendition",
+    "placeholders": {
+      "height": { "content": "$1", "example": "720" },
+      "bitrate": { "content": "$2", "example": "2176" }
+    }
+  },
+  "popupVariantBitrate": {
+    "message": "$BITRATE$ kbps",
+    "description": "Quality option when only bitrate is known",
+    "placeholders": {
+      "bitrate": { "content": "$1", "example": "2176" }
+    }
+  },
+  "optionsTitle": {
+    "message": "X Media Downloader — History & Settings",
+    "description": "Options page document title"
+  },
+  "optionsSub": {
+    "message": "Download history & settings",
+    "description": "Options page subtitle"
+  },
+  "optionsTabHistory": {
+    "message": "History",
+    "description": "Options page History tab"
+  },
+  "optionsTabSettings": {
+    "message": "Settings",
+    "description": "Options page Settings tab"
+  },
+  "optionsSearchPlaceholder": {
+    "message": "Filter by @user, filename, tweet id…",
+    "description": "History search field placeholder"
+  },
+  "optionsStateAll": {
+    "message": "All states",
+    "description": "History state filter: no filter"
+  },
+  "optionsStateComplete": {
+    "message": "Complete",
+    "description": "History state: finished download"
+  },
+  "optionsStateInProgress": {
+    "message": "In progress",
+    "description": "History state: download still running"
+  },
+  "optionsStateInterrupted": {
+    "message": "Interrupted",
+    "description": "History state: download failed or was cancelled"
+  },
+  "optionsExport": {
+    "message": "Export JSON",
+    "description": "History toolbar: export button"
+  },
+  "optionsImport": {
+    "message": "Import JSON",
+    "description": "History toolbar: import button"
+  },
+  "optionsClearDownloaded": {
+    "message": "Clear downloaded records",
+    "description": "History toolbar: clear the duplicate-detection index"
+  },
+  "optionsClearAll": {
+    "message": "Clear all",
+    "description": "History toolbar: delete all history rows"
+  },
+  "optionsClearFilter": {
+    "message": "Clear filter",
+    "description": "History batch-filter banner action"
+  },
+  "optionsHistoryEmpty": {
+    "message": "No downloads yet. Open X, find a video, and hit Download.",
+    "description": "History empty state"
+  },
+  "optionsQualityLabel": {
+    "message": "Default video quality",
+    "description": "Settings: default quality field label"
+  },
+  "optionsQualityHint": {
+    "message": "Used by the popup and the in-timeline Download button. X serves a few fixed renditions per video; “closest below” picks the best one that does not exceed your target.",
+    "description": "Settings: default quality help text"
+  },
+  "optionsQualityHighest": {
+    "message": "Highest available",
+    "description": "Quality option: best rendition X served"
+  },
+  "optionsQuality1080": {
+    "message": "1080p (or closest below)",
+    "description": "Quality option: 1080p target"
+  },
+  "optionsQuality720": {
+    "message": "720p (or closest below)",
+    "description": "Quality option: 720p target"
+  },
+  "optionsQuality480": {
+    "message": "480p (or closest below)",
+    "description": "Quality option: 480p target"
+  },
+  "optionsQuality360": {
+    "message": "360p (or closest below)",
+    "description": "Quality option: 360p target"
+  },
+  "optionsQualityLowest": {
+    "message": "Lowest available",
+    "description": "Quality option: smallest rendition X served"
+  },
+  "optionsFilenameLabel": {
+    "message": "Filename template",
+    "description": "Settings: filename template field label"
+  },
+  "optionsFilenameTokens": {
+    "message": "Tokens:",
+    "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
+  },
+  "optionsFilenameHint": {
+    "message": "{text} is the first few words of the tweet; {datetime}/{date}/{time} use the tweet's own post time. .mp4 is added automatically; / nests subfolders. The default ({user}_{text}_{datetime}_{id}) is always unique — the tweet id prevents any collision.",
+    "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
+  },
+  "optionsFilenamePreview": {
+    "message": "Preview:",
+    "description": "Settings: live filename preview label"
+  },
+  "optionsSubfolderLabel": {
+    "message": "Subfolder (inside your Downloads folder)",
+    "description": "Settings: subfolder field label"
+  },
+  "optionsSubfolderHint": {
+    "message": "Chrome extensions can only write inside the browser’s Downloads folder. A relative subfolder is the closest thing to “choose a path”. Leave blank to save straight into Downloads. To pick a location every time, turn on the option below.",
+    "description": "Settings: subfolder help text before the token chips"
+  },
+  "optionsSubfolderHintNest": {
+    "message": "Use / to nest folders.",
+    "description": "Settings: subfolder help text after the token chips. Keep the / character."
+  },
+  "optionsSubfolderPlaceholder": {
+    "message": "X Media Downloader/{user}",
+    "description": "Settings: subfolder input placeholder; keep as a disk path"
+  },
+  "optionsSubfolderPreview": {
+    "message": "Folder preview:",
+    "description": "Settings: live folder preview label"
+  },
+  "optionsAskWhere": {
+    "message": "Ask where to save every time",
+    "description": "Settings: save-as checkbox label"
+  },
+  "optionsAskWhereHint": {
+    "message": "Opens Chrome’s “Save As” dialog for each download so you can choose any folder. Overrides the subfolder above.",
+    "description": "Settings: save-as checkbox help text"
+  },
+  "optionsShowButton": {
+    "message": "Show a Download button under videos in the timeline",
+    "description": "Settings: timeline button checkbox"
+  },
+  "optionsClickImmediate": {
+    "message": "Timeline button downloads immediately",
+    "description": "Settings: click-downloads-immediately checkbox"
+  },
+  "optionsClickImmediateHint": {
+    "message": "When off, the button opens a small quality menu instead. (Alt-click always opens the menu.)",
+    "description": "Settings: click-downloads-immediately help text"
+  },
+  "optionsMaxHistory": {
+    "message": "Keep at most",
+    "description": "Settings: history size field label"
+  },
+  "optionsMaxHistoryHint": {
+    "message": "Oldest history entries beyond this count are dropped.",
+    "description": "Settings: history size help text"
+  },
+  "optionsReset": {
+    "message": "Reset settings to defaults",
+    "description": "Settings: reset button"
+  },
+  "optionsSaved": {
+    "message": "Saved",
+    "description": "Settings: brief saved confirmation"
+  },
+  "optionsFooter": {
+    "message": "Open source · MIT",
+    "description": "Options page footer license line"
+  },
+  "optionsRepo": {
+    "message": "GitHub repository",
+    "description": "Options page footer repository link"
+  },
+  "optionsBatchShowingFrom": {
+    "message": "Showing batch from $DATE$",
+    "description": "History banner when filtering by a batch id",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Apr 2, 2026, 03:15 PM" }
+    }
+  },
+  "optionsBatchShowing": {
+    "message": "Showing batch",
+    "description": "History banner when the batch has no timestamps"
+  },
+  "optionsHistoryCount": {
+    "message": "$SHOWN$ of $TOTAL$",
+    "description": "History count of filtered vs all rows",
+    "placeholders": {
+      "shown": { "content": "$1", "example": "4" },
+      "total": { "content": "$2", "example": "20" }
+    }
+  },
+  "optionsOpenTweet": {
+    "message": "Open tweet",
+    "description": "History card action"
+  },
+  "optionsShowFile": {
+    "message": "Show file",
+    "description": "History card action that reveals the file in the folder"
+  },
+  "optionsRedownload": {
+    "message": "Re-download",
+    "description": "History card action"
+  },
+  "optionsRedownloadStarted": {
+    "message": "Started",
+    "description": "History re-download button while the new download begins"
+  },
+  "optionsRedownloadFailed": {
+    "message": "Failed",
+    "description": "History re-download button after a failure"
+  },
+  "optionsRemove": {
+    "message": "Remove",
+    "description": "History card action that deletes the row"
+  },
+  "optionsConfirmClearAll": {
+    "message": "Delete all $COUNT$ history entries? This does not delete downloaded files.",
+    "description": "Confirm dialog before clearing history",
+    "placeholders": {
+      "count": { "content": "$1", "example": "20" }
+    }
+  },
+  "optionsConfirmClearDownloaded": {
+    "message": "Clear downloaded records? Previously saved media will be downloaded again. Files and history are kept.",
+    "description": "Confirm dialog before clearing the duplicate index"
+  },
+  "optionsImportOk": {
+    "message": "Imported. History now has $COUNT$.",
+    "description": "Alert after a successful history import",
+    "placeholders": {
+      "count": { "content": "$1", "example": "25" }
+    }
+  },
+  "optionsImportFailed": {
+    "message": "Import failed: $ERROR$",
+    "description": "Alert after a failed history import",
+    "placeholders": {
+      "error": { "content": "$1", "example": "Unexpected token" }
+    }
+  },
+  "optionsFolderDownloads": {
+    "message": "Downloads",
+    "description": "Fallback folder name when a file is saved at the Downloads root"
+  },
+  "optionsTypeVideo": {
+    "message": "video",
+    "description": "History card media type"
+  },
+  "optionsTypeImage": {
+    "message": "image",
+    "description": "History card media type"
+  },
+  "optionsByteB": {
+    "message": "B",
+    "description": "File size unit: bytes"
+  },
+  "optionsByteKB": {
+    "message": "KB",
+    "description": "File size unit: kilobytes"
+  },
+  "optionsByteMB": {
+    "message": "MB",
+    "description": "File size unit: megabytes"
+  },
+  "optionsByteGB": {
+    "message": "GB",
+    "description": "File size unit: gigabytes"
+  },
+  "toastDownloadAgain": {
+    "message": "Download again",
+    "description": "Toast retry button tooltip and aria-label"
+  },
+  "toastPreparing": {
+    "message": "Preparing download…",
+    "description": "Toast shown while a timeline download is prepared"
+  },
+  "toastFailed": {
+    "message": "Download failed: $ERROR$",
+    "description": "Toast when chrome.runtime.lastError is set",
+    "placeholders": {
+      "error": { "content": "$1", "example": "Extension context invalidated" }
+    }
+  },
+  "toastAlready": {
+    "message": "Already downloaded · $DATE$",
+    "description": "Toast when this media is already in the downloaded index",
+    "placeholders": {
+      "date": { "content": "$1", "example": "4/2/2026" }
+    }
+  },
+  "toastNoImage": {
+    "message": "Could not find a downloadable image for this tweet",
+    "description": "Toast when an image download fails with no extra error"
+  },
+  "toastNoVideo": {
+    "message": "Could not find a downloadable video for this tweet",
+    "description": "Toast when a video download fails with no extra error"
+  },
+  "toastNoImageError": {
+    "message": "Could not find a downloadable image for this tweet ($ERROR$)",
+    "description": "Toast when an image download fails with a reason",
+    "placeholders": {
+      "error": { "content": "$1", "example": "No images on this tweet." }
+    }
+  },
+  "toastNoVideoError": {
+    "message": "Could not find a downloadable video for this tweet ($ERROR$)",
+    "description": "Toast when a video download fails with a reason",
+    "placeholders": {
+      "error": { "content": "$1", "example": "No MP4 rendition is available." }
+    }
+  },
+  "toastDownloading": {
+    "message": "Downloading $LABEL$ → $FILE$",
+    "description": "Toast after a single-file download starts",
+    "placeholders": {
+      "label": { "content": "$1", "example": "720p" },
+      "file": { "content": "$2", "example": "NASA_id.mp4" }
+    }
+  },
+  "toastDownloadingImages": {
+    "message": "Downloading images: $COUNT$ → $FOLDER$",
+    "description": "Toast after a multi-image download starts",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "folder": { "content": "$2", "example": "X Media Downloader/NASA" }
+    }
+  },
+  "toastFileFallback": {
+    "message": "file",
+    "description": "Toast fallback when the download has no filename yet"
+  },
+  "toastErrTombstone": {
+    "message": "This post is not visible to the public API, so the fallback could not read it. Reload the page with the video on screen and try again.",
+    "description": "Error when syndication returns a tombstone"
+  },
+  "toastErrHls": {
+    "message": "X only provides this video as a streaming playlist (HLS), which cannot be saved as a single file.",
+    "description": "Error when the video has no progressive MP4"
+  },
+  "toastErrNoVideo": {
+    "message": "No downloadable video found for this post.",
+    "description": "Error when resolveMedia returns nothing"
+  },
+  "toastErrNoMp4": {
+    "message": "No MP4 rendition is available.",
+    "description": "Error when captured variants include no mp4"
+  },
+  "toastErrNoImages": {
+    "message": "No images on this tweet.",
+    "description": "Error when an image download has no URLs"
+  },
+  "toastErrImagesFailed": {
+    "message": "All image downloads failed.",
+    "description": "Error when every image in a set failed to start"
+  },
+  "toastErrHistoryGone": {
+    "message": "History entry is gone.",
+    "description": "Error when re-download cannot find the history row"
+  },
+  "toastErrSyndication": {
+    "message": "Public API returned $STATUS$.",
+    "description": "Error when the syndication request is not OK",
+    "placeholders": {
+      "status": { "content": "$1", "example": "404" }
+    }
+  },
+  "toastImageLabel": {
+    "message": "Images: $COUNT$",
+    "description": "Download label for an image set, shown in popup status",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDownloadImages": {
+    "message": "Download images ($COUNT$)",
+    "description": "Quality menu title for a multi-image post",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDownloadImage": {
+    "message": "Download image",
+    "description": "Quality menu title and timeline button aria-label for an image"
+  },
+  "menuDownloadVideo": {
+    "message": "Download video",
+    "description": "Quality menu title and timeline button aria-label for a video"
+  },
+  "menuOriginal": {
+    "message": "Original size",
+    "description": "Image size menu: orig"
+  },
+  "menuLarge": {
+    "message": "Large",
+    "description": "Image size menu: large"
+  },
+  "menuMedium": {
+    "message": "Medium",
+    "description": "Image size menu: medium"
+  },
+  "menuHighest": {
+    "message": "Highest",
+    "description": "Video quality menu fallback when variants are not captured yet"
+  },
+  "tipDownloadVideo": {
+    "message": "Download video · right-click to pick quality",
+    "description": "Timeline button tooltip for a video"
+  },
+  "tipDownloadMixed": {
+    "message": "Download video and images · right-click to pick quality",
+    "description": "Timeline button tooltip for a post with video and images"
+  },
+  "ariaDownloadMixed": {
+    "message": "Download video and images",
+    "description": "Timeline button aria-label for a post with video and images"
+  },
+  "tipDownloadImage": {
+    "message": "Download image · right-click to pick quality",
+    "description": "Timeline button tooltip for an image"
+  },
+  "batchAria": {
+    "message": "Batch download",
+    "description": "In-page batch panel aria-label"
+  },
+  "batchStop": {
+    "message": "Stop",
+    "description": "Batch panel stop button tooltip and aria-label"
+  },
+  "batchContinue": {
+    "message": "Continue next batch",
+    "description": "Batch panel continue button tooltip and aria-label"
+  },
+  "batchHistory": {
+    "message": "View in history",
+    "description": "Batch panel link to filtered history"
+  },
+  "batchFolder": {
+    "message": "Open folder",
+    "description": "Batch panel link to the last downloaded file"
+  },
+  "batchCounts": {
+    "message": "Downloaded $DOWNLOADED$ / $COLLECTED$ · skipped $SKIPPED$ · failed $FAILED$",
+    "description": "Batch panel status while running",
+    "placeholders": {
+      "downloaded": { "content": "$1", "example": "12" },
+      "collected": { "content": "$2", "example": "40" },
+      "skipped": { "content": "$3", "example": "2" },
+      "failed": { "content": "$4", "example": "1" }
+    }
+  },
+  "batchFinished": {
+    "message": "Finished: $COUNT$",
+    "description": "Batch panel status when the run completed",
+    "placeholders": {
+      "count": { "content": "$1", "example": "40" }
+    }
+  },
+  "batchStopped": {
+    "message": "Stopped · $COUNT$ downloaded",
+    "description": "Batch panel status when the user stopped the run",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "batchRateLimited": {
+    "message": "X is limiting requests — paused",
+    "description": "Batch panel note when X returns 429 or error 88"
+  },
+  "batchCapped": {
+    "message": "Reached $COUNT$ files — continue next batch",
+    "description": "Batch panel note at the 500-file cap",
+    "placeholders": {
+      "count": { "content": "$1", "example": "500" }
+    }
+  },
+  "batchSkippedFailed": {
+    "message": "skipped $SKIPPED$ · failed $FAILED$",
+    "description": "Batch panel note after a finished run that skipped or failed some files",
+    "placeholders": {
+      "skipped": { "content": "$1", "example": "2" },
+      "failed": { "content": "$2", "example": "1" }
+    }
+  },
+  "batchResume": {
+    "message": "Resume",
+    "description": "Batch panel toggle tooltip while paused"
+  },
+  "batchPause": {
+    "message": "Pause",
+    "description": "Batch panel toggle tooltip while running"
+  },
+  "batchNeedMediaTab": {
+    "message": "Open a profile Media tab first.",
+    "description": "Error returned when batch start is not on /media"
   }
 }

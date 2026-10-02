@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.1
+
+- Posts with both a video and photos: one click now saves the video and the
+  photos. Before, the button could decide "image" before the video loaded and
+  then fail with "no images on this tweet". The right-click menu adds an entry
+  for the photos.
+- A video's cover frame is no longer mistaken for a photo.
+- Filenames drop invisible characters (emoji variation selectors, zero-width
+  joiners) left behind after emoji are removed.
+
+## 1.5.0
+
+- The interface now follows your browser language (9 languages).
+
 ## 1.4.0
 
 - Download every video and photo from a profile's Media tab. The popup shows

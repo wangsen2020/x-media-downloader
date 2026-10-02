@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="__MSG_@@bidi_dir__">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>X Media Downloader — History &amp; Settings</title>
+    <title data-i18n="optionsTitle">X Media Downloader — History &amp; Settings</title>
     <link rel="stylesheet" href="options.css" />
   </head>
   <body>
@@ -12,133 +12,136 @@
         <div class="brand">
           <img src="../../icons/icon128.png" alt="" width="32" height="32" />
           <div>
-            <h1>X Media Downloader</h1>
-            <p class="sub">Download history &amp; settings</p>
+            <h1 data-i18n="popupTitle">X Media Downloader</h1>
+            <p class="sub" data-i18n="optionsSub">Download history &amp; settings</p>
           </div>
         </div>
         <nav class="tabs">
-          <button class="tab is-active" data-tab="history" type="button">History</button>
-          <button class="tab" data-tab="settings" type="button">Settings</button>
+          <button class="tab is-active" data-tab="history" type="button" data-i18n="optionsTabHistory">History</button>
+          <button class="tab" data-tab="settings" type="button" data-i18n="optionsTabSettings">Settings</button>
         </nav>
       </header>
 
       <!-- HISTORY ------------------------------------------------------->
       <section id="tab-history" class="panel">
         <div class="toolbar">
-          <input id="search" class="search" type="search" placeholder="Filter by @user, filename, tweet id…" />
+          <input id="search" class="search" type="search" placeholder="Filter by @user, filename, tweet id…" data-i18n-placeholder="optionsSearchPlaceholder" />
           <select id="stateFilter">
-            <option value="">All states</option>
-            <option value="complete">Complete</option>
-            <option value="in_progress">In progress</option>
-            <option value="interrupted">Interrupted</option>
+            <option value="" data-i18n="optionsStateAll">All states</option>
+            <option value="complete" data-i18n="optionsStateComplete">Complete</option>
+            <option value="in_progress" data-i18n="optionsStateInProgress">In progress</option>
+            <option value="interrupted" data-i18n="optionsStateInterrupted">Interrupted</option>
           </select>
           <span class="spacer"></span>
-          <button id="exportBtn" class="btn" type="button">Export JSON</button>
-          <label class="btn" for="importInput">Import JSON</label>
+          <button id="exportBtn" class="btn" type="button" data-i18n="optionsExport">Export JSON</button>
+          <label class="btn" for="importInput" data-i18n="optionsImport">Import JSON</label>
           <input id="importInput" type="file" accept="application/json,.json" hidden />
-          <button id="clearDownloadedBtn" class="btn btn-danger" type="button">Clear downloaded records</button>
-          <button id="clearBtn" class="btn btn-danger" type="button">Clear all</button>
+          <button id="clearDownloadedBtn" class="btn btn-danger" type="button" data-i18n="optionsClearDownloaded">Clear downloaded records</button>
+          <button id="clearBtn" class="btn btn-danger" type="button" data-i18n="optionsClearAll">Clear all</button>
         </div>
 
         <p id="batchBanner" class="batch-banner" hidden>
           <span id="batchWhen"></span>
           <span class="batch-banner__sep" aria-hidden="true"> · </span>
-          <button id="clearBatchFilter" type="button">Clear filter</button>
+          <button id="clearBatchFilter" type="button" data-i18n="optionsClearFilter">Clear filter</button>
         </p>
 
         <p id="historyCount" class="count"></p>
 
         <div id="historyList" class="cards"></div>
-        <p id="historyEmpty" class="empty" hidden>
-          No downloads yet. Open X, find a video, and hit <strong>Download</strong>.
+        <p id="historyEmpty" class="empty" hidden data-i18n="optionsHistoryEmpty">
+          No downloads yet. Open X, find a video, and hit Download.
         </p>
       </section>
 
       <!-- SETTINGS ----------------------------------------------------->
       <section id="tab-settings" class="panel" hidden>
         <div class="setting">
-          <label for="defaultQuality"><strong>Default video quality</strong></label>
-          <p class="hint">Used by the popup and the in‑timeline Download button. X serves
-            a few fixed renditions per video; “closest below” picks the best one that
-            does not exceed your target.</p>
+          <label for="defaultQuality"><strong data-i18n="optionsQualityLabel">Default video quality</strong></label>
+          <p class="hint" data-i18n="optionsQualityHint">Used by the popup and the in-timeline Download button. X serves a few fixed renditions per video; “closest below” picks the best one that does not exceed your target.</p>
           <select id="defaultQuality"></select>
         </div>
 
         <div class="setting">
-          <label for="filenameTemplate"><strong>Filename template</strong></label>
+          <label for="filenameTemplate"><strong data-i18n="optionsFilenameLabel">Filename template</strong></label>
           <p class="hint">
-            Tokens:
-            <code>{user}</code> <code>{text}</code> <code>{datetime}</code>
-            <code>{date}</code> <code>{time}</code> <code>{id}</code>
-            <code>{quality}</code> <code>{height}</code> <code>{bitrate}</code>
-            <code>{index}</code>.
-            <code>{text}</code> is the first few words of the tweet;
-            <code>{datetime}</code>/<code>{date}</code>/<code>{time}</code> use
-            the tweet's own post time. <code>.mp4</code> is added automatically;
-            <code>/</code> nests subfolders. The default
-            (<code>{user}_{text}_{datetime}_{id}</code>) is always unique — the
-            tweet id prevents any collision.
+            <span data-i18n="optionsFilenameTokens">Tokens:</span>
+            <code>{user}</code>
+            <code>{text}</code>
+            <code>{datetime}</code>
+            <code>{date}</code>
+            <code>{time}</code>
+            <code>{id}</code>
+            <code>{quality}</code>
+            <code>{height}</code>
+            <code>{bitrate}</code>
+            <code>{index}</code>
+            <span data-i18n="optionsFilenameHint">{text} is the first few words of the tweet; {datetime}/{date}/{time} use the tweet's own post time. .mp4 is added automatically; / nests subfolders. The default ({user}_{text}_{datetime}_{id}) is always unique — the tweet id prevents any collision.</span>
           </p>
           <input id="filenameTemplate" type="text" />
-          <p class="preview">Preview: <code id="filenamePreview"></code></p>
+          <p class="preview"><span data-i18n="optionsFilenamePreview">Preview:</span> <code id="filenamePreview"></code></p>
         </div>
 
         <div class="setting">
-          <label for="subfolder"><strong>Subfolder</strong> (inside your Downloads folder)</label>
+          <label for="subfolder"><strong data-i18n="optionsSubfolderLabel">Subfolder (inside your Downloads folder)</strong></label>
           <p class="hint">
-            Chrome extensions can only write inside the browser’s Downloads folder.
-            A relative subfolder is the closest thing to “choose a path”. Leave blank
-            to save straight into Downloads. To pick a location every time, turn on
-            the option below. Tokens: <code>{user}</code> <code>{id}</code>
-            <code>{text}</code> <code>{date}</code> <code>{time}</code>
-            <code>{datetime}</code> <code>{quality}</code> <code>{height}</code>
-            <code>{bitrate}</code> <code>{index}</code> <code>{count}</code>.
-            Use <code>/</code> to nest folders.
+            <span data-i18n="optionsSubfolderHint">Chrome extensions can only write inside the browser’s Downloads folder. A relative subfolder is the closest thing to “choose a path”. Leave blank to save straight into Downloads. To pick a location every time, turn on the option below.</span>
+            <span data-i18n="optionsFilenameTokens">Tokens:</span>
+            <code>{user}</code>
+            <code>{id}</code>
+            <code>{text}</code>
+            <code>{date}</code>
+            <code>{time}</code>
+            <code>{datetime}</code>
+            <code>{quality}</code>
+            <code>{height}</code>
+            <code>{bitrate}</code>
+            <code>{index}</code>
+            <code>{count}</code>
+            <span data-i18n="optionsSubfolderHintNest">Use / to nest folders.</span>
           </p>
-          <input id="subfolder" type="text" placeholder="X Media Downloader/{user}" />
-          <p class="preview">Folder preview: <code id="subfolderPreview"></code></p>
+          <input id="subfolder" type="text" placeholder="X Media Downloader/{user}" data-i18n-placeholder="optionsSubfolderPlaceholder" />
+          <p class="preview"><span data-i18n="optionsSubfolderPreview">Folder preview:</span> <code id="subfolderPreview"></code></p>
         </div>
 
         <div class="setting setting-row">
           <input id="askWhereToSave" type="checkbox" />
           <label for="askWhereToSave">
-            <strong>Ask where to save every time</strong>
-            <span class="hint">Opens Chrome’s “Save As” dialog for each download so you
-              can choose any folder. Overrides the subfolder above.</span>
+            <strong data-i18n="optionsAskWhere">Ask where to save every time</strong>
+            <span class="hint" data-i18n="optionsAskWhereHint">Opens Chrome’s “Save As” dialog for each download so you can choose any folder. Overrides the subfolder above.</span>
           </label>
         </div>
 
         <div class="setting setting-row">
           <input id="showTimelineButton" type="checkbox" />
           <label for="showTimelineButton">
-            <strong>Show a Download button under videos in the timeline</strong>
+            <strong data-i18n="optionsShowButton">Show a Download button under videos in the timeline</strong>
           </label>
         </div>
 
         <div class="setting setting-row">
           <input id="clickDownloadsImmediately" type="checkbox" />
           <label for="clickDownloadsImmediately">
-            <strong>Timeline button downloads immediately</strong>
-            <span class="hint">When off, the button opens a small quality menu instead.
-              (Alt‑click always opens the menu.)</span>
+            <strong data-i18n="optionsClickImmediate">Timeline button downloads immediately</strong>
+            <span class="hint" data-i18n="optionsClickImmediateHint">When off, the button opens a small quality menu instead. (Alt-click always opens the menu.)</span>
           </label>
         </div>
 
         <div class="setting">
-          <label for="maxHistory"><strong>Keep at most</strong></label>
-          <p class="hint">Oldest history entries beyond this count are dropped.</p>
+          <label for="maxHistory"><strong data-i18n="optionsMaxHistory">Keep at most</strong></label>
+          <p class="hint" data-i18n="optionsMaxHistoryHint">Oldest history entries beyond this count are dropped.</p>
           <input id="maxHistory" type="number" min="10" max="5000" step="10" />
         </div>
 
         <div class="setting">
-          <button id="resetBtn" class="btn" type="button">Reset settings to defaults</button>
-          <span id="savedNote" class="saved" hidden>Saved ✓</span>
+          <button id="resetBtn" class="btn" type="button" data-i18n="optionsReset">Reset settings to defaults</button>
+          <span id="savedNote" class="saved" hidden data-i18n="optionsSaved">Saved</span>
         </div>
       </section>
 
       <footer class="foot">
-        <span>Open source · MIT</span>
-        <a id="repoLink" href="#" target="_blank" rel="noreferrer">GitHub repository</a>
+        <span data-i18n="optionsFooter">Open source · MIT</span>
+        <a id="repoLink" href="#" target="_blank" rel="noreferrer" data-i18n="optionsRepo">GitHub repository</a>
       </footer>
     </div>
 

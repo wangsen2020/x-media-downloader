@@ -1,6 +1,6 @@
 {
   "name": "x-media-downloader",
-  "version": "1.4.0",
+  "version": "1.5.1",
   "description": "Open-source Chrome/Edge extension to download videos, GIFs and images from X / Twitter with quality selection, a custom folder, unique filenames, and a full download history.",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
     "test": "node --test",
     "icons": "node tools/genicons.mjs icons",
     "zip": "node tools/zip.mjs",
-    "lint": "node --check src/background.js && node --check src/content.js && node --check src/content-batch.js && node --check src/injected.js && node --check src/lib/batch.js && node --check src/lib/media.js && node --check src/lib/store.js && node --check src/popup/popup.js && node --check src/options/options.js"
+    "lint": "node --check src/background.js && node --check src/content.js && node --check src/content-batch.js && node --check src/injected.js && node --check src/lib/batch.js && node --check src/lib/media.js && node --check src/lib/store.js && node --check src/lib/i18n.js && node --check src/popup/popup.js && node --check src/options/options.js"
   },
   "license": "MIT",
   "repository": {

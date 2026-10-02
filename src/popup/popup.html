@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="__MSG_@@bidi_dir__">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>X Media Downloader</title>
+    <title data-i18n="popupTitle">X Media Downloader</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
     <header class="pp-head">
       <div class="pp-brand">
         <img src="../../icons/icon48.png" alt="" width="22" height="22" />
-        <span>X Media Downloader</span>
+        <span data-i18n="popupTitle">X Media Downloader</span>
       </div>
-      <button id="openOptions" class="pp-icon-btn" title="History &amp; settings" type="button">
+      <button id="openOptions" class="pp-icon-btn" title="History &amp; settings" data-i18n-title="popupOpenOptions" type="button">
         <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm8.4 4c0-.5-.05-1-.13-1.47l2-1.56-2-3.46-2.36.95a7.6 7.6 0 0 0-2.54-1.47L14.5 2h-5l-.37 2.52A7.6 7.6 0 0 0 6.6 6L4.25 5.05l-2 3.46 2 1.56a8 8 0 0 0 0 2.94l-2 1.56 2 3.46 2.36-.95c.74.63 1.6 1.13 2.54 1.47L9.5 22h5l.37-2.52a7.6 7.6 0 0 0 2.54-1.47l2.36.95 2-3.46-2-1.56c.08-.47.13-.97.13-1.47Z"/></svg>
       </button>
     </header>
@@ -28,31 +28,29 @@
           <img id="poster" class="pp-poster" alt="" hidden />
           <div class="pp-tweet-meta">
             <div id="tweetUser" class="pp-user"></div>
-            <a id="tweetLink" class="pp-link" target="_blank" rel="noreferrer">open tweet ↗</a>
+            <a id="tweetLink" class="pp-link" target="_blank" rel="noreferrer" data-i18n="popupOpenTweet">open tweet ↗</a>
           </div>
         </div>
 
         <label class="pp-field">
-          <span>Quality</span>
+          <span data-i18n="popupQuality">Quality</span>
           <select id="quality"></select>
         </label>
 
-        <button id="download" class="pp-primary" type="button">Download video</button>
+        <button id="download" class="pp-primary" type="button" data-i18n="popupDownloadVideo">Download video</button>
         <p id="status" class="pp-status" role="status"></p>
       </section>
 
       <section id="empty" class="pp-empty" hidden>
-        <p>Open a tweet (or a timeline) that contains a video, then click the
-        extension again.</p>
-        <p class="pp-muted">Tip: a <strong>Download</strong> button also appears
-        under every video in the feed.</p>
+        <p data-i18n="popupEmpty">Open a tweet (or a timeline) that contains a video, then click the extension again.</p>
+        <p class="pp-muted" data-i18n="popupEmptyTip">Tip: a Download button also appears under every video in the feed.</p>
       </section>
     </main>
 
     <section class="pp-recent">
       <div class="pp-recent-head">
-        <span>Recent downloads</span>
-        <button id="viewAll" class="pp-textlink" type="button">View all</button>
+        <span data-i18n="popupRecent">Recent downloads</span>
+        <button id="viewAll" class="pp-textlink" type="button" data-i18n="popupViewAll">View all</button>
       </div>
       <ul id="recentList" class="pp-recent-list"></ul>
     </section>

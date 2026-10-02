@@ -1,6 +1,11 @@
 import { QUALITY_OPTIONS } from '../lib/media.js';
 import { mediaUserFromUrl } from '../lib/batch.js';
 import { getSettings, getHistory } from '../lib/store.js';
+import { t, localize, uiLang, qualityLabel } from '../lib/i18n.js';
+
+document.documentElement.lang = uiLang();
+document.documentElement.dir = t('@@bidi_dir') === 'rtl' ? 'rtl' : 'ltr';
+localize();
 
 const $ = (id) => document.getElementById(id);
 const detected = $('detected');
@@ -70,8 +75,7 @@ async function init() {
   empty.hidden = true;
 
   if (!record) {
-    statusEl.textContent =
-      'No video captured yet — scroll the video into view or open the tweet, then reopen this popup.';
+    statusEl.textContent = t('popupNoCapture');
   }
 }
 
@@ -80,24 +84,24 @@ function buildQualityOptions(defaultQuality) {
   if (record && record.variants && record.variants.length) {
     const auto = document.createElement('option');
     auto.value = defaultQuality;
-    auto.textContent =
-      'Default (' +
-      (QUALITY_OPTIONS.find((o) => o.value === defaultQuality)?.label || defaultQuality) +
-      ')';
+    auto.textContent = t(
+      'popupQualityDefault',
+      qualityLabel(defaultQuality) || defaultQuality,
+    );
     qualitySel.appendChild(auto);
     for (const v of record.variants) {
       const o = document.createElement('option');
       o.value = String(v.height || 'highest');
       o.textContent = v.height
-        ? `${v.height}p · ${Math.round((v.bitrate || 0) / 1000)} kbps`
-        : `${Math.round((v.bitrate || 0) / 1000)} kbps`;
+        ? t('popupVariant', v.height, Math.round((v.bitrate || 0) / 1000))
+        : t('popupVariantBitrate', Math.round((v.bitrate || 0) / 1000));
       qualitySel.appendChild(o);
     }
   } else {
     for (const o of QUALITY_OPTIONS) {
       const el = document.createElement('option');
       el.value = o.value;
-      el.textContent = o.label;
+      el.textContent = qualityLabel(o.value);
       el.selected = o.value === defaultQuality;
       qualitySel.appendChild(el);
     }
@@ -107,7 +111,7 @@ function buildQualityOptions(defaultQuality) {
 function mountBatch(tabId, user) {
   const section = $('batch');
   const btn = $('batchDownload');
-  btn.textContent = `Download all media from @${user}`;
+  btn.textContent = t('popupBatchDownload', user);
   section.hidden = false;
   btn.addEventListener('click', () => startBatch(tabId, btn));
 }
@@ -116,21 +120,21 @@ async function startBatch(tabId, btn) {
   const status = $('batchStatus');
   btn.disabled = true;
   status.className = 'pp-status';
-  status.textContent = 'Starting…';
+  status.textContent = t('popupBatchStarting');
   try {
     const res = await chrome.tabs.sendMessage(tabId, { type: 'xvd:batch-start' });
     if (res && res.ok) {
       status.className = 'pp-status ok';
       status.textContent = res.already
-        ? 'A batch is already running on this page.'
-        : 'Started. Progress stays on the page.';
+        ? t('popupBatchAlready')
+        : t('popupBatchStarted');
     } else {
       status.className = 'pp-status err';
-      status.textContent = (res && res.error) || 'Could not start.';
+      status.textContent = (res && res.error) || t('popupBatchFailed');
     }
   } catch (_) {
     status.className = 'pp-status err';
-    status.textContent = 'Reload the media page, then try again.';
+    status.textContent = t('popupBatchReload');
   } finally {
     btn.disabled = false;
   }
@@ -141,7 +145,7 @@ async function doDownload() {
   const btn = $('download');
   btn.disabled = true;
   statusEl.className = 'pp-status';
-  statusEl.textContent = 'Preparing…';
+  statusEl.textContent = t('popupPreparing');
   try {
     const res = await chrome.runtime.sendMessage({
       type: 'xvd:download',
@@ -153,15 +157,15 @@ async function doDownload() {
     });
     if (res && res.ok) {
       statusEl.className = 'pp-status ok';
-      statusEl.textContent = `Downloading ${res.label} → ${res.filename}`;
+      statusEl.textContent = t('popupDownloading', res.label, res.filename);
       renderRecent();
     } else {
       statusEl.className = 'pp-status err';
-      statusEl.textContent = 'Failed: ' + ((res && res.error) || 'unknown error');
+      statusEl.textContent = t('popupFailed', (res && res.error) || t('popupUnknownError'));
     }
   } catch (e) {
     statusEl.className = 'pp-status err';
-    statusEl.textContent = 'Failed: ' + (e.message || e);
+    statusEl.textContent = t('popupFailed', e.message || e);
   } finally {
     btn.disabled = false;
   }
@@ -173,7 +177,10 @@ async function renderRecent() {
   ul.innerHTML = '';
   if (!list.length) {
     const li = document.createElement('li');
-    li.innerHTML = '<span class="empty">Nothing yet.</span>';
+    const span = document.createElement('span');
+    span.className = 'empty';
+    span.textContent = t('popupRecentEmpty');
+    li.appendChild(span);
     ul.appendChild(li);
     return;
   }

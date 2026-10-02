@@ -6,5 +6,719 @@
   "extDesc": {
     "message": "Baixe vídeos, GIFs e fotos do X (Twitter) com um clique. Escolha a qualidade e a pasta, com histórico. Grátis, sem rastreamento.",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  },
+  "popupTitle": {
+    "message": "X Media Downloader",
+    "description": "Popup title and brand name; also the options page heading"
+  },
+  "popupOpenOptions": {
+    "message": "Histórico e configurações",
+    "description": "Popup gear button tooltip"
+  },
+  "popupOpenTweet": {
+    "message": "abrir post ↗",
+    "description": "Popup link to the current tweet"
+  },
+  "popupQuality": {
+    "message": "Qualidade",
+    "description": "Popup quality dropdown label"
+  },
+  "popupDownloadVideo": {
+    "message": "Baixar vídeo",
+    "description": "Popup primary download button"
+  },
+  "popupEmpty": {
+    "message": "Abra um post (ou a timeline) com um vídeo e clique de novo na extensão.",
+    "description": "Popup empty state when the tab is not a tweet with video"
+  },
+  "popupEmptyTip": {
+    "message": "Um botão Baixar também aparece abaixo de cada vídeo no feed.",
+    "description": "Popup empty-state hint about the timeline button"
+  },
+  "popupRecent": {
+    "message": "Downloads recentes",
+    "description": "Popup recent-downloads heading"
+  },
+  "popupViewAll": {
+    "message": "Ver tudo",
+    "description": "Popup link that opens the history page"
+  },
+  "popupQualityDefault": {
+    "message": "Padrão ($LABEL$)",
+    "description": "Popup quality option that uses the user's default setting",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "Highest available"
+      }
+    }
+  },
+  "popupBatchDownload": {
+    "message": "Baixar toda a mídia de @$USER$",
+    "description": "Popup button on a profile Media tab",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "NASA"
+      }
+    }
+  },
+  "popupBatchStarting": {
+    "message": "Iniciando…",
+    "description": "Popup status while a batch is starting"
+  },
+  "popupBatchAlready": {
+    "message": "Já há um download em lote nesta página.",
+    "description": "Popup status when a batch is already in progress"
+  },
+  "popupBatchStarted": {
+    "message": "Iniciado. O progresso fica na página.",
+    "description": "Popup status after a batch starts successfully"
+  },
+  "popupBatchFailed": {
+    "message": "Não foi possível iniciar.",
+    "description": "Popup status when a batch could not start"
+  },
+  "popupBatchReload": {
+    "message": "Recarregue a página de mídia e tente de novo.",
+    "description": "Popup status when the content script is missing"
+  },
+  "popupPreparing": {
+    "message": "Preparando…",
+    "description": "Popup status while a single download is prepared"
+  },
+  "popupDownloading": {
+    "message": "Baixando $LABEL$ → $FILE$",
+    "description": "Popup status after a download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "popupFailed": {
+    "message": "Falha: $ERROR$",
+    "description": "Popup status when a download fails",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "network error"
+      }
+    }
+  },
+  "popupUnknownError": {
+    "message": "erro desconhecido",
+    "description": "Popup fallback when a failure has no message"
+  },
+  "popupRecentEmpty": {
+    "message": "Nada ainda.",
+    "description": "Popup recent list when history is empty"
+  },
+  "popupNoCapture": {
+    "message": "O vídeo ainda não foi capturado. Role o vídeo para a tela ou abra o post e abra este pop-up de novo.",
+    "description": "Popup status when the tweet is known but variants are not cached"
+  },
+  "popupVariant": {
+    "message": "$HEIGHT$p · $BITRATE$ kbps",
+    "description": "Popup quality option for a captured rendition",
+    "placeholders": {
+      "height": {
+        "content": "$1",
+        "example": "720"
+      },
+      "bitrate": {
+        "content": "$2",
+        "example": "2176"
+      }
+    }
+  },
+  "popupVariantBitrate": {
+    "message": "$BITRATE$ kbps",
+    "description": "Quality option when only bitrate is known",
+    "placeholders": {
+      "bitrate": {
+        "content": "$1",
+        "example": "2176"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "X Media Downloader — Histórico e configurações",
+    "description": "Options page document title"
+  },
+  "optionsSub": {
+    "message": "Histórico de downloads e configurações",
+    "description": "Options page subtitle"
+  },
+  "optionsTabHistory": {
+    "message": "Histórico",
+    "description": "Options page History tab"
+  },
+  "optionsTabSettings": {
+    "message": "Configurações",
+    "description": "Options page Settings tab"
+  },
+  "optionsSearchPlaceholder": {
+    "message": "Filtrar por @usuário, arquivo, id do post…",
+    "description": "History search field placeholder"
+  },
+  "optionsStateAll": {
+    "message": "Todos os estados",
+    "description": "History state filter: no filter"
+  },
+  "optionsStateComplete": {
+    "message": "Concluído",
+    "description": "History state: finished download"
+  },
+  "optionsStateInProgress": {
+    "message": "Em andamento",
+    "description": "History state: download still running"
+  },
+  "optionsStateInterrupted": {
+    "message": "Interrompido",
+    "description": "History state: download failed or was cancelled"
+  },
+  "optionsExport": {
+    "message": "Exportar JSON",
+    "description": "History toolbar: export button"
+  },
+  "optionsImport": {
+    "message": "Importar JSON",
+    "description": "History toolbar: import button"
+  },
+  "optionsClearDownloaded": {
+    "message": "Limpar registros de baixados",
+    "description": "History toolbar: clear the duplicate-detection index"
+  },
+  "optionsClearAll": {
+    "message": "Limpar tudo",
+    "description": "History toolbar: delete all history rows"
+  },
+  "optionsClearFilter": {
+    "message": "Limpar filtro",
+    "description": "History batch-filter banner action"
+  },
+  "optionsHistoryEmpty": {
+    "message": "Ainda não há downloads. Abra o X, encontre um vídeo e toque em Baixar.",
+    "description": "History empty state"
+  },
+  "optionsQualityLabel": {
+    "message": "Qualidade de vídeo padrão",
+    "description": "Settings: default quality field label"
+  },
+  "optionsQualityHint": {
+    "message": "Usada pelo pop-up e pelo botão Baixar da timeline. O X oferece algumas versões fixas por vídeo; “a mais próxima abaixo” escolhe a melhor que não passa do alvo.",
+    "description": "Settings: default quality help text"
+  },
+  "optionsQualityHighest": {
+    "message": "A mais alta disponível",
+    "description": "Quality option: best rendition X served"
+  },
+  "optionsQuality1080": {
+    "message": "1080p (ou a mais próxima abaixo)",
+    "description": "Quality option: 1080p target"
+  },
+  "optionsQuality720": {
+    "message": "720p (ou a mais próxima abaixo)",
+    "description": "Quality option: 720p target"
+  },
+  "optionsQuality480": {
+    "message": "480p (ou a mais próxima abaixo)",
+    "description": "Quality option: 480p target"
+  },
+  "optionsQuality360": {
+    "message": "360p (ou a mais próxima abaixo)",
+    "description": "Quality option: 360p target"
+  },
+  "optionsQualityLowest": {
+    "message": "A mais baixa disponível",
+    "description": "Quality option: smallest rendition X served"
+  },
+  "optionsFilenameLabel": {
+    "message": "Modelo de nome de arquivo",
+    "description": "Settings: filename template field label"
+  },
+  "optionsFilenameTokens": {
+    "message": "Códigos:",
+    "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
+  },
+  "optionsFilenameHint": {
+    "message": "{text} são as primeiras palavras do post; {datetime}/{date}/{time} usam o horário da publicação. .mp4 é adicionado automaticamente; / cria subpastas. O padrão ({user}_{text}_{datetime}_{id}) é sempre único — o id do post evita colisão.",
+    "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
+  },
+  "optionsFilenamePreview": {
+    "message": "Prévia:",
+    "description": "Settings: live filename preview label"
+  },
+  "optionsSubfolderLabel": {
+    "message": "Subpasta (dentro da pasta Downloads)",
+    "description": "Settings: subfolder field label"
+  },
+  "optionsSubfolderHint": {
+    "message": "Extensões do Chrome só podem gravar na pasta Downloads do navegador. Uma subpasta relativa é o mais próximo de “escolher um caminho”. Deixe em branco para salvar direto em Downloads. Para escolher o local sempre, ative a opção abaixo.",
+    "description": "Settings: subfolder help text before the token chips"
+  },
+  "optionsSubfolderHintNest": {
+    "message": "Use / para aninhar pastas.",
+    "description": "Settings: subfolder help text after the token chips. Keep the / character."
+  },
+  "optionsSubfolderPlaceholder": {
+    "message": "X Media Downloader/{user}",
+    "description": "Settings: subfolder input placeholder; keep as a disk path"
+  },
+  "optionsSubfolderPreview": {
+    "message": "Prévia da pasta:",
+    "description": "Settings: live folder preview label"
+  },
+  "optionsAskWhere": {
+    "message": "Perguntar onde salvar toda vez",
+    "description": "Settings: save-as checkbox label"
+  },
+  "optionsAskWhereHint": {
+    "message": "Abre o diálogo “Salvar como” do Chrome em cada download para você escolher qualquer pasta. Substitui a subpasta acima.",
+    "description": "Settings: save-as checkbox help text"
+  },
+  "optionsShowButton": {
+    "message": "Mostrar um botão Baixar abaixo dos vídeos na timeline",
+    "description": "Settings: timeline button checkbox"
+  },
+  "optionsClickImmediate": {
+    "message": "O botão da timeline baixa na hora",
+    "description": "Settings: click-downloads-immediately checkbox"
+  },
+  "optionsClickImmediateHint": {
+    "message": "Se estiver desativado, o botão abre um menu de qualidade. (Alt+clique sempre abre o menu.)",
+    "description": "Settings: click-downloads-immediately help text"
+  },
+  "optionsMaxHistory": {
+    "message": "Guardar no máximo",
+    "description": "Settings: history size field label"
+  },
+  "optionsMaxHistoryHint": {
+    "message": "As entradas de histórico mais antigas acima deste número são removidas.",
+    "description": "Settings: history size help text"
+  },
+  "optionsReset": {
+    "message": "Restaurar configurações padrão",
+    "description": "Settings: reset button"
+  },
+  "optionsSaved": {
+    "message": "Salvo",
+    "description": "Settings: brief saved confirmation"
+  },
+  "optionsFooter": {
+    "message": "Código aberto · MIT",
+    "description": "Options page footer license line"
+  },
+  "optionsRepo": {
+    "message": "Repositório no GitHub",
+    "description": "Options page footer repository link"
+  },
+  "optionsBatchShowingFrom": {
+    "message": "Mostrando lote de $DATE$",
+    "description": "History banner when filtering by a batch id",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "Apr 2, 2026, 03:15 PM"
+      }
+    }
+  },
+  "optionsBatchShowing": {
+    "message": "Mostrando lote",
+    "description": "History banner when the batch has no timestamps"
+  },
+  "optionsHistoryCount": {
+    "message": "$SHOWN$ de $TOTAL$",
+    "description": "History count of filtered vs all rows",
+    "placeholders": {
+      "shown": {
+        "content": "$1",
+        "example": "4"
+      },
+      "total": {
+        "content": "$2",
+        "example": "20"
+      }
+    }
+  },
+  "optionsOpenTweet": {
+    "message": "Abrir post",
+    "description": "History card action"
+  },
+  "optionsShowFile": {
+    "message": "Mostrar arquivo",
+    "description": "History card action that reveals the file in the folder"
+  },
+  "optionsRedownload": {
+    "message": "Baixar de novo",
+    "description": "History card action"
+  },
+  "optionsRedownloadStarted": {
+    "message": "Iniciado",
+    "description": "History re-download button while the new download begins"
+  },
+  "optionsRedownloadFailed": {
+    "message": "Falhou",
+    "description": "History re-download button after a failure"
+  },
+  "optionsRemove": {
+    "message": "Remover",
+    "description": "History card action that deletes the row"
+  },
+  "optionsConfirmClearAll": {
+    "message": "Excluir todas as $COUNT$ entradas do histórico? Isso não apaga os arquivos baixados.",
+    "description": "Confirm dialog before clearing history",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
+  "optionsConfirmClearDownloaded": {
+    "message": "Limpar os registros de baixados? A mídia salva antes será baixada de novo. Arquivos e histórico são mantidos.",
+    "description": "Confirm dialog before clearing the duplicate index"
+  },
+  "optionsImportOk": {
+    "message": "Importado. O histórico agora tem $COUNT$.",
+    "description": "Alert after a successful history import",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "optionsImportFailed": {
+    "message": "Falha ao importar: $ERROR$",
+    "description": "Alert after a failed history import",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Unexpected token"
+      }
+    }
+  },
+  "optionsFolderDownloads": {
+    "message": "Downloads",
+    "description": "Fallback folder name when a file is saved at the Downloads root"
+  },
+  "optionsTypeVideo": {
+    "message": "vídeo",
+    "description": "History card media type"
+  },
+  "optionsTypeImage": {
+    "message": "imagem",
+    "description": "History card media type"
+  },
+  "optionsByteB": {
+    "message": "B",
+    "description": "File size unit: bytes"
+  },
+  "optionsByteKB": {
+    "message": "KB",
+    "description": "File size unit: kilobytes"
+  },
+  "optionsByteMB": {
+    "message": "MB",
+    "description": "File size unit: megabytes"
+  },
+  "optionsByteGB": {
+    "message": "GB",
+    "description": "File size unit: gigabytes"
+  },
+  "toastDownloadAgain": {
+    "message": "Baixar de novo",
+    "description": "Toast retry button tooltip and aria-label"
+  },
+  "toastPreparing": {
+    "message": "Preparando o download…",
+    "description": "Toast shown while a timeline download is prepared"
+  },
+  "toastFailed": {
+    "message": "Falha no download: $ERROR$",
+    "description": "Toast when chrome.runtime.lastError is set",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Extension context invalidated"
+      }
+    }
+  },
+  "toastAlready": {
+    "message": "Já baixado · $DATE$",
+    "description": "Toast when this media is already in the downloaded index",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "4/2/2026"
+      }
+    }
+  },
+  "toastNoImage": {
+    "message": "Não foi possível encontrar uma imagem para baixar neste post",
+    "description": "Toast when an image download fails with no extra error"
+  },
+  "toastNoVideo": {
+    "message": "Não foi possível encontrar um vídeo para baixar neste post",
+    "description": "Toast when a video download fails with no extra error"
+  },
+  "toastNoImageError": {
+    "message": "Não foi possível encontrar uma imagem para baixar neste post ($ERROR$)",
+    "description": "Toast when an image download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No images on this tweet."
+      }
+    }
+  },
+  "toastNoVideoError": {
+    "message": "Não foi possível encontrar um vídeo para baixar neste post ($ERROR$)",
+    "description": "Toast when a video download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No MP4 rendition is available."
+      }
+    }
+  },
+  "toastDownloading": {
+    "message": "Baixando $LABEL$ → $FILE$",
+    "description": "Toast after a single-file download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "toastDownloadingImages": {
+    "message": "Baixando imagens: $COUNT$ → $FOLDER$",
+    "description": "Toast after a multi-image download starts",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "folder": {
+        "content": "$2",
+        "example": "X Media Downloader/NASA"
+      }
+    }
+  },
+  "toastFileFallback": {
+    "message": "arquivo",
+    "description": "Toast fallback when the download has no filename yet"
+  },
+  "toastErrTombstone": {
+    "message": "Este post não é visível para a API pública, então a alternativa não conseguiu lê-lo. Recarregue a página com o vídeo na tela e tente de novo.",
+    "description": "Error when syndication returns a tombstone"
+  },
+  "toastErrHls": {
+    "message": "O X só oferece este vídeo como lista de reprodução em streaming (HLS), que não pode ser salva como um único arquivo.",
+    "description": "Error when the video has no progressive MP4"
+  },
+  "toastErrNoVideo": {
+    "message": "Não há um vídeo para baixar nesta publicação.",
+    "description": "Error when resolveMedia returns nothing"
+  },
+  "toastErrNoMp4": {
+    "message": "Não há uma versão MP4 disponível.",
+    "description": "Error when captured variants include no mp4"
+  },
+  "toastErrNoImages": {
+    "message": "Não há imagens neste post.",
+    "description": "Error when an image download has no URLs"
+  },
+  "toastErrImagesFailed": {
+    "message": "Todos os downloads de imagem falharam.",
+    "description": "Error when every image in a set failed to start"
+  },
+  "toastErrHistoryGone": {
+    "message": "A entrada do histórico não existe mais.",
+    "description": "Error when re-download cannot find the history row"
+  },
+  "toastErrSyndication": {
+    "message": "A API pública retornou $STATUS$.",
+    "description": "Error when the syndication request is not OK",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
+    }
+  },
+  "toastImageLabel": {
+    "message": "Imagens: $COUNT$",
+    "description": "Download label for an image set, shown in popup status",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImages": {
+    "message": "Baixar imagens ($COUNT$)",
+    "description": "Quality menu title for a multi-image post",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImage": {
+    "message": "Baixar imagem",
+    "description": "Quality menu title and timeline button aria-label for an image"
+  },
+  "menuDownloadVideo": {
+    "message": "Baixar vídeo",
+    "description": "Quality menu title and timeline button aria-label for a video"
+  },
+  "menuOriginal": {
+    "message": "Tamanho original",
+    "description": "Image size menu: orig"
+  },
+  "menuLarge": {
+    "message": "Grande",
+    "description": "Image size menu: large"
+  },
+  "menuMedium": {
+    "message": "Médio",
+    "description": "Image size menu: medium"
+  },
+  "menuHighest": {
+    "message": "Mais alta",
+    "description": "Video quality menu fallback when variants are not captured yet"
+  },
+  "tipDownloadVideo": {
+    "message": "Baixar vídeo · clique com o botão direito para escolher a qualidade",
+    "description": "Timeline button tooltip for a video"
+  },
+  "tipDownloadMixed": {
+    "message": "Baixar vídeo e imagens · clique com o botão direito para escolher a qualidade",
+    "description": "Timeline button tooltip for a post with video and images"
+  },
+  "ariaDownloadMixed": {
+    "message": "Baixar vídeo e imagens",
+    "description": "Timeline button aria-label for a post with video and images"
+  },
+  "tipDownloadImage": {
+    "message": "Baixar imagem · clique com o botão direito para escolher a qualidade",
+    "description": "Timeline button tooltip for an image"
+  },
+  "batchAria": {
+    "message": "Download em lote",
+    "description": "In-page batch panel aria-label"
+  },
+  "batchStop": {
+    "message": "Parar",
+    "description": "Batch panel stop button tooltip and aria-label"
+  },
+  "batchContinue": {
+    "message": "Continuar o próximo lote",
+    "description": "Batch panel continue button tooltip and aria-label"
+  },
+  "batchHistory": {
+    "message": "Ver no histórico",
+    "description": "Batch panel link to filtered history"
+  },
+  "batchFolder": {
+    "message": "Abrir pasta",
+    "description": "Batch panel link to the last downloaded file"
+  },
+  "batchCounts": {
+    "message": "Baixados $DOWNLOADED$ / $COLLECTED$ · ignorados $SKIPPED$ · falhas $FAILED$",
+    "description": "Batch panel status while running",
+    "placeholders": {
+      "downloaded": {
+        "content": "$1",
+        "example": "12"
+      },
+      "collected": {
+        "content": "$2",
+        "example": "40"
+      },
+      "skipped": {
+        "content": "$3",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$4",
+        "example": "1"
+      }
+    }
+  },
+  "batchFinished": {
+    "message": "Concluído: $COUNT$",
+    "description": "Batch panel status when the run completed",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "40"
+      }
+    }
+  },
+  "batchStopped": {
+    "message": "Parado · $COUNT$ baixados",
+    "description": "Batch panel status when the user stopped the run",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "batchRateLimited": {
+    "message": "O X está limitando as solicitações — pausado",
+    "description": "Batch panel note when X returns 429 or error 88"
+  },
+  "batchCapped": {
+    "message": "Chegou a $COUNT$ arquivos — dá para continuar o próximo lote",
+    "description": "Batch panel note at the 500-file cap",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "batchSkippedFailed": {
+    "message": "ignorados $SKIPPED$ · falhas $FAILED$",
+    "description": "Batch panel note after a finished run that skipped or failed some files",
+    "placeholders": {
+      "skipped": {
+        "content": "$1",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "batchResume": {
+    "message": "Retomar",
+    "description": "Batch panel toggle tooltip while paused"
+  },
+  "batchPause": {
+    "message": "Pausar",
+    "description": "Batch panel toggle tooltip while running"
+  },
+  "batchNeedMediaTab": {
+    "message": "Abra primeiro a aba Mídia do perfil.",
+    "description": "Error returned when batch start is not on /media"
   }
 }

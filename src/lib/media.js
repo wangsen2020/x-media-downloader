@@ -85,6 +85,8 @@ export function labelForVariant(v) {
 // punctuation/whitespace into single underscores, keep unicode letters/digits.
 export function sanitizePart(s) {
   const cleaned = String(s == null ? '' : s)
+    // Variation selectors are marks; format characters include zero-width joins.
+    .replace(/[\p{Cf}\uFE00-\uFE0F\u200B-\u200D\u2060\uFEFF]/gu, '')
     .replace(/[<>:"/\\|?*\x00-\x1f]/g, ' ')
     .replace(/[^\p{L}\p{N}\p{M}._-]+/gu, '_')
     .replace(/_{2,}/g, '_')
@@ -251,4 +253,9 @@ export function parseSyndicationResponse(json, wantId) {
     });
   }
   return out;
+}
+
+// The DOM may gain a video after its photos; classify each fresh snapshot.
+export function mediaKind(hasVideo, images = []) {
+  return hasVideo ? (images.length ? 'mixed' : 'video') : images.length ? 'image' : null;
 }

@@ -16,6 +16,7 @@ import {
   mediaUserFromPath,
   sameAuthor,
 } from './lib/batch.js';
+import { t } from './lib/i18n.js';
 
 const PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.2v14H7V5Zm6.8 0H17v14h-3.2V5Z"/></svg>';
 const PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5L8 5.5Z"/></svg>';
@@ -72,7 +73,13 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   document.addEventListener('visibilitychange', wakeWaiters);
 
   function countsLine() {
-    return `Downloaded ${batch.downloaded} / ${batch.collected} · skipped ${batch.skipped} · failed ${batch.failed}`;
+    return t(
+      'batchCounts',
+      batch.downloaded,
+      batch.collected,
+      batch.skipped,
+      batch.failed,
+    );
   }
 
   function remaining() {
@@ -97,22 +104,30 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     root = document.createElement('div');
     root.id = 'xvd-batch';
     root.setAttribute('role', 'region');
-    root.setAttribute('aria-label', 'Batch download');
+    root.setAttribute('aria-label', t('batchAria'));
     root.innerHTML =
       '<div class="xvd-batch__row">' +
       '<p class="xvd-batch__status" role="status"></p>' +
       '<div class="xvd-batch__controls">' +
       `<button type="button" class="xvd-batch__btn" data-act="toggle">${PAUSE_SVG}</button>` +
-      `<button type="button" class="xvd-batch__btn" data-act="stop" title="Stop" aria-label="Stop">${STOP_SVG}</button>` +
-      `<button type="button" class="xvd-batch__btn" data-act="continue" title="Continue next batch" aria-label="Continue next batch" hidden>${PLAY_SVG}</button>` +
+      `<button type="button" class="xvd-batch__btn" data-act="stop">${STOP_SVG}</button>` +
+      `<button type="button" class="xvd-batch__btn" data-act="continue" hidden>${PLAY_SVG}</button>` +
       '</div></div>' +
       '<div class="xvd-batch__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
       '<div class="xvd-batch__fill"></div></div>' +
       '<p class="xvd-batch__note" hidden></p>' +
       '<p class="xvd-batch__links" hidden>' +
-      '<a class="xvd-batch__link" data-act="history" href="#">View in history</a>' +
-      '<a class="xvd-batch__link" data-act="folder" href="#">Open folder</a>' +
+      '<a class="xvd-batch__link" data-act="history" href="#"></a>' +
+      '<a class="xvd-batch__link" data-act="folder" href="#"></a>' +
       '</p>';
+    const stop = root.querySelector('[data-act="stop"]');
+    stop.title = t('batchStop');
+    stop.setAttribute('aria-label', t('batchStop'));
+    const cont = root.querySelector('[data-act="continue"]');
+    cont.title = t('batchContinue');
+    cont.setAttribute('aria-label', t('batchContinue'));
+    root.querySelector('[data-act="history"]').textContent = t('batchHistory');
+    root.querySelector('[data-act="folder"]').textContent = t('batchFolder');
     root.addEventListener('click', onPanelClick);
     (document.body || document.documentElement).appendChild(root);
     return root;
@@ -135,9 +150,9 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     const held = batch.rateLimited || batch.userPaused;
 
     if (batch.phase === 'finished') {
-      status.textContent = `Finished ${batch.downloaded} files`;
+      status.textContent = t('batchFinished', batch.downloaded);
     } else if (batch.phase === 'stopped') {
-      status.textContent = `Stopped · ${batch.downloaded} downloaded`;
+      status.textContent = t('batchStopped', batch.downloaded);
     } else {
       status.textContent = countsLine();
     }
@@ -145,13 +160,13 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     note.hidden = true;
     if (batch.rateLimited) {
       note.hidden = false;
-      note.textContent = 'X is limiting requests — paused';
+      note.textContent = t('batchRateLimited');
     } else if (batch.phase === 'capped') {
       note.hidden = false;
-      note.textContent = `Reached ${BATCH_LIMITS.maxFiles} files — continue next batch`;
+      note.textContent = t('batchCapped', BATCH_LIMITS.maxFiles);
     } else if (finished && (batch.skipped || batch.failed)) {
       note.hidden = false;
-      note.textContent = `skipped ${batch.skipped} · failed ${batch.failed}`;
+      note.textContent = t('batchSkippedFailed', batch.skipped, batch.failed);
     }
 
     const settled = batch.downloaded + batch.skipped + batch.failed;
@@ -165,7 +180,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     toggle.hidden = finished;
     stop.hidden = finished;
     toggle.innerHTML = held ? PLAY_SVG : PAUSE_SVG;
-    const toggleLabel = held ? 'Resume' : 'Pause';
+    const toggleLabel = held ? t('batchResume') : t('batchPause');
     toggle.title = toggleLabel;
     toggle.setAttribute('aria-label', toggleLabel);
     cont.hidden = batch.phase !== 'capped' || batch.rateLimited;
@@ -526,7 +541,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
 
   function start() {
     const user = mediaUserFromPath(location.pathname);
-    if (!user) return { ok: false, error: 'Open a profile Media tab first.' };
+    if (!user) return { ok: false, error: t('batchNeedMediaTab') };
     if (busy()) return { ok: true, already: true, batchId: batch.id };
     clearTimeout(pumpTimer);
     active = 0;

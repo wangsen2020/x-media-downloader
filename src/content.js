@@ -6,6 +6,34 @@
   'use strict';
 
   const origin = window.location.origin;
+  let mediaKind;
+  const mediaReady = import(chrome.runtime.getURL('src/lib/media.js')).then((mod) => {
+    mediaKind = mod.mediaKind;
+    scheduleScan();
+  });
+  mediaReady.catch(() => {});
+
+  function t(key, ...subs) {
+    try {
+      if (!chrome.i18n || !chrome.i18n.getMessage) return key;
+      const msg = subs.length
+        ? chrome.i18n.getMessage(key, subs.map((s) => String(s)))
+        : chrome.i18n.getMessage(key);
+      if (msg) return msg;
+    } catch (_) {
+      /* ignore */
+    }
+    console.warn('[i18n] missing message:', key);
+    return key;
+  }
+
+  function uiLang() {
+    try {
+      return (chrome.i18n && chrome.i18n.getUILanguage && chrome.i18n.getUILanguage()) || 'en';
+    } catch (_) {
+      return 'en';
+    }
+  }
 
   // 1. Fallback injection of the page-context hook.
   //
@@ -147,8 +175,8 @@
     if (action) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.title = 'Download again';
-      button.setAttribute('aria-label', 'Download again');
+      button.title = t('toastDownloadAgain');
+      button.setAttribute('aria-label', t('toastDownloadAgain'));
       button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4a8 8 0 1 0 8 8h-2a6 6 0 1 1-2-4.47L13 11h8V3l-3.57 3.57A7.97 7.97 0 0 0 12 4Z"/></svg>';
       button.addEventListener('click', () => {
         el.remove();
@@ -164,51 +192,63 @@
     }, action ? 10000 : 3200);
   }
 
-  function requestDownload(info, choice, force = false) {
-    const isImage = info.kind === 'image';
-    toast('Preparing download…');
-    const msg = {
-      type: 'xvd:download',
-      force,
-      kind: info.kind || 'video',
-      tweetId: info.tweetId,
-      screenName: info.screenName,
-      tweetUrl: `${origin}/${info.screenName}/status/${info.tweetId}`,
-      text: info.text || '',
-    };
-    if (isImage) {
-      // Re-scan now: X lazy-loads / upgrades <img> src after the button was drawn.
-      const fresh = info.article ? articleMedia(info.article) : null;
-      msg.images = (fresh && fresh.images) || info.images || [];
-      msg.size = choice || 'orig';
-    } else {
-      msg.quality = choice || settings.defaultQuality;
-      msg.record = mediaByTweet.get(info.tweetId) || null;
-    }
-    try {
-      chrome.runtime.sendMessage(msg, (res) => {
-        if (chrome.runtime.lastError) {
-          toast('Download failed: ' + chrome.runtime.lastError.message, 'error');
-          return;
-        }
-        if (res && res.duplicate) {
-          toast(`Already downloaded · ${new Date(res.at).toLocaleDateString()}`, '',
-            () => requestDownload(info, choice, true));
-        } else if (!res || !res.ok) {
-          toast(
-            `Could not find a downloadable ${isImage ? 'image' : 'video'} for this tweet` +
-              (res && res.error ? ` (${res.error})` : ''),
-            'error',
-          );
-        } else if (res.count > 1) {
-          toast(`Downloading ${res.count} images → ${res.folder || 'Downloads'}`, 'ok');
-        } else {
-          toast(`Downloading ${res.label || ''} → ${res.filename || 'file'}`, 'ok');
-        }
-      });
-    } catch (_) {
-      /* extension context invalidated (reloaded while page open) */
-    }
+  async function requestDownload(info, choice, force = false, targetKind) {
+    await mediaReady;
+    const fresh = info.article ? articleMedia(info.article) : info;
+    if (!fresh) return;
+    const kinds = targetKind ? [targetKind]
+      : fresh.kind === 'mixed' ? ['video', 'image'] : [fresh.kind];
+    toast(t('toastPreparing'));
+    const results = await Promise.all(kinds.map((kind) => new Promise((resolve) => {
+      const msg = {
+        type: 'xvd:download', force, kind,
+        tweetId: info.tweetId,
+        screenName: info.screenName,
+        tweetUrl: `${origin}/${info.screenName}/status/${info.tweetId}`,
+        text: info.text || '',
+      };
+      if (kind === 'image') {
+        msg.images = fresh.images || [];
+        msg.size = choice || 'orig';
+      } else {
+        msg.quality = choice || settings.defaultQuality;
+        msg.record = mediaByTweet.get(info.tweetId) || null;
+      }
+      try {
+        chrome.runtime.sendMessage(msg, (res) => {
+          const error = chrome.runtime.lastError;
+          resolve({ kind, res, error: error && error.message });
+        });
+      } catch (_) {
+        resolve({ kind, error: t('toastFileFallback') });
+      }
+    })));
+    const duplicates = [];
+    let failed = false;
+    const messages = results.map(({ kind, res, error }) => {
+      if (error) {
+        failed = true;
+        return t('toastFailed', error);
+      }
+      if (res && res.duplicate) {
+        duplicates.push(kind);
+        return t('toastAlready', new Date(res.at).toLocaleDateString(uiLang()));
+      }
+      if (!res || !res.ok) {
+        failed = true;
+        return kind === 'image'
+          ? (res && res.error ? t('toastNoImageError', res.error) : t('toastNoImage'))
+          : (res && res.error ? t('toastNoVideoError', res.error) : t('toastNoVideo'));
+      }
+      return res.count > 1
+        ? t('toastDownloadingImages', res.count, res.folder || t('optionsFolderDownloads'))
+        : t('toastDownloading', res.label || '', res.filename || t('toastFileFallback'));
+    });
+    toast(messages.join(' · '), failed ? 'error' : duplicates.length ? '' : 'ok',
+      duplicates.length ? () => {
+        // Retry only skipped media, never a photo set already started successfully.
+        requestDownload(info, choice, true, duplicates.length === 1 ? duplicates[0] : undefined);
+      } : undefined);
   }
 
   // X's action bar often sits near the bottom of the viewport, where a menu
@@ -236,7 +276,10 @@
 
   // `point` = viewport coords to open at (right-click); omit to anchor on the
   // button (Alt-click, keyboard menu key).
-  function openQualityMenu(anchor, info, point) {
+  async function openQualityMenu(anchor, info, point) {
+    await mediaReady;
+    const fresh = info.article ? articleMedia(info.article) : info;
+    if (!fresh) return;
     closeMenu();
     const menu = document.createElement('div');
     // Only one picker exists at a time (closeMenu runs first), so it can carry
@@ -245,37 +288,45 @@
     menu.className = 'xvd-menu';
     menu.setAttribute('role', 'menu');
 
-    const isImage = info.kind === 'image';
+    const isImage = fresh.kind === 'image';
     const title = document.createElement('div');
     title.className = 'xvd-menu__title';
     const rows = [];
 
     if (isImage) {
-      const fresh = info.article ? articleMedia(info.article) : null;
-      const n = ((fresh && fresh.images) || []).length;
-      title.textContent = n > 1 ? `Download ${n} images` : 'Download image';
-      rows.push({ label: 'Original size', choice: 'orig' });
-      rows.push({ label: 'Large', choice: 'large' });
-      rows.push({ label: 'Medium', choice: 'medium' });
+      const n = fresh.images.length;
+      title.textContent = n > 1 ? t('menuDownloadImages', n) : t('menuDownloadImage');
+      rows.push({ label: t('menuOriginal'), choice: 'orig' });
+      rows.push({ label: t('menuLarge'), choice: 'large' });
+      rows.push({ label: t('menuMedium'), choice: 'medium' });
     } else {
-      title.textContent = 'Download video';
+      title.textContent = t('menuDownloadVideo');
       const rec = mediaByTweet.get(info.tweetId);
       if (rec && rec.variants && rec.variants.length) {
         // parseVariants already returns these best-first.
         for (const v of rec.variants) {
           rows.push({
-            label: v.height ? v.height + 'p' : Math.round(v.bitrate / 1000) + 'kbps',
+            label: v.height
+              ? v.height + 'p'
+              : t('popupVariantBitrate', Math.round(v.bitrate / 1000)),
             badge: v.height >= 2160 ? '4K' : v.height >= 1080 ? 'HD' : '',
             choice: String(v.height || 'highest'),
           });
         }
       } else {
         // No API capture yet - the worker will resolve via syndication.
-        rows.push({ label: 'Highest', choice: 'highest' });
+        rows.push({ label: t('menuHighest'), choice: 'highest' });
         rows.push({ label: '720p', choice: '720' });
         rows.push({ label: '480p', choice: '480' });
         rows.push({ label: '360p', choice: '360' });
       }
+    }
+    const videoRowCount = rows.length;
+    if (fresh.kind === 'mixed') {
+      rows.push({
+        label: fresh.images.length > 1 ? t('menuDownloadImages', fresh.images.length) : t('menuDownloadImage'),
+        choice: 'orig', kind: 'image',
+      });
     }
     menu.appendChild(title);
 
@@ -284,7 +335,7 @@
     const def = isImage ? 'orig' : settings.defaultQuality;
     let current = rows.findIndex((r) => r.choice === def);
     if (current < 0 && def === 'highest') current = 0;
-    if (current < 0 && def === 'lowest') current = rows.length - 1;
+    if (current < 0 && def === 'lowest') current = videoRowCount - 1;
 
     rows.forEach((r, i) => {
       const b = document.createElement('button');
@@ -314,7 +365,7 @@
         e.preventDefault();
         e.stopPropagation();
         closeMenu();
-        requestDownload(info, r.choice, true);
+        requestDownload(info, r.choice, true, r.kind || (isImage ? 'image' : 'video'));
       });
       menu.appendChild(b);
     });
@@ -358,11 +409,7 @@
     btn.type = 'button';
     btn.className = 'xvd-btn';
     // Icon-only: all wording lives in the tooltip, matching X's own icons.
-    const what = info.kind === 'image' ? 'image' : 'video';
-    // Icon-only means the tooltip is the only place the interaction can be
-    // explained, so it has to name both gestures.
-    btn.title = `Download ${what} · right-click to pick quality`;
-    btn.setAttribute('aria-label', `Download ${what}`);
+    updateButton(btn, articleMedia(info.article));
     btn.setAttribute('aria-haspopup', 'menu');
     // Same anatomy X gives its own action buttons (bookmark / reply / like):
     // an unstyled <button>, a div carrying the colour, a positioning context,
@@ -400,23 +447,22 @@
   // a link-preview card. Both are downloadable; profile_images / emoji are not.
   const MEDIA_URL_RE = /pbs\.twimg\.com\/(media|card_img)\//;
 
-  // Returns { kind:'video' } | { kind:'image', images:[url,...] } | null
+  // Collect both media types, including when X mounts the video after photos.
   function articleMedia(article) {
-    if (
-      article.querySelector(
-        '[data-testid="videoPlayer"], [data-testid="videoComponent"], video, [data-testid="playButton"]',
-      )
-    ) {
-      return { kind: 'video' };
-    }
+    const hasVideo = !!article.querySelector(
+      '[data-testid="videoPlayer"], [data-testid="videoComponent"], video, [data-testid="playButton"]',
+    );
     const imgs = [];
     for (const img of article.querySelectorAll(
       '[data-testid="tweetPhoto"] img, a[href*="/photo/"] img, [data-testid^="card."] img',
     )) {
+      // Video posters can use photo URLs and tweetPhoto wrappers too.
+      if (img.closest('[data-testid="videoPlayer"], [data-testid="videoComponent"], video')) continue;
       const src = img.currentSrc || img.src || '';
       if (MEDIA_URL_RE.test(src) && !imgs.includes(src)) imgs.push(src);
     }
-    return imgs.length ? { kind: 'image', images: imgs } : null;
+    const kind = mediaKind(hasVideo, imgs);
+    return kind ? { kind, hasVideo, images: imgs } : null;
   }
 
   function tweetText(article) {
@@ -425,13 +471,16 @@
   }
 
   function decorate(article) {
-    if (!settings.showTimelineButton) return;
-    if (article.querySelector(':scope .xvd-btn')) return;
+    if (!settings.showTimelineButton || !mediaKind) return;
+    const existing = article.querySelector(':scope .xvd-btn');
+    if (existing) {
+      updateButton(existing, articleMedia(article));
+      return;
+    }
     const media = articleMedia(article);
     if (!media) return;
     const info = statusInfoFromArticle(article);
     if (!info) return;
-    info.kind = media.kind;
     info.text = tweetText(article);
     info.article = article; // re-scanned at click time for freshly-loaded images
     const group = article.querySelector('[role="group"]');
@@ -448,8 +497,19 @@
     document.querySelectorAll('article').forEach(decorate);
   }
 
+  function updateButton(btn, media) {
+    if (!media || btn.dataset.xvdKind === media.kind) return;
+    btn.dataset.xvdKind = media.kind;
+    const isImage = media.kind === 'image';
+    btn.title = media.kind === 'mixed' ? t('tipDownloadMixed')
+      : isImage ? t('tipDownloadImage') : t('tipDownloadVideo');
+    const label = media.kind === 'mixed' ? t('ariaDownloadMixed')
+      : isImage ? t('menuDownloadImage') : t('menuDownloadVideo');
+    btn.setAttribute('aria-label', label);
+  }
+
   function refreshButtons() {
-    // Enable quality menus that now have data; nothing else to do.
+    scheduleScan();
   }
 
   let scanTimer = 0;

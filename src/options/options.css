@@ -194,9 +194,11 @@ input[type="text"], input[type="search"] { width: 100%; }
   padding: 1px 5px;
   border-radius: 4px;
   font-size: 12px;
+  white-space: nowrap;
 }
+.hint code { margin-inline-end: 2px; }
 .preview { margin: 8px 0 0; font-size: 13px; }
-.saved { margin-left: 10px; color: var(--ok); font-size: 13px; font-weight: 600; }
+.saved { margin-inline-start: 10px; color: var(--ok); font-size: 13px; font-weight: 600; }
 
 .foot {
   margin-top: 28px;

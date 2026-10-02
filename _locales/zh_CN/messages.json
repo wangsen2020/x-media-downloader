@@ -6,5 +6,617 @@
   "extDesc": {
     "message": "一键下载 X（推特）视频、GIF 动图和原图。可选清晰度与保存目录，自带完整下载历史。免费，不追踪、不收集数据。",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  },
+  "popupTitle": {
+    "message": "X Media Downloader",
+    "description": "Popup title and brand name; also the options page heading"
+  },
+  "popupOpenOptions": {
+    "message": "历史和设置",
+    "description": "Popup gear button tooltip"
+  },
+  "popupOpenTweet": {
+    "message": "打开帖子 ↗",
+    "description": "Popup link to the current tweet"
+  },
+  "popupQuality": {
+    "message": "画质",
+    "description": "Popup quality dropdown label"
+  },
+  "popupDownloadVideo": {
+    "message": "下载视频",
+    "description": "Popup primary download button"
+  },
+  "popupEmpty": {
+    "message": "打开一条含视频的帖子或时间线，然后再次点击扩展。",
+    "description": "Popup empty state when the tab is not a tweet with video"
+  },
+  "popupEmptyTip": {
+    "message": "时间线里每个视频下方也会出现下载按钮。",
+    "description": "Popup empty-state hint about the timeline button"
+  },
+  "popupRecent": {
+    "message": "最近下载",
+    "description": "Popup recent-downloads heading"
+  },
+  "popupViewAll": {
+    "message": "查看全部",
+    "description": "Popup link that opens the history page"
+  },
+  "popupQualityDefault": {
+    "message": "默认（$LABEL$）",
+    "description": "Popup quality option that uses the user's default setting",
+    "placeholders": {
+      "label": { "content": "$1", "example": "Highest available" }
+    }
+  },
+  "popupBatchDownload": {
+    "message": "下载 @$USER$ 的全部媒体",
+    "description": "Popup button on a profile Media tab",
+    "placeholders": {
+      "user": { "content": "$1", "example": "NASA" }
+    }
+  },
+  "popupBatchStarting": {
+    "message": "正在开始…",
+    "description": "Popup status while a batch is starting"
+  },
+  "popupBatchAlready": {
+    "message": "此页面已有批量下载在进行。",
+    "description": "Popup status when a batch is already in progress"
+  },
+  "popupBatchStarted": {
+    "message": "已开始。进度显示在页面上。",
+    "description": "Popup status after a batch starts successfully"
+  },
+  "popupBatchFailed": {
+    "message": "无法开始。",
+    "description": "Popup status when a batch could not start"
+  },
+  "popupBatchReload": {
+    "message": "请刷新媒体页后再试。",
+    "description": "Popup status when the content script is missing"
+  },
+  "popupPreparing": {
+    "message": "正在准备…",
+    "description": "Popup status while a single download is prepared"
+  },
+  "popupDownloading": {
+    "message": "正在下载 $LABEL$ → $FILE$",
+    "description": "Popup status after a download starts",
+    "placeholders": {
+      "label": { "content": "$1", "example": "720p" },
+      "file": { "content": "$2", "example": "NASA_id.mp4" }
+    }
+  },
+  "popupFailed": {
+    "message": "失败：$ERROR$",
+    "description": "Popup status when a download fails",
+    "placeholders": {
+      "error": { "content": "$1", "example": "network error" }
+    }
+  },
+  "popupUnknownError": {
+    "message": "未知错误",
+    "description": "Popup fallback when a failure has no message"
+  },
+  "popupRecentEmpty": {
+    "message": "暂无记录。",
+    "description": "Popup recent list when history is empty"
+  },
+  "popupNoCapture": {
+    "message": "尚未捕获视频。将视频滚入视野或打开帖子，然后重新打开此窗口。",
+    "description": "Popup status when the tweet is known but variants are not cached"
+  },
+  "popupVariant": {
+    "message": "$HEIGHT$p · $BITRATE$ kbps",
+    "description": "Popup quality option for a captured rendition",
+    "placeholders": {
+      "height": { "content": "$1", "example": "720" },
+      "bitrate": { "content": "$2", "example": "2176" }
+    }
+  },
+  "popupVariantBitrate": {
+    "message": "$BITRATE$ kbps",
+    "description": "Quality option when only bitrate is known",
+    "placeholders": {
+      "bitrate": { "content": "$1", "example": "2176" }
+    }
+  },
+  "optionsTitle": {
+    "message": "X Media Downloader — 历史和设置",
+    "description": "Options page document title"
+  },
+  "optionsSub": {
+    "message": "下载记录与设置",
+    "description": "Options page subtitle"
+  },
+  "optionsTabHistory": {
+    "message": "历史",
+    "description": "Options page History tab"
+  },
+  "optionsTabSettings": {
+    "message": "设置",
+    "description": "Options page Settings tab"
+  },
+  "optionsSearchPlaceholder": {
+    "message": "按 @用户、文件名、帖子 ID 筛选",
+    "description": "History search field placeholder"
+  },
+  "optionsStateAll": {
+    "message": "全部状态",
+    "description": "History state filter: no filter"
+  },
+  "optionsStateComplete": {
+    "message": "已完成",
+    "description": "History state: finished download"
+  },
+  "optionsStateInProgress": {
+    "message": "进行中",
+    "description": "History state: download still running"
+  },
+  "optionsStateInterrupted": {
+    "message": "已中断",
+    "description": "History state: download failed or was cancelled"
+  },
+  "optionsExport": {
+    "message": "导出 JSON",
+    "description": "History toolbar: export button"
+  },
+  "optionsImport": {
+    "message": "导入 JSON",
+    "description": "History toolbar: import button"
+  },
+  "optionsClearDownloaded": {
+    "message": "清除已下载记录",
+    "description": "History toolbar: clear the duplicate-detection index"
+  },
+  "optionsClearAll": {
+    "message": "全部清除",
+    "description": "History toolbar: delete all history rows"
+  },
+  "optionsClearFilter": {
+    "message": "清除筛选",
+    "description": "History batch-filter banner action"
+  },
+  "optionsHistoryEmpty": {
+    "message": "还没有下载。打开 X，找到视频，点下载。",
+    "description": "History empty state"
+  },
+  "optionsQualityLabel": {
+    "message": "默认视频画质",
+    "description": "Settings: default quality field label"
+  },
+  "optionsQualityHint": {
+    "message": "用于弹出窗口和时间线中的下载按钮。X 为每条视频提供几种固定清晰度；“以下最接近”会选择不超过目标的最高一档。",
+    "description": "Settings: default quality help text"
+  },
+  "optionsQualityHighest": {
+    "message": "最高画质",
+    "description": "Quality option: best rendition X served"
+  },
+  "optionsQuality1080": {
+    "message": "1080p（或以下最接近）",
+    "description": "Quality option: 1080p target"
+  },
+  "optionsQuality720": {
+    "message": "720p（或以下最接近）",
+    "description": "Quality option: 720p target"
+  },
+  "optionsQuality480": {
+    "message": "480p（或以下最接近）",
+    "description": "Quality option: 480p target"
+  },
+  "optionsQuality360": {
+    "message": "360p（或以下最接近）",
+    "description": "Quality option: 360p target"
+  },
+  "optionsQualityLowest": {
+    "message": "最低画质",
+    "description": "Quality option: smallest rendition X served"
+  },
+  "optionsFilenameLabel": {
+    "message": "文件名模板",
+    "description": "Settings: filename template field label"
+  },
+  "optionsFilenameTokens": {
+    "message": "令牌：",
+    "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
+  },
+  "optionsFilenameHint": {
+    "message": "{text} 取帖子开头几个词；{datetime}/{date}/{time} 使用发帖时间。会自动加上 .mp4；/ 表示子文件夹。默认（{user}_{text}_{datetime}_{id}）始终唯一 — 帖子 ID 可避免重名。",
+    "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
+  },
+  "optionsFilenamePreview": {
+    "message": "预览：",
+    "description": "Settings: live filename preview label"
+  },
+  "optionsSubfolderLabel": {
+    "message": "子文件夹（位于浏览器下载目录内）",
+    "description": "Settings: subfolder field label"
+  },
+  "optionsSubfolderHint": {
+    "message": "Chrome 扩展只能写入浏览器的下载目录。相对子文件夹是最接近“自选路径”的做法。留空则直接保存到下载目录。若要每次自选位置，请打开下方选项。",
+    "description": "Settings: subfolder help text before the token chips"
+  },
+  "optionsSubfolderHintNest": {
+    "message": "用 / 嵌套文件夹。",
+    "description": "Settings: subfolder help text after the token chips. Keep the / character."
+  },
+  "optionsSubfolderPlaceholder": {
+    "message": "X Media Downloader/{user}",
+    "description": "Settings: subfolder input placeholder; keep as a disk path"
+  },
+  "optionsSubfolderPreview": {
+    "message": "文件夹预览：",
+    "description": "Settings: live folder preview label"
+  },
+  "optionsAskWhere": {
+    "message": "每次下载都询问保存位置",
+    "description": "Settings: save-as checkbox label"
+  },
+  "optionsAskWhereHint": {
+    "message": "每次下载弹出 Chrome 的“另存为”对话框，可选择任意文件夹。将覆盖上方的子文件夹。",
+    "description": "Settings: save-as checkbox help text"
+  },
+  "optionsShowButton": {
+    "message": "在时间线视频下方显示下载按钮",
+    "description": "Settings: timeline button checkbox"
+  },
+  "optionsClickImmediate": {
+    "message": "时间线按钮立即下载",
+    "description": "Settings: click-downloads-immediately checkbox"
+  },
+  "optionsClickImmediateHint": {
+    "message": "关闭后，按钮会打开画质菜单。（按住 Alt 点击始终打开菜单。）",
+    "description": "Settings: click-downloads-immediately help text"
+  },
+  "optionsMaxHistory": {
+    "message": "最多保留",
+    "description": "Settings: history size field label"
+  },
+  "optionsMaxHistoryHint": {
+    "message": "超出此数量的最旧历史记录将被删除。",
+    "description": "Settings: history size help text"
+  },
+  "optionsReset": {
+    "message": "恢复默认设置",
+    "description": "Settings: reset button"
+  },
+  "optionsSaved": {
+    "message": "已保存",
+    "description": "Settings: brief saved confirmation"
+  },
+  "optionsFooter": {
+    "message": "开源 · MIT",
+    "description": "Options page footer license line"
+  },
+  "optionsRepo": {
+    "message": "GitHub 仓库",
+    "description": "Options page footer repository link"
+  },
+  "optionsBatchShowingFrom": {
+    "message": "正在显示 $DATE$ 的批次",
+    "description": "History banner when filtering by a batch id",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Apr 2, 2026, 03:15 PM" }
+    }
+  },
+  "optionsBatchShowing": {
+    "message": "正在显示批次",
+    "description": "History banner when the batch has no timestamps"
+  },
+  "optionsHistoryCount": {
+    "message": "$SHOWN$ / $TOTAL$",
+    "description": "History count of filtered vs all rows",
+    "placeholders": {
+      "shown": { "content": "$1", "example": "4" },
+      "total": { "content": "$2", "example": "20" }
+    }
+  },
+  "optionsOpenTweet": {
+    "message": "打开帖子",
+    "description": "History card action"
+  },
+  "optionsShowFile": {
+    "message": "显示文件",
+    "description": "History card action that reveals the file in the folder"
+  },
+  "optionsRedownload": {
+    "message": "重新下载",
+    "description": "History card action"
+  },
+  "optionsRedownloadStarted": {
+    "message": "已开始",
+    "description": "History re-download button while the new download begins"
+  },
+  "optionsRedownloadFailed": {
+    "message": "失败",
+    "description": "History re-download button after a failure"
+  },
+  "optionsRemove": {
+    "message": "移除",
+    "description": "History card action that deletes the row"
+  },
+  "optionsConfirmClearAll": {
+    "message": "删除全部 $COUNT$ 条历史记录？不会删除已下载的文件。",
+    "description": "Confirm dialog before clearing history",
+    "placeholders": {
+      "count": { "content": "$1", "example": "20" }
+    }
+  },
+  "optionsConfirmClearDownloaded": {
+    "message": "清除已下载记录？之前保存过的媒体将再次下载。文件和历史记录会保留。",
+    "description": "Confirm dialog before clearing the duplicate index"
+  },
+  "optionsImportOk": {
+    "message": "已导入。历史记录现有 $COUNT$ 条。",
+    "description": "Alert after a successful history import",
+    "placeholders": {
+      "count": { "content": "$1", "example": "25" }
+    }
+  },
+  "optionsImportFailed": {
+    "message": "导入失败：$ERROR$",
+    "description": "Alert after a failed history import",
+    "placeholders": {
+      "error": { "content": "$1", "example": "Unexpected token" }
+    }
+  },
+  "optionsFolderDownloads": {
+    "message": "下载",
+    "description": "Fallback folder name when a file is saved at the Downloads root"
+  },
+  "optionsTypeVideo": {
+    "message": "视频",
+    "description": "History card media type"
+  },
+  "optionsTypeImage": {
+    "message": "图片",
+    "description": "History card media type"
+  },
+  "optionsByteB": {
+    "message": "B",
+    "description": "File size unit: bytes"
+  },
+  "optionsByteKB": {
+    "message": "KB",
+    "description": "File size unit: kilobytes"
+  },
+  "optionsByteMB": {
+    "message": "MB",
+    "description": "File size unit: megabytes"
+  },
+  "optionsByteGB": {
+    "message": "GB",
+    "description": "File size unit: gigabytes"
+  },
+  "toastDownloadAgain": {
+    "message": "重新下载",
+    "description": "Toast retry button tooltip and aria-label"
+  },
+  "toastPreparing": {
+    "message": "正在准备下载…",
+    "description": "Toast shown while a timeline download is prepared"
+  },
+  "toastFailed": {
+    "message": "下载失败：$ERROR$",
+    "description": "Toast when chrome.runtime.lastError is set",
+    "placeholders": {
+      "error": { "content": "$1", "example": "Extension context invalidated" }
+    }
+  },
+  "toastAlready": {
+    "message": "已经下载过 · $DATE$",
+    "description": "Toast when this media is already in the downloaded index",
+    "placeholders": {
+      "date": { "content": "$1", "example": "4/2/2026" }
+    }
+  },
+  "toastNoImage": {
+    "message": "找不到可下载的图片",
+    "description": "Toast when an image download fails with no extra error"
+  },
+  "toastNoVideo": {
+    "message": "找不到可下载的视频",
+    "description": "Toast when a video download fails with no extra error"
+  },
+  "toastNoImageError": {
+    "message": "找不到可下载的图片（$ERROR$）",
+    "description": "Toast when an image download fails with a reason",
+    "placeholders": {
+      "error": { "content": "$1", "example": "No images on this tweet." }
+    }
+  },
+  "toastNoVideoError": {
+    "message": "找不到可下载的视频（$ERROR$）",
+    "description": "Toast when a video download fails with a reason",
+    "placeholders": {
+      "error": { "content": "$1", "example": "No MP4 rendition is available." }
+    }
+  },
+  "toastDownloading": {
+    "message": "正在下载 $LABEL$ → $FILE$",
+    "description": "Toast after a single-file download starts",
+    "placeholders": {
+      "label": { "content": "$1", "example": "720p" },
+      "file": { "content": "$2", "example": "NASA_id.mp4" }
+    }
+  },
+  "toastDownloadingImages": {
+    "message": "正在下载图片：$COUNT$ → $FOLDER$",
+    "description": "Toast after a multi-image download starts",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "folder": { "content": "$2", "example": "X Media Downloader/NASA" }
+    }
+  },
+  "toastFileFallback": {
+    "message": "文件",
+    "description": "Toast fallback when the download has no filename yet"
+  },
+  "toastErrTombstone": {
+    "message": "该帖对公开接口不可见，回退方式无法读取。请让视频显示在屏幕上后刷新页面再试。",
+    "description": "Error when syndication returns a tombstone"
+  },
+  "toastErrHls": {
+    "message": "X 仅以流媒体播放列表（HLS）提供此视频，无法保存为单个文件。",
+    "description": "Error when the video has no progressive MP4"
+  },
+  "toastErrNoVideo": {
+    "message": "此帖没有可下载的视频。",
+    "description": "Error when resolveMedia returns nothing"
+  },
+  "toastErrNoMp4": {
+    "message": "没有可用的 MP4 版本。",
+    "description": "Error when captured variants include no mp4"
+  },
+  "toastErrNoImages": {
+    "message": "此帖没有图片。",
+    "description": "Error when an image download has no URLs"
+  },
+  "toastErrImagesFailed": {
+    "message": "图片下载全部失败。",
+    "description": "Error when every image in a set failed to start"
+  },
+  "toastErrHistoryGone": {
+    "message": "历史记录已不存在。",
+    "description": "Error when re-download cannot find the history row"
+  },
+  "toastErrSyndication": {
+    "message": "公开接口返回 $STATUS$。",
+    "description": "Error when the syndication request is not OK",
+    "placeholders": {
+      "status": { "content": "$1", "example": "404" }
+    }
+  },
+  "toastImageLabel": {
+    "message": "图片：$COUNT$",
+    "description": "Download label for an image set, shown in popup status",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDownloadImages": {
+    "message": "下载图片（$COUNT$）",
+    "description": "Quality menu title for a multi-image post",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDownloadImage": {
+    "message": "下载图片",
+    "description": "Quality menu title and timeline button aria-label for an image"
+  },
+  "menuDownloadVideo": {
+    "message": "下载视频",
+    "description": "Quality menu title and timeline button aria-label for a video"
+  },
+  "menuOriginal": {
+    "message": "原图",
+    "description": "Image size menu: orig"
+  },
+  "menuLarge": {
+    "message": "大图",
+    "description": "Image size menu: large"
+  },
+  "menuMedium": {
+    "message": "中图",
+    "description": "Image size menu: medium"
+  },
+  "menuHighest": {
+    "message": "最高",
+    "description": "Video quality menu fallback when variants are not captured yet"
+  },
+  "tipDownloadVideo": {
+    "message": "下载视频 · 右键选择画质",
+    "description": "Timeline button tooltip for a video"
+  },
+  "tipDownloadMixed": {
+    "message": "下载视频和图片 · 右键选择画质",
+    "description": "Timeline button tooltip for a post with video and images"
+  },
+  "ariaDownloadMixed": {
+    "message": "下载视频和图片",
+    "description": "Timeline button aria-label for a post with video and images"
+  },
+  "tipDownloadImage": {
+    "message": "下载图片 · 右键选择画质",
+    "description": "Timeline button tooltip for an image"
+  },
+  "batchAria": {
+    "message": "批量下载",
+    "description": "In-page batch panel aria-label"
+  },
+  "batchStop": {
+    "message": "停止",
+    "description": "Batch panel stop button tooltip and aria-label"
+  },
+  "batchContinue": {
+    "message": "继续下一批",
+    "description": "Batch panel continue button tooltip and aria-label"
+  },
+  "batchHistory": {
+    "message": "在历史中查看",
+    "description": "Batch panel link to filtered history"
+  },
+  "batchFolder": {
+    "message": "打开文件夹",
+    "description": "Batch panel link to the last downloaded file"
+  },
+  "batchCounts": {
+    "message": "已下载 $DOWNLOADED$ / $COLLECTED$ · 已跳过 $SKIPPED$ · 失败 $FAILED$",
+    "description": "Batch panel status while running",
+    "placeholders": {
+      "downloaded": { "content": "$1", "example": "12" },
+      "collected": { "content": "$2", "example": "40" },
+      "skipped": { "content": "$3", "example": "2" },
+      "failed": { "content": "$4", "example": "1" }
+    }
+  },
+  "batchFinished": {
+    "message": "已完成：$COUNT$",
+    "description": "Batch panel status when the run completed",
+    "placeholders": {
+      "count": { "content": "$1", "example": "40" }
+    }
+  },
+  "batchStopped": {
+    "message": "已停止 · 已下载 $COUNT$",
+    "description": "Batch panel status when the user stopped the run",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "batchRateLimited": {
+    "message": "X 正在限制请求 — 已暂停",
+    "description": "Batch panel note when X returns 429 or error 88"
+  },
+  "batchCapped": {
+    "message": "已达 $COUNT$ 个文件 — 可继续下一批",
+    "description": "Batch panel note at the 500-file cap",
+    "placeholders": {
+      "count": { "content": "$1", "example": "500" }
+    }
+  },
+  "batchSkippedFailed": {
+    "message": "已跳过 $SKIPPED$ · 失败 $FAILED$",
+    "description": "Batch panel note after a finished run that skipped or failed some files",
+    "placeholders": {
+      "skipped": { "content": "$1", "example": "2" },
+      "failed": { "content": "$2", "example": "1" }
+    }
+  },
+  "batchResume": {
+    "message": "继续",
+    "description": "Batch panel toggle tooltip while paused"
+  },
+  "batchPause": {
+    "message": "暂停",
+    "description": "Batch panel toggle tooltip while running"
+  },
+  "batchNeedMediaTab": {
+    "message": "请先打开主页的媒体标签。",
+    "description": "Error returned when batch start is not on /media"
   }
 }

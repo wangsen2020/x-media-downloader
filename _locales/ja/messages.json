@@ -6,5 +6,719 @@
   "extDesc": {
     "message": "X（Twitter）の動画・GIF・画像をワンクリックで保存。画質選択、保存フォルダ指定、ダウンロード履歴に対応。無料・追跡なし。",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  },
+  "popupTitle": {
+    "message": "X Media Downloader",
+    "description": "Popup title and brand name; also the options page heading"
+  },
+  "popupOpenOptions": {
+    "message": "履歴と設定",
+    "description": "Popup gear button tooltip"
+  },
+  "popupOpenTweet": {
+    "message": "ポストを開く ↗",
+    "description": "Popup link to the current tweet"
+  },
+  "popupQuality": {
+    "message": "画質",
+    "description": "Popup quality dropdown label"
+  },
+  "popupDownloadVideo": {
+    "message": "動画をダウンロード",
+    "description": "Popup primary download button"
+  },
+  "popupEmpty": {
+    "message": "動画付きのポストまたはタイムラインを開き、もう一度拡張機能をクリックしてください。",
+    "description": "Popup empty state when the tab is not a tweet with video"
+  },
+  "popupEmptyTip": {
+    "message": "タイムラインの各動画の下にもダウンロードボタンが表示されます。",
+    "description": "Popup empty-state hint about the timeline button"
+  },
+  "popupRecent": {
+    "message": "最近のダウンロード",
+    "description": "Popup recent-downloads heading"
+  },
+  "popupViewAll": {
+    "message": "すべて表示",
+    "description": "Popup link that opens the history page"
+  },
+  "popupQualityDefault": {
+    "message": "デフォルト（$LABEL$）",
+    "description": "Popup quality option that uses the user's default setting",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "Highest available"
+      }
+    }
+  },
+  "popupBatchDownload": {
+    "message": "@$USER$ のメディアをすべてダウンロード",
+    "description": "Popup button on a profile Media tab",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "NASA"
+      }
+    }
+  },
+  "popupBatchStarting": {
+    "message": "開始しています…",
+    "description": "Popup status while a batch is starting"
+  },
+  "popupBatchAlready": {
+    "message": "このページで一括ダウンロードが実行中です。",
+    "description": "Popup status when a batch is already in progress"
+  },
+  "popupBatchStarted": {
+    "message": "開始しました。進捗はページ上に表示されます。",
+    "description": "Popup status after a batch starts successfully"
+  },
+  "popupBatchFailed": {
+    "message": "開始できませんでした。",
+    "description": "Popup status when a batch could not start"
+  },
+  "popupBatchReload": {
+    "message": "メディアページを再読み込みしてから再試行してください。",
+    "description": "Popup status when the content script is missing"
+  },
+  "popupPreparing": {
+    "message": "準備しています…",
+    "description": "Popup status while a single download is prepared"
+  },
+  "popupDownloading": {
+    "message": "$LABEL$ をダウンロード中 → $FILE$",
+    "description": "Popup status after a download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "popupFailed": {
+    "message": "失敗: $ERROR$",
+    "description": "Popup status when a download fails",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "network error"
+      }
+    }
+  },
+  "popupUnknownError": {
+    "message": "不明なエラー",
+    "description": "Popup fallback when a failure has no message"
+  },
+  "popupRecentEmpty": {
+    "message": "まだありません。",
+    "description": "Popup recent list when history is empty"
+  },
+  "popupNoCapture": {
+    "message": "動画をまだ取得できていません。動画を画面内にスクロールするかポストを開き、このポップアップを開き直してください。",
+    "description": "Popup status when the tweet is known but variants are not cached"
+  },
+  "popupVariant": {
+    "message": "$HEIGHT$p · $BITRATE$ kbps",
+    "description": "Popup quality option for a captured rendition",
+    "placeholders": {
+      "height": {
+        "content": "$1",
+        "example": "720"
+      },
+      "bitrate": {
+        "content": "$2",
+        "example": "2176"
+      }
+    }
+  },
+  "popupVariantBitrate": {
+    "message": "$BITRATE$ kbps",
+    "description": "Quality option when only bitrate is known",
+    "placeholders": {
+      "bitrate": {
+        "content": "$1",
+        "example": "2176"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "X Media Downloader — 履歴と設定",
+    "description": "Options page document title"
+  },
+  "optionsSub": {
+    "message": "ダウンロード履歴と設定",
+    "description": "Options page subtitle"
+  },
+  "optionsTabHistory": {
+    "message": "履歴",
+    "description": "Options page History tab"
+  },
+  "optionsTabSettings": {
+    "message": "設定",
+    "description": "Options page Settings tab"
+  },
+  "optionsSearchPlaceholder": {
+    "message": "@ユーザー、ファイル名、ポストIDで絞り込み",
+    "description": "History search field placeholder"
+  },
+  "optionsStateAll": {
+    "message": "すべての状態",
+    "description": "History state filter: no filter"
+  },
+  "optionsStateComplete": {
+    "message": "完了",
+    "description": "History state: finished download"
+  },
+  "optionsStateInProgress": {
+    "message": "進行中",
+    "description": "History state: download still running"
+  },
+  "optionsStateInterrupted": {
+    "message": "中断",
+    "description": "History state: download failed or was cancelled"
+  },
+  "optionsExport": {
+    "message": "JSONを書き出す",
+    "description": "History toolbar: export button"
+  },
+  "optionsImport": {
+    "message": "JSONを読み込む",
+    "description": "History toolbar: import button"
+  },
+  "optionsClearDownloaded": {
+    "message": "ダウンロード済み記録を消去",
+    "description": "History toolbar: clear the duplicate-detection index"
+  },
+  "optionsClearAll": {
+    "message": "すべて消去",
+    "description": "History toolbar: delete all history rows"
+  },
+  "optionsClearFilter": {
+    "message": "絞り込みを解除",
+    "description": "History batch-filter banner action"
+  },
+  "optionsHistoryEmpty": {
+    "message": "まだダウンロードがありません。Xを開き、動画を見つけてダウンロードしてください。",
+    "description": "History empty state"
+  },
+  "optionsQualityLabel": {
+    "message": "デフォルトの動画画質",
+    "description": "Settings: default quality field label"
+  },
+  "optionsQualityHint": {
+    "message": "ポップアップとタイムラインのダウンロードボタンで使います。Xは動画ごとに数種類の画質を配信します。「指定以下で最も近い」は目標を超えない最高のものを選びます。",
+    "description": "Settings: default quality help text"
+  },
+  "optionsQualityHighest": {
+    "message": "最高画質",
+    "description": "Quality option: best rendition X served"
+  },
+  "optionsQuality1080": {
+    "message": "1080p（またはそれ以下で最も近い）",
+    "description": "Quality option: 1080p target"
+  },
+  "optionsQuality720": {
+    "message": "720p（またはそれ以下で最も近い）",
+    "description": "Quality option: 720p target"
+  },
+  "optionsQuality480": {
+    "message": "480p（またはそれ以下で最も近い）",
+    "description": "Quality option: 480p target"
+  },
+  "optionsQuality360": {
+    "message": "360p（またはそれ以下で最も近い）",
+    "description": "Quality option: 360p target"
+  },
+  "optionsQualityLowest": {
+    "message": "最低画質",
+    "description": "Quality option: smallest rendition X served"
+  },
+  "optionsFilenameLabel": {
+    "message": "ファイル名テンプレート",
+    "description": "Settings: filename template field label"
+  },
+  "optionsFilenameTokens": {
+    "message": "トークン:",
+    "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
+  },
+  "optionsFilenameHint": {
+    "message": "{text} はポスト先頭の数語、{datetime}/{date}/{time} は投稿時刻です。.mp4 は自動で付きます。/ はサブフォルダです。デフォルト（{user}_{text}_{datetime}_{id}）はポストIDにより常に一意です。",
+    "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
+  },
+  "optionsFilenamePreview": {
+    "message": "プレビュー:",
+    "description": "Settings: live filename preview label"
+  },
+  "optionsSubfolderLabel": {
+    "message": "サブフォルダ（ブラウザのダウンロードフォルダ内）",
+    "description": "Settings: subfolder field label"
+  },
+  "optionsSubfolderHint": {
+    "message": "Chrome拡張機能はブラウザのダウンロードフォルダ内にしか保存できません。相対パスのサブフォルダが「保存先を選ぶ」に最も近い方法です。空欄ならダウンロードフォルダ直下に保存します。毎回場所を選ぶ場合は下のオプションをオンにしてください。",
+    "description": "Settings: subfolder help text before the token chips"
+  },
+  "optionsSubfolderHintNest": {
+    "message": "/ でフォルダを入れ子にできます。",
+    "description": "Settings: subfolder help text after the token chips. Keep the / character."
+  },
+  "optionsSubfolderPlaceholder": {
+    "message": "X Media Downloader/{user}",
+    "description": "Settings: subfolder input placeholder; keep as a disk path"
+  },
+  "optionsSubfolderPreview": {
+    "message": "フォルダのプレビュー:",
+    "description": "Settings: live folder preview label"
+  },
+  "optionsAskWhere": {
+    "message": "毎回保存先を確認する",
+    "description": "Settings: save-as checkbox label"
+  },
+  "optionsAskWhereHint": {
+    "message": "ダウンロードごとにChromeの「名前を付けて保存」ダイアログが開き、任意のフォルダを選べます。上のサブフォルダより優先されます。",
+    "description": "Settings: save-as checkbox help text"
+  },
+  "optionsShowButton": {
+    "message": "タイムラインの動画の下にダウンロードボタンを表示",
+    "description": "Settings: timeline button checkbox"
+  },
+  "optionsClickImmediate": {
+    "message": "タイムラインのボタンで直ちにダウンロード",
+    "description": "Settings: click-downloads-immediately checkbox"
+  },
+  "optionsClickImmediateHint": {
+    "message": "オフにすると、ボタンは画質メニューを開きます（Altクリックは常にメニュー）。",
+    "description": "Settings: click-downloads-immediately help text"
+  },
+  "optionsMaxHistory": {
+    "message": "最大保存数",
+    "description": "Settings: history size field label"
+  },
+  "optionsMaxHistoryHint": {
+    "message": "この件数を超えた古い履歴は削除されます。",
+    "description": "Settings: history size help text"
+  },
+  "optionsReset": {
+    "message": "設定をデフォルトに戻す",
+    "description": "Settings: reset button"
+  },
+  "optionsSaved": {
+    "message": "保存しました",
+    "description": "Settings: brief saved confirmation"
+  },
+  "optionsFooter": {
+    "message": "オープンソース · MIT",
+    "description": "Options page footer license line"
+  },
+  "optionsRepo": {
+    "message": "GitHubリポジトリ",
+    "description": "Options page footer repository link"
+  },
+  "optionsBatchShowingFrom": {
+    "message": "$DATE$ の一括ダウンロードを表示中",
+    "description": "History banner when filtering by a batch id",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "Apr 2, 2026, 03:15 PM"
+      }
+    }
+  },
+  "optionsBatchShowing": {
+    "message": "一括ダウンロードを表示中",
+    "description": "History banner when the batch has no timestamps"
+  },
+  "optionsHistoryCount": {
+    "message": "$SHOWN$ / $TOTAL$",
+    "description": "History count of filtered vs all rows",
+    "placeholders": {
+      "shown": {
+        "content": "$1",
+        "example": "4"
+      },
+      "total": {
+        "content": "$2",
+        "example": "20"
+      }
+    }
+  },
+  "optionsOpenTweet": {
+    "message": "ポストを開く",
+    "description": "History card action"
+  },
+  "optionsShowFile": {
+    "message": "ファイルを表示",
+    "description": "History card action that reveals the file in the folder"
+  },
+  "optionsRedownload": {
+    "message": "再ダウンロード",
+    "description": "History card action"
+  },
+  "optionsRedownloadStarted": {
+    "message": "開始",
+    "description": "History re-download button while the new download begins"
+  },
+  "optionsRedownloadFailed": {
+    "message": "失敗",
+    "description": "History re-download button after a failure"
+  },
+  "optionsRemove": {
+    "message": "削除",
+    "description": "History card action that deletes the row"
+  },
+  "optionsConfirmClearAll": {
+    "message": "履歴 $COUNT$ 件をすべて削除しますか。ダウンロード済みファイルは削除されません。",
+    "description": "Confirm dialog before clearing history",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
+  "optionsConfirmClearDownloaded": {
+    "message": "ダウンロード済み記録を消去しますか。以前保存したメディアは再ダウンロードされます。ファイルと履歴は残ります。",
+    "description": "Confirm dialog before clearing the duplicate index"
+  },
+  "optionsImportOk": {
+    "message": "読み込みました。履歴は $COUNT$ 件です。",
+    "description": "Alert after a successful history import",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "optionsImportFailed": {
+    "message": "読み込みに失敗しました: $ERROR$",
+    "description": "Alert after a failed history import",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Unexpected token"
+      }
+    }
+  },
+  "optionsFolderDownloads": {
+    "message": "ダウンロード",
+    "description": "Fallback folder name when a file is saved at the Downloads root"
+  },
+  "optionsTypeVideo": {
+    "message": "動画",
+    "description": "History card media type"
+  },
+  "optionsTypeImage": {
+    "message": "画像",
+    "description": "History card media type"
+  },
+  "optionsByteB": {
+    "message": "B",
+    "description": "File size unit: bytes"
+  },
+  "optionsByteKB": {
+    "message": "KB",
+    "description": "File size unit: kilobytes"
+  },
+  "optionsByteMB": {
+    "message": "MB",
+    "description": "File size unit: megabytes"
+  },
+  "optionsByteGB": {
+    "message": "GB",
+    "description": "File size unit: gigabytes"
+  },
+  "toastDownloadAgain": {
+    "message": "再ダウンロード",
+    "description": "Toast retry button tooltip and aria-label"
+  },
+  "toastPreparing": {
+    "message": "ダウンロードを準備しています…",
+    "description": "Toast shown while a timeline download is prepared"
+  },
+  "toastFailed": {
+    "message": "ダウンロードに失敗しました: $ERROR$",
+    "description": "Toast when chrome.runtime.lastError is set",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Extension context invalidated"
+      }
+    }
+  },
+  "toastAlready": {
+    "message": "ダウンロード済み · $DATE$",
+    "description": "Toast when this media is already in the downloaded index",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "4/2/2026"
+      }
+    }
+  },
+  "toastNoImage": {
+    "message": "このポストの画像をダウンロードできません",
+    "description": "Toast when an image download fails with no extra error"
+  },
+  "toastNoVideo": {
+    "message": "このポストの動画をダウンロードできません",
+    "description": "Toast when a video download fails with no extra error"
+  },
+  "toastNoImageError": {
+    "message": "このポストの画像をダウンロードできません（$ERROR$）",
+    "description": "Toast when an image download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No images on this tweet."
+      }
+    }
+  },
+  "toastNoVideoError": {
+    "message": "このポストの動画をダウンロードできません（$ERROR$）",
+    "description": "Toast when a video download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No MP4 rendition is available."
+      }
+    }
+  },
+  "toastDownloading": {
+    "message": "$LABEL$ をダウンロード中 → $FILE$",
+    "description": "Toast after a single-file download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "toastDownloadingImages": {
+    "message": "画像をダウンロード中: $COUNT$ → $FOLDER$",
+    "description": "Toast after a multi-image download starts",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "folder": {
+        "content": "$2",
+        "example": "X Media Downloader/NASA"
+      }
+    }
+  },
+  "toastFileFallback": {
+    "message": "ファイル",
+    "description": "Toast fallback when the download has no filename yet"
+  },
+  "toastErrTombstone": {
+    "message": "このポストは公開APIから読めないため、代替取得ができませんでした。動画を画面に表示した状態で再読み込みしてから再試行してください。",
+    "description": "Error when syndication returns a tombstone"
+  },
+  "toastErrHls": {
+    "message": "Xはこの動画をストリーミング再生リスト（HLS）のみで提供しており、1つのファイルとして保存できません。",
+    "description": "Error when the video has no progressive MP4"
+  },
+  "toastErrNoVideo": {
+    "message": "このポストにダウンロードできる動画がありません。",
+    "description": "Error when resolveMedia returns nothing"
+  },
+  "toastErrNoMp4": {
+    "message": "利用できるMP4がありません。",
+    "description": "Error when captured variants include no mp4"
+  },
+  "toastErrNoImages": {
+    "message": "このポストに画像がありません。",
+    "description": "Error when an image download has no URLs"
+  },
+  "toastErrImagesFailed": {
+    "message": "画像のダウンロードがすべて失敗しました。",
+    "description": "Error when every image in a set failed to start"
+  },
+  "toastErrHistoryGone": {
+    "message": "履歴が見つかりません。",
+    "description": "Error when re-download cannot find the history row"
+  },
+  "toastErrSyndication": {
+    "message": "公開APIが $STATUS$ を返しました。",
+    "description": "Error when the syndication request is not OK",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
+    }
+  },
+  "toastImageLabel": {
+    "message": "画像: $COUNT$",
+    "description": "Download label for an image set, shown in popup status",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImages": {
+    "message": "画像をダウンロード（$COUNT$）",
+    "description": "Quality menu title for a multi-image post",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImage": {
+    "message": "画像をダウンロード",
+    "description": "Quality menu title and timeline button aria-label for an image"
+  },
+  "menuDownloadVideo": {
+    "message": "動画をダウンロード",
+    "description": "Quality menu title and timeline button aria-label for a video"
+  },
+  "menuOriginal": {
+    "message": "原寸",
+    "description": "Image size menu: orig"
+  },
+  "menuLarge": {
+    "message": "大",
+    "description": "Image size menu: large"
+  },
+  "menuMedium": {
+    "message": "中",
+    "description": "Image size menu: medium"
+  },
+  "menuHighest": {
+    "message": "最高",
+    "description": "Video quality menu fallback when variants are not captured yet"
+  },
+  "tipDownloadVideo": {
+    "message": "動画をダウンロード · 右クリックで画質を選択",
+    "description": "Timeline button tooltip for a video"
+  },
+  "tipDownloadMixed": {
+    "message": "動画と画像をダウンロード · 右クリックで画質を選択",
+    "description": "Timeline button tooltip for a post with video and images"
+  },
+  "ariaDownloadMixed": {
+    "message": "動画と画像をダウンロード",
+    "description": "Timeline button aria-label for a post with video and images"
+  },
+  "tipDownloadImage": {
+    "message": "画像をダウンロード · 右クリックで画質を選択",
+    "description": "Timeline button tooltip for an image"
+  },
+  "batchAria": {
+    "message": "一括ダウンロード",
+    "description": "In-page batch panel aria-label"
+  },
+  "batchStop": {
+    "message": "停止",
+    "description": "Batch panel stop button tooltip and aria-label"
+  },
+  "batchContinue": {
+    "message": "次の一括を続行",
+    "description": "Batch panel continue button tooltip and aria-label"
+  },
+  "batchHistory": {
+    "message": "履歴で見る",
+    "description": "Batch panel link to filtered history"
+  },
+  "batchFolder": {
+    "message": "フォルダを開く",
+    "description": "Batch panel link to the last downloaded file"
+  },
+  "batchCounts": {
+    "message": "ダウンロード済み $DOWNLOADED$ / $COLLECTED$ · スキップ $SKIPPED$ · 失敗 $FAILED$",
+    "description": "Batch panel status while running",
+    "placeholders": {
+      "downloaded": {
+        "content": "$1",
+        "example": "12"
+      },
+      "collected": {
+        "content": "$2",
+        "example": "40"
+      },
+      "skipped": {
+        "content": "$3",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$4",
+        "example": "1"
+      }
+    }
+  },
+  "batchFinished": {
+    "message": "完了: $COUNT$",
+    "description": "Batch panel status when the run completed",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "40"
+      }
+    }
+  },
+  "batchStopped": {
+    "message": "停止 · $COUNT$ をダウンロード済み",
+    "description": "Batch panel status when the user stopped the run",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "batchRateLimited": {
+    "message": "Xがリクエストを制限しています — 一時停止中",
+    "description": "Batch panel note when X returns 429 or error 88"
+  },
+  "batchCapped": {
+    "message": "$COUNT$ 件に達しました — 次の一括を続行できます",
+    "description": "Batch panel note at the 500-file cap",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "batchSkippedFailed": {
+    "message": "スキップ $SKIPPED$ · 失敗 $FAILED$",
+    "description": "Batch panel note after a finished run that skipped or failed some files",
+    "placeholders": {
+      "skipped": {
+        "content": "$1",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "batchResume": {
+    "message": "再開",
+    "description": "Batch panel toggle tooltip while paused"
+  },
+  "batchPause": {
+    "message": "一時停止",
+    "description": "Batch panel toggle tooltip while running"
+  },
+  "batchNeedMediaTab": {
+    "message": "先にプロフィールのメディアタブを開いてください。",
+    "description": "Error returned when batch start is not on /media"
   }
 }

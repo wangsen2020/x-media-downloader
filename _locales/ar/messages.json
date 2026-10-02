@@ -6,5 +6,719 @@
   "extDesc": {
     "message": "حمّل مقاطع الفيديو وصور GIF والصور من إكس (تويتر) بنقرة واحدة. اختر الجودة ومجلد الحفظ، مع سجل تحميل كامل. مجاني وبدون تتبع.",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  },
+  "popupTitle": {
+    "message": "X Media Downloader",
+    "description": "Popup title and brand name; also the options page heading"
+  },
+  "popupOpenOptions": {
+    "message": "السجل والإعدادات",
+    "description": "Popup gear button tooltip"
+  },
+  "popupOpenTweet": {
+    "message": "فتح المنشور ↗",
+    "description": "Popup link to the current tweet"
+  },
+  "popupQuality": {
+    "message": "الجودة",
+    "description": "Popup quality dropdown label"
+  },
+  "popupDownloadVideo": {
+    "message": "تنزيل الفيديو",
+    "description": "Popup primary download button"
+  },
+  "popupEmpty": {
+    "message": "افتح منشورًا (أو الخط الزمني) يحتوي على فيديو، ثم انقر على الإضافة مرة أخرى.",
+    "description": "Popup empty state when the tab is not a tweet with video"
+  },
+  "popupEmptyTip": {
+    "message": "يظهر زر تنزيل أيضًا أسفل كل فيديو في الخلاصة.",
+    "description": "Popup empty-state hint about the timeline button"
+  },
+  "popupRecent": {
+    "message": "التنزيلات الأخيرة",
+    "description": "Popup recent-downloads heading"
+  },
+  "popupViewAll": {
+    "message": "عرض الكل",
+    "description": "Popup link that opens the history page"
+  },
+  "popupQualityDefault": {
+    "message": "الافتراضي ($LABEL$)",
+    "description": "Popup quality option that uses the user's default setting",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "Highest available"
+      }
+    }
+  },
+  "popupBatchDownload": {
+    "message": "تنزيل كل الوسائط من @$USER$",
+    "description": "Popup button on a profile Media tab",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "NASA"
+      }
+    }
+  },
+  "popupBatchStarting": {
+    "message": "جارٍ البدء…",
+    "description": "Popup status while a batch is starting"
+  },
+  "popupBatchAlready": {
+    "message": "هناك تنزيل دفعي قيد التشغيل في هذه الصفحة.",
+    "description": "Popup status when a batch is already in progress"
+  },
+  "popupBatchStarted": {
+    "message": "بدأ. يبقى التقدّم على الصفحة.",
+    "description": "Popup status after a batch starts successfully"
+  },
+  "popupBatchFailed": {
+    "message": "تعذّر البدء.",
+    "description": "Popup status when a batch could not start"
+  },
+  "popupBatchReload": {
+    "message": "أعد تحميل صفحة الوسائط ثم حاول مرة أخرى.",
+    "description": "Popup status when the content script is missing"
+  },
+  "popupPreparing": {
+    "message": "جارٍ التحضير…",
+    "description": "Popup status while a single download is prepared"
+  },
+  "popupDownloading": {
+    "message": "جارٍ تنزيل $LABEL$ → $FILE$",
+    "description": "Popup status after a download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "popupFailed": {
+    "message": "فشل: $ERROR$",
+    "description": "Popup status when a download fails",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "network error"
+      }
+    }
+  },
+  "popupUnknownError": {
+    "message": "خطأ غير معروف",
+    "description": "Popup fallback when a failure has no message"
+  },
+  "popupRecentEmpty": {
+    "message": "لا شيء بعد.",
+    "description": "Popup recent list when history is empty"
+  },
+  "popupNoCapture": {
+    "message": "لم يُلتقط الفيديو بعد. مرّر الفيديو إلى الشاشة أو افتح المنشور ثم أعد فتح هذه النافذة.",
+    "description": "Popup status when the tweet is known but variants are not cached"
+  },
+  "popupVariant": {
+    "message": "$HEIGHT$p · $BITRATE$ kbps",
+    "description": "Popup quality option for a captured rendition",
+    "placeholders": {
+      "height": {
+        "content": "$1",
+        "example": "720"
+      },
+      "bitrate": {
+        "content": "$2",
+        "example": "2176"
+      }
+    }
+  },
+  "popupVariantBitrate": {
+    "message": "$BITRATE$ kbps",
+    "description": "Quality option when only bitrate is known",
+    "placeholders": {
+      "bitrate": {
+        "content": "$1",
+        "example": "2176"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "X Media Downloader — السجل والإعدادات",
+    "description": "Options page document title"
+  },
+  "optionsSub": {
+    "message": "سجل التنزيلات والإعدادات",
+    "description": "Options page subtitle"
+  },
+  "optionsTabHistory": {
+    "message": "السجل",
+    "description": "Options page History tab"
+  },
+  "optionsTabSettings": {
+    "message": "الإعدادات",
+    "description": "Options page Settings tab"
+  },
+  "optionsSearchPlaceholder": {
+    "message": "تصفية حسب @المستخدم أو اسم الملف أو معرّف المنشور…",
+    "description": "History search field placeholder"
+  },
+  "optionsStateAll": {
+    "message": "كل الحالات",
+    "description": "History state filter: no filter"
+  },
+  "optionsStateComplete": {
+    "message": "مكتمل",
+    "description": "History state: finished download"
+  },
+  "optionsStateInProgress": {
+    "message": "جارٍ",
+    "description": "History state: download still running"
+  },
+  "optionsStateInterrupted": {
+    "message": "متوقف",
+    "description": "History state: download failed or was cancelled"
+  },
+  "optionsExport": {
+    "message": "تصدير JSON",
+    "description": "History toolbar: export button"
+  },
+  "optionsImport": {
+    "message": "استيراد JSON",
+    "description": "History toolbar: import button"
+  },
+  "optionsClearDownloaded": {
+    "message": "مسح سجلات المنزّل",
+    "description": "History toolbar: clear the duplicate-detection index"
+  },
+  "optionsClearAll": {
+    "message": "مسح الكل",
+    "description": "History toolbar: delete all history rows"
+  },
+  "optionsClearFilter": {
+    "message": "إزالة التصفية",
+    "description": "History batch-filter banner action"
+  },
+  "optionsHistoryEmpty": {
+    "message": "لا تنزيلات بعد. افتح X وابحث عن فيديو ثم اضغط تنزيل.",
+    "description": "History empty state"
+  },
+  "optionsQualityLabel": {
+    "message": "جودة الفيديو الافتراضية",
+    "description": "Settings: default quality field label"
+  },
+  "optionsQualityHint": {
+    "message": "تُستخدم في النافذة المنبثقة وزر التنزيل في الخط الزمني. يقدّم X بضع نُسخ ثابتة لكل فيديو؛ «الأقرب دون تجاوز» تختار الأفضل الذي لا يتجاوز هدفك.",
+    "description": "Settings: default quality help text"
+  },
+  "optionsQualityHighest": {
+    "message": "أعلى جودة متاحة",
+    "description": "Quality option: best rendition X served"
+  },
+  "optionsQuality1080": {
+    "message": "1080p (أو الأقرب دون تجاوز)",
+    "description": "Quality option: 1080p target"
+  },
+  "optionsQuality720": {
+    "message": "720p (أو الأقرب دون تجاوز)",
+    "description": "Quality option: 720p target"
+  },
+  "optionsQuality480": {
+    "message": "480p (أو الأقرب دون تجاوز)",
+    "description": "Quality option: 480p target"
+  },
+  "optionsQuality360": {
+    "message": "360p (أو الأقرب دون تجاوز)",
+    "description": "Quality option: 360p target"
+  },
+  "optionsQualityLowest": {
+    "message": "أدنى جودة متاحة",
+    "description": "Quality option: smallest rendition X served"
+  },
+  "optionsFilenameLabel": {
+    "message": "قالب اسم الملف",
+    "description": "Settings: filename template field label"
+  },
+  "optionsFilenameTokens": {
+    "message": "الرموز:",
+    "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
+  },
+  "optionsFilenameHint": {
+    "message": "{text} أوائل كلمات المنشور؛ {datetime}/{date}/{time} تستخدم وقت النشر. تُضاف .mp4 تلقائيًا؛ / ينشئ مجلدات فرعية. الافتراضي ({user}_{text}_{datetime}_{id}) فريد دائمًا — معرّف المنشور يمنع التكرار.",
+    "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
+  },
+  "optionsFilenamePreview": {
+    "message": "معاينة:",
+    "description": "Settings: live filename preview label"
+  },
+  "optionsSubfolderLabel": {
+    "message": "مجلد فرعي (داخل مجلد التنزيلات)",
+    "description": "Settings: subfolder field label"
+  },
+  "optionsSubfolderHint": {
+    "message": "لا تستطيع إضافات Chrome الكتابة إلا داخل مجلد تنزيلات المتصفح. المجلد الفرعي النسبي أقرب خيار إلى «اختيار مسار». اتركه فارغًا للحفظ مباشرة في التنزيلات. لاختيار الموقع في كل مرة، فعّل الخيار أدناه.",
+    "description": "Settings: subfolder help text before the token chips"
+  },
+  "optionsSubfolderHintNest": {
+    "message": "استخدم / لتداخل المجلدات.",
+    "description": "Settings: subfolder help text after the token chips. Keep the / character."
+  },
+  "optionsSubfolderPlaceholder": {
+    "message": "X Media Downloader/{user}",
+    "description": "Settings: subfolder input placeholder; keep as a disk path"
+  },
+  "optionsSubfolderPreview": {
+    "message": "معاينة المجلد:",
+    "description": "Settings: live folder preview label"
+  },
+  "optionsAskWhere": {
+    "message": "السؤال عن مكان الحفظ في كل مرة",
+    "description": "Settings: save-as checkbox label"
+  },
+  "optionsAskWhereHint": {
+    "message": "يفتح مربع «حفظ باسم» في Chrome لكل تنزيل لاختيار أي مجلد. يتجاوز المجلد الفرعي أعلاه.",
+    "description": "Settings: save-as checkbox help text"
+  },
+  "optionsShowButton": {
+    "message": "إظهار زر تنزيل أسفل الفيديوهات في الخط الزمني",
+    "description": "Settings: timeline button checkbox"
+  },
+  "optionsClickImmediate": {
+    "message": "زر الخط الزمني ينزّل فورًا",
+    "description": "Settings: click-downloads-immediately checkbox"
+  },
+  "optionsClickImmediateHint": {
+    "message": "عند إيقافه، يفتح الزر قائمة جودة. (Alt مع النقر يفتح القائمة دائمًا.)",
+    "description": "Settings: click-downloads-immediately help text"
+  },
+  "optionsMaxHistory": {
+    "message": "الاحتفاظ بحد أقصى",
+    "description": "Settings: history size field label"
+  },
+  "optionsMaxHistoryHint": {
+    "message": "تُحذف أقدم إدخالات السجل فوق هذا العدد.",
+    "description": "Settings: history size help text"
+  },
+  "optionsReset": {
+    "message": "استعادة الإعدادات الافتراضية",
+    "description": "Settings: reset button"
+  },
+  "optionsSaved": {
+    "message": "تم الحفظ",
+    "description": "Settings: brief saved confirmation"
+  },
+  "optionsFooter": {
+    "message": "مفتوح المصدر · MIT",
+    "description": "Options page footer license line"
+  },
+  "optionsRepo": {
+    "message": "مستودع GitHub",
+    "description": "Options page footer repository link"
+  },
+  "optionsBatchShowingFrom": {
+    "message": "عرض الدفعة من $DATE$",
+    "description": "History banner when filtering by a batch id",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "Apr 2, 2026, 03:15 PM"
+      }
+    }
+  },
+  "optionsBatchShowing": {
+    "message": "عرض الدفعة",
+    "description": "History banner when the batch has no timestamps"
+  },
+  "optionsHistoryCount": {
+    "message": "$SHOWN$ من $TOTAL$",
+    "description": "History count of filtered vs all rows",
+    "placeholders": {
+      "shown": {
+        "content": "$1",
+        "example": "4"
+      },
+      "total": {
+        "content": "$2",
+        "example": "20"
+      }
+    }
+  },
+  "optionsOpenTweet": {
+    "message": "فتح المنشور",
+    "description": "History card action"
+  },
+  "optionsShowFile": {
+    "message": "إظهار الملف",
+    "description": "History card action that reveals the file in the folder"
+  },
+  "optionsRedownload": {
+    "message": "إعادة التنزيل",
+    "description": "History card action"
+  },
+  "optionsRedownloadStarted": {
+    "message": "بدأ",
+    "description": "History re-download button while the new download begins"
+  },
+  "optionsRedownloadFailed": {
+    "message": "فشل",
+    "description": "History re-download button after a failure"
+  },
+  "optionsRemove": {
+    "message": "إزالة",
+    "description": "History card action that deletes the row"
+  },
+  "optionsConfirmClearAll": {
+    "message": "حذف كل إدخالات السجل البالغ عددها $COUNT$؟ لن تُحذف الملفات المنزّلة.",
+    "description": "Confirm dialog before clearing history",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
+  "optionsConfirmClearDownloaded": {
+    "message": "مسح سجلات المنزّل؟ ستُنزَّل الوسائط المحفوظة سابقًا مرة أخرى. تبقى الملفات والسجل.",
+    "description": "Confirm dialog before clearing the duplicate index"
+  },
+  "optionsImportOk": {
+    "message": "تم الاستيراد. السجل يحتوي الآن على $COUNT$.",
+    "description": "Alert after a successful history import",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "optionsImportFailed": {
+    "message": "فشل الاستيراد: $ERROR$",
+    "description": "Alert after a failed history import",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Unexpected token"
+      }
+    }
+  },
+  "optionsFolderDownloads": {
+    "message": "التنزيلات",
+    "description": "Fallback folder name when a file is saved at the Downloads root"
+  },
+  "optionsTypeVideo": {
+    "message": "فيديو",
+    "description": "History card media type"
+  },
+  "optionsTypeImage": {
+    "message": "صورة",
+    "description": "History card media type"
+  },
+  "optionsByteB": {
+    "message": "B",
+    "description": "File size unit: bytes"
+  },
+  "optionsByteKB": {
+    "message": "KB",
+    "description": "File size unit: kilobytes"
+  },
+  "optionsByteMB": {
+    "message": "MB",
+    "description": "File size unit: megabytes"
+  },
+  "optionsByteGB": {
+    "message": "GB",
+    "description": "File size unit: gigabytes"
+  },
+  "toastDownloadAgain": {
+    "message": "إعادة التنزيل",
+    "description": "Toast retry button tooltip and aria-label"
+  },
+  "toastPreparing": {
+    "message": "جارٍ تحضير التنزيل…",
+    "description": "Toast shown while a timeline download is prepared"
+  },
+  "toastFailed": {
+    "message": "فشل التنزيل: $ERROR$",
+    "description": "Toast when chrome.runtime.lastError is set",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Extension context invalidated"
+      }
+    }
+  },
+  "toastAlready": {
+    "message": "تم التنزيل سابقًا · $DATE$",
+    "description": "Toast when this media is already in the downloaded index",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "4/2/2026"
+      }
+    }
+  },
+  "toastNoImage": {
+    "message": "تعذّر العثور على صورة قابلة للتنزيل في هذا المنشور",
+    "description": "Toast when an image download fails with no extra error"
+  },
+  "toastNoVideo": {
+    "message": "تعذّر العثور على فيديو قابل للتنزيل في هذا المنشور",
+    "description": "Toast when a video download fails with no extra error"
+  },
+  "toastNoImageError": {
+    "message": "تعذّر العثور على صورة قابلة للتنزيل في هذا المنشور ($ERROR$)",
+    "description": "Toast when an image download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No images on this tweet."
+      }
+    }
+  },
+  "toastNoVideoError": {
+    "message": "تعذّر العثور على فيديو قابل للتنزيل في هذا المنشور ($ERROR$)",
+    "description": "Toast when a video download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No MP4 rendition is available."
+      }
+    }
+  },
+  "toastDownloading": {
+    "message": "جارٍ تنزيل $LABEL$ → $FILE$",
+    "description": "Toast after a single-file download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "toastDownloadingImages": {
+    "message": "جارٍ تنزيل الصور: $COUNT$ → $FOLDER$",
+    "description": "Toast after a multi-image download starts",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "folder": {
+        "content": "$2",
+        "example": "X Media Downloader/NASA"
+      }
+    }
+  },
+  "toastFileFallback": {
+    "message": "ملف",
+    "description": "Toast fallback when the download has no filename yet"
+  },
+  "toastErrTombstone": {
+    "message": "هذا المنشور غير ظاهر لواجهة برمجة التطبيقات العامة، لذا تعذّر على الطريقة الاحتياطية قراءته. أعد تحميل الصفحة والفيديو ظاهر على الشاشة ثم حاول مرة أخرى.",
+    "description": "Error when syndication returns a tombstone"
+  },
+  "toastErrHls": {
+    "message": "يوفّر X هذا الفيديو كقائمة تشغيل بث (HLS) فقط، ولا يمكن حفظه كملف واحد.",
+    "description": "Error when the video has no progressive MP4"
+  },
+  "toastErrNoVideo": {
+    "message": "لا يوجد فيديو قابل للتنزيل في هذا المنشور.",
+    "description": "Error when resolveMedia returns nothing"
+  },
+  "toastErrNoMp4": {
+    "message": "لا تتوفر نسخة MP4.",
+    "description": "Error when captured variants include no mp4"
+  },
+  "toastErrNoImages": {
+    "message": "لا توجد صور في هذا المنشور.",
+    "description": "Error when an image download has no URLs"
+  },
+  "toastErrImagesFailed": {
+    "message": "فشلت كل تنزيلات الصور.",
+    "description": "Error when every image in a set failed to start"
+  },
+  "toastErrHistoryGone": {
+    "message": "إدخال السجل غير موجود.",
+    "description": "Error when re-download cannot find the history row"
+  },
+  "toastErrSyndication": {
+    "message": "أعادت واجهة برمجة التطبيقات العامة $STATUS$.",
+    "description": "Error when the syndication request is not OK",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
+    }
+  },
+  "toastImageLabel": {
+    "message": "صور: $COUNT$",
+    "description": "Download label for an image set, shown in popup status",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImages": {
+    "message": "تنزيل الصور ($COUNT$)",
+    "description": "Quality menu title for a multi-image post",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImage": {
+    "message": "تنزيل الصورة",
+    "description": "Quality menu title and timeline button aria-label for an image"
+  },
+  "menuDownloadVideo": {
+    "message": "تنزيل الفيديو",
+    "description": "Quality menu title and timeline button aria-label for a video"
+  },
+  "menuOriginal": {
+    "message": "الحجم الأصلي",
+    "description": "Image size menu: orig"
+  },
+  "menuLarge": {
+    "message": "كبير",
+    "description": "Image size menu: large"
+  },
+  "menuMedium": {
+    "message": "متوسط",
+    "description": "Image size menu: medium"
+  },
+  "menuHighest": {
+    "message": "الأعلى",
+    "description": "Video quality menu fallback when variants are not captured yet"
+  },
+  "tipDownloadVideo": {
+    "message": "تنزيل الفيديو · انقر بالزر الأيمن لاختيار الجودة",
+    "description": "Timeline button tooltip for a video"
+  },
+  "tipDownloadMixed": {
+    "message": "تنزيل الفيديو والصور · انقر بالزر الأيمن لاختيار الجودة",
+    "description": "Timeline button tooltip for a post with video and images"
+  },
+  "ariaDownloadMixed": {
+    "message": "تنزيل الفيديو والصور",
+    "description": "Timeline button aria-label for a post with video and images"
+  },
+  "tipDownloadImage": {
+    "message": "تنزيل الصورة · انقر بالزر الأيمن لاختيار الجودة",
+    "description": "Timeline button tooltip for an image"
+  },
+  "batchAria": {
+    "message": "تنزيل دفعي",
+    "description": "In-page batch panel aria-label"
+  },
+  "batchStop": {
+    "message": "إيقاف",
+    "description": "Batch panel stop button tooltip and aria-label"
+  },
+  "batchContinue": {
+    "message": "متابعة الدفعة التالية",
+    "description": "Batch panel continue button tooltip and aria-label"
+  },
+  "batchHistory": {
+    "message": "عرض في السجل",
+    "description": "Batch panel link to filtered history"
+  },
+  "batchFolder": {
+    "message": "فتح المجلد",
+    "description": "Batch panel link to the last downloaded file"
+  },
+  "batchCounts": {
+    "message": "تم تنزيل $DOWNLOADED$ / $COLLECTED$ · تُخطّي $SKIPPED$ · فشل $FAILED$",
+    "description": "Batch panel status while running",
+    "placeholders": {
+      "downloaded": {
+        "content": "$1",
+        "example": "12"
+      },
+      "collected": {
+        "content": "$2",
+        "example": "40"
+      },
+      "skipped": {
+        "content": "$3",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$4",
+        "example": "1"
+      }
+    }
+  },
+  "batchFinished": {
+    "message": "اكتمل: $COUNT$",
+    "description": "Batch panel status when the run completed",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "40"
+      }
+    }
+  },
+  "batchStopped": {
+    "message": "توقف · تم تنزيل $COUNT$",
+    "description": "Batch panel status when the user stopped the run",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "batchRateLimited": {
+    "message": "X يقيّد الطلبات — متوقف مؤقتًا",
+    "description": "Batch panel note when X returns 429 or error 88"
+  },
+  "batchCapped": {
+    "message": "تم بلوغ $COUNT$ ملفًا — يمكن متابعة الدفعة التالية",
+    "description": "Batch panel note at the 500-file cap",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "batchSkippedFailed": {
+    "message": "تُخطّي $SKIPPED$ · فشل $FAILED$",
+    "description": "Batch panel note after a finished run that skipped or failed some files",
+    "placeholders": {
+      "skipped": {
+        "content": "$1",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "batchResume": {
+    "message": "استئناف",
+    "description": "Batch panel toggle tooltip while paused"
+  },
+  "batchPause": {
+    "message": "إيقاف مؤقت",
+    "description": "Batch panel toggle tooltip while running"
+  },
+  "batchNeedMediaTab": {
+    "message": "افتح أولاً علامة تبويب الوسائط في الملف الشخصي.",
+    "description": "Error returned when batch start is not on /media"
   }
 }

@@ -18,6 +18,7 @@ import {
   getDownloaded,
   recordDownloaded,
 } from './lib/store.js';
+import { t } from './lib/i18n.js';
 
 const SESSION_PREFIX = 'media:';
 const DOWNLOAD_TAB_PREFIX = 'dl:';
@@ -60,7 +61,7 @@ async function fromSyndication(tweetId) {
   const res = await fetch(syndicationUrl(tweetId), {
     headers: { accept: 'application/json' },
   });
-  if (!res.ok) throw new Error(`syndication ${res.status}`);
+  if (!res.ok) throw new Error(t('toastErrSyndication', res.status));
   const json = await res.json();
 
   // This endpoint is unauthenticated, so anything the author or X restricts to
@@ -68,10 +69,7 @@ async function fromSyndication(tweetId) {
   // itself plays fine for the logged-in user, which makes a generic "no media"
   // message actively misleading - say what actually happened.
   if (json && (json.tombstone || json.__typename === 'TweetTombstone')) {
-    throw new Error(
-      'This post is not visible to the public API, so the fallback could not ' +
-        'read it. Reload the page with the video on screen and try again.',
-    );
+    throw new Error(t('toastErrTombstone'));
   }
 
   const records = parseSyndicationResponse(json, tweetId);
@@ -82,10 +80,7 @@ async function fromSyndication(tweetId) {
   if (!records.length) {
     const details = [].concat(json?.mediaDetails || [], json?.video ? [json.video] : []);
     if (details.some((d) => (d.video_info || d).variants)) {
-      throw new Error(
-        'X only provides this video as a streaming playlist (HLS), which cannot ' +
-          'be saved as a single file.',
-      );
+      throw new Error(t('toastErrHls'));
     }
   }
 
@@ -165,13 +160,13 @@ async function attachDownload(entry, downloadId) {
 async function startDownload(req, origin) {
   const settings = await getSettings();
   const record = await resolveMedia(req.tweetId, req.record);
-  if (!record) throw new Error('No downloadable video found for this post.');
+  if (!record) throw new Error(t('toastErrNoVideo'));
 
   const variants =
     record.variants && record.variants.length
       ? record.variants
       : parseVariants(record.video_info || {});
-  if (!variants.length) throw new Error('no mp4 variants');
+  if (!variants.length) throw new Error(t('toastErrNoMp4'));
 
   const quality = req.quality || settings.defaultQuality;
   const chosen = pickVariant(variants, quality) || variants[0];
@@ -251,7 +246,7 @@ async function startImageDownload(req, origin) {
       return size === 'orig' ? best : best.replace(/([?&]name=)[^&]+/, `$1${size}`);
     });
   const uniq = [...new Set(urls)];
-  if (!uniq.length) throw new Error('no images on this tweet');
+  if (!uniq.length) throw new Error(t('toastErrNoImages'));
 
   // Check the whole photo set before starting, so retrying cannot copy a partial set.
   for (const url of uniq) {
@@ -316,16 +311,16 @@ async function startImageDownload(req, origin) {
     }
   }
 
-  if (!started) throw new Error('all image downloads failed');
+  if (!started) throw new Error(t('toastErrImagesFailed'));
   const folder = firstName.includes('/')
     ? firstName.slice(0, firstName.lastIndexOf('/'))
-    : 'Downloads';
+    : t('optionsFolderDownloads');
   return {
     ok: true,
     count: started,
     filename: firstName,
     folder,
-    label: `${started} image${started > 1 ? 's' : ''}`,
+    label: t('toastImageLabel', started),
     downloadId: downloadIds[0],
     downloadIds,
   };
@@ -404,7 +399,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     getHistory()
       .then((list) => {
         const rec = list.find((r) => r.key === msg.key);
-        if (!rec) throw new Error('history entry gone');
+        if (!rec) throw new Error(t('toastErrHistoryGone'));
         if (rec.type === 'image') {
           return startImageDownload({
             force: true,

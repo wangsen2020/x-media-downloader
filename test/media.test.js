@@ -36,3 +36,16 @@ test('subfolder expands the same tokens as filenames before cleaning segments', 
     'root/x-video/bad_name/123.mp4');
   assert.equal(sanitizePart('a\x00b\x1fc'), 'a_b_c');
 });
+
+
+test('filename sanitizer removes invisible characters before collapsing separators', () => {
+  assert.equal(sanitizePart('dai_hui30485_\u2764\uFE0F_\u6e2f\u53f0'), 'dai_hui30485_\u6e2f\u53f0');
+  const invisible = '\u200B\u200C\u200D\u2060\uFEFF\u200E\u202E';
+  const selectors = Array.from({ length: 16 }, (_, i) => String.fromCharCode(0xFE00 + i)).join('');
+  assert.equal(sanitizePart(`a_${invisible}${selectors}_b`), 'a_b');
+  assert.equal(sanitizePart('caf\u00e9_e\u0301'), 'caf\u00e9_e\u0301');
+  const ctx = { user: 'dai_hui30485', id: '123', text: '\u2764\uFE0F \u6e2f\u53f0', count: 1 };
+  for (const ext of ['mp4', 'jpg']) {
+    assert.equal(buildFilename('{user}_{text}_{id}', { ...ctx, ext }), `dai_hui30485_\u6e2f\u53f0_123.${ext}`);
+  }
+});

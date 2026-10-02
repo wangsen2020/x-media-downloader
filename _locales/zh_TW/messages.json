@@ -1,10 +1,10 @@
 {
   "extName": {
-    "message": "Descargar Videos de X (Twitter) – Video, GIF y Fotos",
+    "message": "X（推特）影片下載器 - 一鍵儲存影片/GIF動圖/圖片",
     "description": "Extension name shown in the browser and the Chrome Web Store"
   },
   "extDesc": {
-    "message": "Descarga videos, GIFs y fotos de X (Twitter) con un clic. Elige calidad y carpeta, con historial. Gratis, sin rastreo.",
+    "message": "一鍵下載 X（推特）影片、GIF 動圖和原圖。可選畫質與儲存目錄，自帶完整下載紀錄。免費，不追蹤、不收集資料。",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
   },
   "popupTitle": {
@@ -12,39 +12,39 @@
     "description": "Popup title and brand name; also the options page heading"
   },
   "popupOpenOptions": {
-    "message": "Historial y configuración",
+    "message": "歷史與設定",
     "description": "Popup gear button tooltip"
   },
   "popupOpenTweet": {
-    "message": "abrir post ↗",
+    "message": "開啟貼文 ↗",
     "description": "Popup link to the current tweet"
   },
   "popupQuality": {
-    "message": "Calidad",
+    "message": "畫質",
     "description": "Popup quality dropdown label"
   },
   "popupDownloadVideo": {
-    "message": "Descargar video",
+    "message": "下載影片",
     "description": "Popup primary download button"
   },
   "popupEmpty": {
-    "message": "Abre un post (o el inicio) que tenga un video y vuelve a hacer clic en la extensión.",
+    "message": "開啟含影片的貼文或時間軸，然後再點一次擴充功能。",
     "description": "Popup empty state when the tab is not a tweet with video"
   },
   "popupEmptyTip": {
-    "message": "También aparece un botón Descargar debajo de cada video del feed.",
+    "message": "時間軸裡每個影片下方也會出現下載按鈕。",
     "description": "Popup empty-state hint about the timeline button"
   },
   "popupRecent": {
-    "message": "Descargas recientes",
+    "message": "最近下載",
     "description": "Popup recent-downloads heading"
   },
   "popupViewAll": {
-    "message": "Ver todo",
+    "message": "查看全部",
     "description": "Popup link that opens the history page"
   },
   "popupQualityDefault": {
-    "message": "Predeterminada ($LABEL$)",
+    "message": "預設（$LABEL$）",
     "description": "Popup quality option that uses the user's default setting",
     "placeholders": {
       "label": {
@@ -54,7 +54,7 @@
     }
   },
   "popupBatchDownload": {
-    "message": "Descargar todos los contenidos de @$USER$",
+    "message": "下載 @$USER$ 的全部媒體",
     "description": "Popup button on a profile Media tab",
     "placeholders": {
       "user": {
@@ -64,31 +64,31 @@
     }
   },
   "popupBatchStarting": {
-    "message": "Iniciando…",
+    "message": "正在開始…",
     "description": "Popup status while a batch is starting"
   },
   "popupBatchAlready": {
-    "message": "Ya hay una descarga por lotes en esta página.",
+    "message": "此頁面已有批次下載進行中。",
     "description": "Popup status when a batch is already in progress"
   },
   "popupBatchStarted": {
-    "message": "Inició. El progreso se muestra en la página.",
+    "message": "已開始。進度顯示在頁面上。",
     "description": "Popup status after a batch starts successfully"
   },
   "popupBatchFailed": {
-    "message": "No se pudo iniciar.",
+    "message": "無法開始。",
     "description": "Popup status when a batch could not start"
   },
   "popupBatchReload": {
-    "message": "Vuelve a cargar la página de contenidos e inténtalo de nuevo.",
+    "message": "請重新整理媒體頁後再試。",
     "description": "Popup status when the content script is missing"
   },
   "popupPreparing": {
-    "message": "Preparando…",
+    "message": "正在準備…",
     "description": "Popup status while a single download is prepared"
   },
   "popupDownloading": {
-    "message": "Descargando $LABEL$ → $FILE$",
+    "message": "正在下載 $LABEL$ → $FILE$",
     "description": "Popup status after a download starts",
     "placeholders": {
       "label": {
@@ -102,7 +102,7 @@
     }
   },
   "popupFailed": {
-    "message": "Error: $ERROR$",
+    "message": "失敗：$ERROR$",
     "description": "Popup status when a download fails",
     "placeholders": {
       "error": {
@@ -112,15 +112,15 @@
     }
   },
   "popupUnknownError": {
-    "message": "error desconocido",
+    "message": "未知錯誤",
     "description": "Popup fallback when a failure has no message"
   },
   "popupRecentEmpty": {
-    "message": "Todavía nada.",
+    "message": "尚無紀錄。",
     "description": "Popup recent list when history is empty"
   },
   "popupNoCapture": {
-    "message": "Aún no se capturó el video. Desplázalo a la vista o abre el post y vuelve a abrir esta ventana.",
+    "message": "尚未擷取影片。請將影片捲入畫面或開啟貼文，然後再打開此視窗。",
     "description": "Popup status when the tweet is known but variants are not cached"
   },
   "popupVariant": {
@@ -148,123 +148,123 @@
     }
   },
   "optionsTitle": {
-    "message": "X Media Downloader — Historial y configuración",
+    "message": "X Media Downloader — 歷史與設定",
     "description": "Options page document title"
   },
   "optionsSub": {
-    "message": "Historial de descargas y configuración",
+    "message": "下載紀錄與設定",
     "description": "Options page subtitle"
   },
   "optionsTabHistory": {
-    "message": "Historial",
+    "message": "歷史",
     "description": "Options page History tab"
   },
   "optionsTabSettings": {
-    "message": "Configuración",
+    "message": "設定",
     "description": "Options page Settings tab"
   },
   "optionsSearchPlaceholder": {
-    "message": "Filtrar por @usuario, archivo, id del post…",
+    "message": "依 @使用者、檔名、貼文 ID 篩選",
     "description": "History search field placeholder"
   },
   "optionsStateAll": {
-    "message": "Todos los estados",
+    "message": "全部狀態",
     "description": "History state filter: no filter"
   },
   "optionsStateComplete": {
-    "message": "Completada",
+    "message": "已完成",
     "description": "History state: finished download"
   },
   "optionsStateInProgress": {
-    "message": "En curso",
+    "message": "進行中",
     "description": "History state: download still running"
   },
   "optionsStateInterrupted": {
-    "message": "Interrumpida",
+    "message": "已中斷",
     "description": "History state: download failed or was cancelled"
   },
   "optionsExport": {
-    "message": "Exportar JSON",
+    "message": "匯出 JSON",
     "description": "History toolbar: export button"
   },
   "optionsImport": {
-    "message": "Importar JSON",
+    "message": "匯入 JSON",
     "description": "History toolbar: import button"
   },
   "optionsClearDownloaded": {
-    "message": "Borrar registros de descargados",
+    "message": "清除已下載紀錄",
     "description": "History toolbar: clear the duplicate-detection index"
   },
   "optionsClearAll": {
-    "message": "Borrar todo",
+    "message": "全部清除",
     "description": "History toolbar: delete all history rows"
   },
   "optionsClearFilter": {
-    "message": "Quitar filtro",
+    "message": "清除篩選",
     "description": "History batch-filter banner action"
   },
   "optionsHistoryEmpty": {
-    "message": "Todavía no hay descargas. Abre X, busca un video y toca Descargar.",
+    "message": "還沒有下載。打開 X，找到影片，點下載。",
     "description": "History empty state"
   },
   "optionsQualityLabel": {
-    "message": "Calidad de video predeterminada",
+    "message": "預設影片畫質",
     "description": "Settings: default quality field label"
   },
   "optionsQualityHint": {
-    "message": "La usan la ventana emergente y el botón Descargar de la cronología. X ofrece unas pocas versiones fijas por video; «la más cercana por debajo» elige la mejor que no pase el objetivo.",
+    "message": "用於彈出視窗和時間軸上的下載按鈕。X 為每則影片提供幾種固定畫質；「最接近且不超過」會選不超過目標的最高一檔。",
     "description": "Settings: default quality help text"
   },
   "optionsQualityHighest": {
-    "message": "La más alta disponible",
+    "message": "最高畫質",
     "description": "Quality option: best rendition X served"
   },
   "optionsQuality1080": {
-    "message": "1080p (o la más cercana por debajo)",
+    "message": "1080p（或最接近的較低畫質）",
     "description": "Quality option: 1080p target"
   },
   "optionsQuality720": {
-    "message": "720p (o la más cercana por debajo)",
+    "message": "720p（或最接近的較低畫質）",
     "description": "Quality option: 720p target"
   },
   "optionsQuality480": {
-    "message": "480p (o la más cercana por debajo)",
+    "message": "480p（或最接近的較低畫質）",
     "description": "Quality option: 480p target"
   },
   "optionsQuality360": {
-    "message": "360p (o la más cercana por debajo)",
+    "message": "360p（或最接近的較低畫質）",
     "description": "Quality option: 360p target"
   },
   "optionsQualityLowest": {
-    "message": "La más baja disponible",
+    "message": "最低畫質",
     "description": "Quality option: smallest rendition X served"
   },
   "optionsFilenameLabel": {
-    "message": "Plantilla de nombre de archivo",
+    "message": "檔名範本",
     "description": "Settings: filename template field label"
   },
   "optionsFilenameTokens": {
-    "message": "Variables:",
+    "message": "代號：",
     "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
   },
   "optionsFilenameHint": {
-    "message": "{text} son las primeras palabras del post; {datetime}/{date}/{time} usan la hora de publicación. Se agrega .mp4 automáticamente; / crea subcarpetas. El valor predeterminado ({user}_{text}_{datetime}_{id}) siempre es único: el id del post evita duplicados.",
+    "message": "{text} 取貼文開頭幾個詞；{datetime}/{date}/{time} 使用發文時間。會自動加上 .mp4；/ 表示子資料夾。預設（{user}_{text}_{datetime}_{id}）始終唯一 — 貼文 ID 可避免重名。",
     "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
   },
   "optionsFilenamePreview": {
-    "message": "Vista previa:",
+    "message": "預覽：",
     "description": "Settings: live filename preview label"
   },
   "optionsSubfolderLabel": {
-    "message": "Subcarpeta (dentro de la carpeta Descargas)",
+    "message": "子資料夾（位於瀏覽器下載目錄內）",
     "description": "Settings: subfolder field label"
   },
   "optionsSubfolderHint": {
-    "message": "Las extensiones de Chrome solo pueden guardar dentro de la carpeta Descargas del navegador. Una subcarpeta relativa es lo más cercano a «elegir una ruta». Déjala vacía para guardar directo en Descargas. Para elegir la ubicación cada vez, activa la opción de abajo.",
+    "message": "Chrome 擴充功能只能寫入瀏覽器的下載目錄。相對子資料夾是最接近「自選路徑」的做法。留空則直接存到下載目錄。若要每次自選位置，請開啟下方選項。",
     "description": "Settings: subfolder help text before the token chips"
   },
   "optionsSubfolderHintNest": {
-    "message": "Usa / para anidar carpetas.",
+    "message": "用 / 巢狀資料夾。",
     "description": "Settings: subfolder help text after the token chips. Keep the / character."
   },
   "optionsSubfolderPlaceholder": {
@@ -272,55 +272,55 @@
     "description": "Settings: subfolder input placeholder; keep as a disk path"
   },
   "optionsSubfolderPreview": {
-    "message": "Vista previa de carpeta:",
+    "message": "資料夾預覽：",
     "description": "Settings: live folder preview label"
   },
   "optionsAskWhere": {
-    "message": "Preguntar dónde guardar cada vez",
+    "message": "每次下載都詢問儲存位置",
     "description": "Settings: save-as checkbox label"
   },
   "optionsAskWhereHint": {
-    "message": "Abre el cuadro «Guardar como» de Chrome en cada descarga para elegir cualquier carpeta de la computadora. Reemplaza la subcarpeta de arriba.",
+    "message": "每次下載會開啟 Chrome 的「另存新檔」對話框，可選任意資料夾。將覆寫上方的子資料夾。",
     "description": "Settings: save-as checkbox help text"
   },
   "optionsShowButton": {
-    "message": "Mostrar un botón Descargar debajo de los videos de la cronología",
+    "message": "在時間軸影片下方顯示下載按鈕",
     "description": "Settings: timeline button checkbox"
   },
   "optionsClickImmediate": {
-    "message": "El botón de la cronología descarga de inmediato",
+    "message": "時間軸按鈕立即下載",
     "description": "Settings: click-downloads-immediately checkbox"
   },
   "optionsClickImmediateHint": {
-    "message": "Si está desactivado, el botón abre un menú de calidad. (Alt+clic siempre abre el menú.)",
+    "message": "關閉後，按鈕會開啟畫質選單。（按住 Alt 點擊一律開啟選單。）",
     "description": "Settings: click-downloads-immediately help text"
   },
   "optionsMaxHistory": {
-    "message": "Conservar como máximo",
+    "message": "最多保留",
     "description": "Settings: history size field label"
   },
   "optionsMaxHistoryHint": {
-    "message": "Las entradas de historial más antiguas por encima de este número se eliminan.",
+    "message": "超出此數量的最舊歷史紀錄將被刪除。",
     "description": "Settings: history size help text"
   },
   "optionsReset": {
-    "message": "Restablecer configuración predeterminada",
+    "message": "還原預設設定",
     "description": "Settings: reset button"
   },
   "optionsSaved": {
-    "message": "Guardado",
+    "message": "已儲存",
     "description": "Settings: brief saved confirmation"
   },
   "optionsFooter": {
-    "message": "Código abierto · MIT",
+    "message": "開源 · MIT",
     "description": "Options page footer license line"
   },
   "optionsRepo": {
-    "message": "Repositorio de GitHub",
+    "message": "GitHub 存放庫",
     "description": "Options page footer repository link"
   },
   "optionsBatchShowingFrom": {
-    "message": "Mostrando lote del $DATE$",
+    "message": "正在顯示 $DATE$ 的批次",
     "description": "History banner when filtering by a batch id",
     "placeholders": {
       "date": {
@@ -330,11 +330,11 @@
     }
   },
   "optionsBatchShowing": {
-    "message": "Mostrando lote",
+    "message": "正在顯示批次",
     "description": "History banner when the batch has no timestamps"
   },
   "optionsHistoryCount": {
-    "message": "$SHOWN$ de $TOTAL$",
+    "message": "$SHOWN$ / $TOTAL$",
     "description": "History count of filtered vs all rows",
     "placeholders": {
       "shown": {
@@ -348,31 +348,31 @@
     }
   },
   "optionsOpenTweet": {
-    "message": "Abrir post",
+    "message": "開啟貼文",
     "description": "History card action"
   },
   "optionsShowFile": {
-    "message": "Mostrar archivo",
+    "message": "顯示檔案",
     "description": "History card action that reveals the file in the folder"
   },
   "optionsRedownload": {
-    "message": "Volver a descargar",
+    "message": "重新下載",
     "description": "History card action"
   },
   "optionsRedownloadStarted": {
-    "message": "Inició",
+    "message": "已開始",
     "description": "History re-download button while the new download begins"
   },
   "optionsRedownloadFailed": {
-    "message": "Error",
+    "message": "失敗",
     "description": "History re-download button after a failure"
   },
   "optionsRemove": {
-    "message": "Quitar",
+    "message": "移除",
     "description": "History card action that deletes the row"
   },
   "optionsConfirmClearAll": {
-    "message": "¿Eliminar las $COUNT$ entradas del historial? No se borran los archivos descargados.",
+    "message": "刪除全部 $COUNT$ 筆歷史紀錄？不會刪除已下載的檔案。",
     "description": "Confirm dialog before clearing history",
     "placeholders": {
       "count": {
@@ -382,11 +382,11 @@
     }
   },
   "optionsConfirmClearDownloaded": {
-    "message": "¿Borrar los registros de descargados? Los contenidos guardados antes se volverán a descargar. Se conservan archivos e historial.",
+    "message": "清除已下載紀錄？先前儲存過的媒體將再次下載。檔案和歷史紀錄會保留。",
     "description": "Confirm dialog before clearing the duplicate index"
   },
   "optionsImportOk": {
-    "message": "Importado. El historial ahora tiene $COUNT$.",
+    "message": "已匯入。歷史紀錄現有 $COUNT$ 筆。",
     "description": "Alert after a successful history import",
     "placeholders": {
       "count": {
@@ -396,7 +396,7 @@
     }
   },
   "optionsImportFailed": {
-    "message": "Error al importar: $ERROR$",
+    "message": "匯入失敗：$ERROR$",
     "description": "Alert after a failed history import",
     "placeholders": {
       "error": {
@@ -406,15 +406,15 @@
     }
   },
   "optionsFolderDownloads": {
-    "message": "Descargas",
+    "message": "下載",
     "description": "Fallback folder name when a file is saved at the Downloads root"
   },
   "optionsTypeVideo": {
-    "message": "video",
+    "message": "影片",
     "description": "History card media type"
   },
   "optionsTypeImage": {
-    "message": "imagen",
+    "message": "圖片",
     "description": "History card media type"
   },
   "optionsByteB": {
@@ -434,15 +434,15 @@
     "description": "File size unit: gigabytes"
   },
   "toastDownloadAgain": {
-    "message": "Volver a descargar",
+    "message": "重新下載",
     "description": "Toast retry button tooltip and aria-label"
   },
   "toastPreparing": {
-    "message": "Preparando la descarga…",
+    "message": "正在準備下載…",
     "description": "Toast shown while a timeline download is prepared"
   },
   "toastFailed": {
-    "message": "Error al descargar: $ERROR$",
+    "message": "下載失敗：$ERROR$",
     "description": "Toast when chrome.runtime.lastError is set",
     "placeholders": {
       "error": {
@@ -452,7 +452,7 @@
     }
   },
   "toastAlready": {
-    "message": "Ya se descargó · $DATE$",
+    "message": "已經下載過 · $DATE$",
     "description": "Toast when this media is already in the downloaded index",
     "placeholders": {
       "date": {
@@ -462,15 +462,15 @@
     }
   },
   "toastNoImage": {
-    "message": "No se encontró una imagen para descargar en este post",
+    "message": "找不到可下載的圖片",
     "description": "Toast when an image download fails with no extra error"
   },
   "toastNoVideo": {
-    "message": "No se encontró un video para descargar en este post",
+    "message": "找不到可下載的影片",
     "description": "Toast when a video download fails with no extra error"
   },
   "toastNoImageError": {
-    "message": "No se encontró una imagen para descargar en este post ($ERROR$)",
+    "message": "找不到可下載的圖片（$ERROR$）",
     "description": "Toast when an image download fails with a reason",
     "placeholders": {
       "error": {
@@ -480,7 +480,7 @@
     }
   },
   "toastNoVideoError": {
-    "message": "No se encontró un video para descargar en este post ($ERROR$)",
+    "message": "找不到可下載的影片（$ERROR$）",
     "description": "Toast when a video download fails with a reason",
     "placeholders": {
       "error": {
@@ -490,7 +490,7 @@
     }
   },
   "toastDownloading": {
-    "message": "Descargando $LABEL$ → $FILE$",
+    "message": "正在下載 $LABEL$ → $FILE$",
     "description": "Toast after a single-file download starts",
     "placeholders": {
       "label": {
@@ -504,7 +504,7 @@
     }
   },
   "toastDownloadingImages": {
-    "message": "Descargando imágenes: $COUNT$ → $FOLDER$",
+    "message": "正在下載圖片：$COUNT$ → $FOLDER$",
     "description": "Toast after a multi-image download starts",
     "placeholders": {
       "count": {
@@ -518,39 +518,39 @@
     }
   },
   "toastFileFallback": {
-    "message": "archivo",
+    "message": "檔案",
     "description": "Toast fallback when the download has no filename yet"
   },
   "toastErrTombstone": {
-    "message": "Este post no es visible para la API pública, así que el método alternativo no pudo leerlo. Recarga la página con el video en pantalla e inténtalo de nuevo.",
+    "message": "此貼文對公開介面不可見，備援方式無法讀取。請讓影片顯示在畫面上後重新整理再試。",
     "description": "Error when syndication returns a tombstone"
   },
   "toastErrHls": {
-    "message": "X solo ofrece este video como lista de reproducción en streaming (HLS), que no se puede guardar como un solo archivo.",
+    "message": "X 僅以串流播放清單（HLS）提供此影片，無法存成單一檔案。",
     "description": "Error when the video has no progressive MP4"
   },
   "toastErrNoVideo": {
-    "message": "No hay un video para descargar en esta publicación.",
+    "message": "此貼文沒有可下載的影片。",
     "description": "Error when resolveMedia returns nothing"
   },
   "toastErrNoMp4": {
-    "message": "No hay una versión MP4 disponible.",
+    "message": "沒有可用的 MP4 版本。",
     "description": "Error when captured variants include no mp4"
   },
   "toastErrNoImages": {
-    "message": "No hay imágenes en este post.",
+    "message": "此貼文沒有圖片。",
     "description": "Error when an image download has no URLs"
   },
   "toastErrImagesFailed": {
-    "message": "Fallaron todas las descargas de imágenes.",
+    "message": "圖片下載全部失敗。",
     "description": "Error when every image in a set failed to start"
   },
   "toastErrHistoryGone": {
-    "message": "La entrada del historial ya no existe.",
+    "message": "歷史紀錄已不存在。",
     "description": "Error when re-download cannot find the history row"
   },
   "toastErrSyndication": {
-    "message": "La API pública devolvió $STATUS$.",
+    "message": "公開介面傳回 $STATUS$。",
     "description": "Error when the syndication request is not OK",
     "placeholders": {
       "status": {
@@ -560,7 +560,7 @@
     }
   },
   "toastImageLabel": {
-    "message": "Imágenes: $COUNT$",
+    "message": "圖片：$COUNT$",
     "description": "Download label for an image set, shown in popup status",
     "placeholders": {
       "count": {
@@ -570,7 +570,7 @@
     }
   },
   "menuDownloadImages": {
-    "message": "Descargar imágenes ($COUNT$)",
+    "message": "下載圖片（$COUNT$）",
     "description": "Quality menu title for a multi-image post",
     "placeholders": {
       "count": {
@@ -580,67 +580,67 @@
     }
   },
   "menuDownloadImage": {
-    "message": "Descargar imagen",
+    "message": "下載圖片",
     "description": "Quality menu title and timeline button aria-label for an image"
   },
   "menuDownloadVideo": {
-    "message": "Descargar video",
+    "message": "下載影片",
     "description": "Quality menu title and timeline button aria-label for a video"
   },
   "menuOriginal": {
-    "message": "Tamaño original",
+    "message": "原圖",
     "description": "Image size menu: orig"
   },
   "menuLarge": {
-    "message": "Grande",
+    "message": "大圖",
     "description": "Image size menu: large"
   },
   "menuMedium": {
-    "message": "Mediano",
+    "message": "中圖",
     "description": "Image size menu: medium"
   },
   "menuHighest": {
-    "message": "Máxima",
+    "message": "最高",
     "description": "Video quality menu fallback when variants are not captured yet"
   },
   "tipDownloadVideo": {
-    "message": "Descargar video · clic derecho para elegir calidad",
+    "message": "下載影片 · 右鍵選擇畫質",
     "description": "Timeline button tooltip for a video"
   },
   "tipDownloadMixed": {
-    "message": "Descargar video e imágenes · clic derecho para elegir calidad",
+    "message": "下載影片和圖片 · 右鍵選擇畫質",
     "description": "Timeline button tooltip for a post with video and images"
   },
   "ariaDownloadMixed": {
-    "message": "Descargar video e imágenes",
+    "message": "下載影片和圖片",
     "description": "Timeline button aria-label for a post with video and images"
   },
   "tipDownloadImage": {
-    "message": "Descargar imagen · clic derecho para elegir calidad",
+    "message": "下載圖片 · 右鍵選擇畫質",
     "description": "Timeline button tooltip for an image"
   },
   "batchAria": {
-    "message": "Descarga por lotes",
+    "message": "批次下載",
     "description": "In-page batch panel aria-label"
   },
   "batchStop": {
-    "message": "Detener",
+    "message": "停止",
     "description": "Batch panel stop button tooltip and aria-label"
   },
   "batchContinue": {
-    "message": "Continuar el siguiente lote",
+    "message": "繼續下一批",
     "description": "Batch panel continue button tooltip and aria-label"
   },
   "batchHistory": {
-    "message": "Ver en el historial",
+    "message": "在歷史中查看",
     "description": "Batch panel link to filtered history"
   },
   "batchFolder": {
-    "message": "Abrir carpeta",
+    "message": "開啟資料夾",
     "description": "Batch panel link to the last downloaded file"
   },
   "batchCounts": {
-    "message": "Descargados $DOWNLOADED$ / $COLLECTED$ · omitidos $SKIPPED$ · fallidos $FAILED$",
+    "message": "已下載 $DOWNLOADED$ / $COLLECTED$ · 已略過 $SKIPPED$ · 失敗 $FAILED$",
     "description": "Batch panel status while running",
     "placeholders": {
       "downloaded": {
@@ -662,7 +662,7 @@
     }
   },
   "batchFinished": {
-    "message": "Terminado: $COUNT$",
+    "message": "已完成：$COUNT$",
     "description": "Batch panel status when the run completed",
     "placeholders": {
       "count": {
@@ -672,7 +672,7 @@
     }
   },
   "batchStopped": {
-    "message": "Detenido · $COUNT$ descargados",
+    "message": "已停止 · 已下載 $COUNT$",
     "description": "Batch panel status when the user stopped the run",
     "placeholders": {
       "count": {
@@ -682,11 +682,11 @@
     }
   },
   "batchRateLimited": {
-    "message": "X está limitando las solicitudes — en pausa",
+    "message": "X 正在限制請求 — 已暫停",
     "description": "Batch panel note when X returns 429 or error 88"
   },
   "batchCapped": {
-    "message": "Se llegó a $COUNT$ archivos — pueden continuar el siguiente lote",
+    "message": "已達 $COUNT$ 個檔案 — 可繼續下一批",
     "description": "Batch panel note at the 500-file cap",
     "placeholders": {
       "count": {
@@ -696,7 +696,7 @@
     }
   },
   "batchSkippedFailed": {
-    "message": "omitidos $SKIPPED$ · fallidos $FAILED$",
+    "message": "已略過 $SKIPPED$ · 失敗 $FAILED$",
     "description": "Batch panel note after a finished run that skipped or failed some files",
     "placeholders": {
       "skipped": {
@@ -710,15 +710,15 @@
     }
   },
   "batchResume": {
-    "message": "Reanudar",
+    "message": "繼續",
     "description": "Batch panel toggle tooltip while paused"
   },
   "batchPause": {
-    "message": "Pausar",
+    "message": "暫停",
     "description": "Batch panel toggle tooltip while running"
   },
   "batchNeedMediaTab": {
-    "message": "Primero abran la pestaña Multimedia del perfil.",
+    "message": "請先開啟個人檔案的媒體分頁。",
     "description": "Error returned when batch start is not on /media"
   }
 }

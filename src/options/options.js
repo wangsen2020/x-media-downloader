@@ -9,6 +9,11 @@ import {
   clearDownloaded,
   importHistory,
 } from '../lib/store.js';
+import { t, localize, uiLang, qualityLabel } from '../lib/i18n.js';
+
+document.documentElement.lang = uiLang();
+document.documentElement.dir = t('@@bidi_dir') === 'rtl' ? 'rtl' : 'ltr';
+localize();
 
 const $ = (id) => document.getElementById(id);
 const REPO_URL = 'https://github.com/wangsen2020/x-media-downloader';
@@ -68,7 +73,7 @@ const settingEls = {
 for (const opt of QUALITY_OPTIONS) {
   const o = document.createElement('option');
   o.value = opt.value;
-  o.textContent = opt.label;
+  o.textContent = qualityLabel(opt.value);
   settingEls.defaultQuality.appendChild(o);
 }
 
@@ -90,7 +95,7 @@ function updatePreview(s) {
   );
   $('filenamePreview').textContent = filename;
   $('subfolderPreview').textContent = filename.includes('/')
-    ? filename.slice(0, filename.lastIndexOf('/')) : 'Downloads';
+    ? filename.slice(0, filename.lastIndexOf('/')) : t('optionsFolderDownloads');
 }
 
 async function loadSettings() {
@@ -146,7 +151,7 @@ let historyCache = [];
 
 function human(bytes) {
   if (!bytes) return '';
-  const u = ['B', 'KB', 'MB', 'GB'];
+  const u = [t('optionsByteB'), t('optionsByteKB'), t('optionsByteMB'), t('optionsByteGB')];
   let i = 0;
   let n = bytes;
   while (n >= 1024 && i < u.length - 1) {
@@ -158,13 +163,25 @@ function human(bytes) {
 
 function fmtDate(ts) {
   const d = new Date(ts);
-  return d.toLocaleString(undefined, {
+  return d.toLocaleString(uiLang(), {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
   });
+}
+
+function stateLabel(state) {
+  if (state === 'complete') return t('optionsStateComplete');
+  if (state === 'in_progress') return t('optionsStateInProgress');
+  if (state === 'interrupted') return t('optionsStateInterrupted');
+  return state || '';
+}
+
+function typeLabel(type) {
+  if (type === 'image') return t('optionsTypeImage');
+  return t('optionsTypeVideo');
 }
 
 function renderBatchBanner() {
@@ -177,10 +194,10 @@ function renderBatchBanner() {
   const times = historyCache
     .filter((r) => r.batchId === batchFilter)
     .map((r) => r.createdAt)
-    .filter((t) => t);
+    .filter((ts) => ts);
   $('batchWhen').textContent = times.length
-    ? `Showing batch from ${fmtDate(Math.min(...times))}`
-    : 'Showing batch';
+    ? t('optionsBatchShowingFrom', fmtDate(Math.min(...times)))
+    : t('optionsBatchShowing');
 }
 
 function renderHistory() {
@@ -199,7 +216,7 @@ function renderHistory() {
   });
 
   $('historyCount').textContent = rows.length
-    ? `${rows.length} of ${historyCache.length} download${historyCache.length === 1 ? '' : 's'}`
+    ? t('optionsHistoryCount', rows.length, historyCache.length)
     : '';
   $('historyEmpty').hidden = historyCache.length !== 0;
 
@@ -220,14 +237,14 @@ function renderHistory() {
     info.className = 'info';
     info.innerHTML = `
       <div class="who">@${escapeHtml(r.screenName || 'unknown')}
-        <span class="badge ${r.state}">${r.state.replace('_', ' ')}</span></div>
+        <span class="badge ${r.state}">${escapeHtml(stateLabel(r.state))}</span></div>
       <div class="file">${escapeHtml(r.filename || r.url || '')}</div>
       <div class="meta">
-        <span>${r.type || 'video'}</span>
+        <span>${escapeHtml(typeLabel(r.type))}</span>
         <span>${r.height ? r.height + 'p' : (r.quality || '')}</span>
-        ${r.bitrate ? `<span>${Math.round(r.bitrate / 1000)} kbps</span>` : ''}
+        ${r.bitrate ? `<span>${escapeHtml(t('popupVariantBitrate', Math.round(r.bitrate / 1000)))}</span>` : ''}
         ${r.bytes ? `<span>${human(r.bytes)}</span>` : ''}
-        <span>${fmtDate(r.createdAt)}</span>
+        <span>${escapeHtml(fmtDate(r.createdAt))}</span>
         ${r.error ? `<span title="${escapeHtml(r.error)}">⚠ ${escapeHtml(r.error)}</span>` : ''}
       </div>`;
     card.appendChild(info);
@@ -235,17 +252,17 @@ function renderHistory() {
     const actions = document.createElement('div');
     actions.className = 'actions';
     actions.appendChild(
-      mkBtn('Open tweet', () => window.open(r.tweetUrl, '_blank', 'noreferrer')),
+      mkBtn(t('optionsOpenTweet'), () => window.open(r.tweetUrl, '_blank', 'noreferrer')),
     );
     if (r.state === 'complete' && r.downloadId != null) {
       actions.appendChild(
-        mkBtn('Show file', () =>
+        mkBtn(t('optionsShowFile'), () =>
           chrome.runtime.sendMessage({ type: 'xvd:show-file', downloadId: r.downloadId }),
         ),
       );
     }
     actions.appendChild(
-      mkBtn('Re‑download', async (btn) => {
+      mkBtn(t('optionsRedownload'), async (btn) => {
         btn.disabled = true;
         btn.textContent = '…';
         const res = await chrome.runtime.sendMessage({
@@ -255,12 +272,12 @@ function renderHistory() {
           quality: String(r.height || 'highest'),
         });
         btn.disabled = false;
-        btn.textContent = res && res.ok ? 'Started ✓' : 'Failed';
-        setTimeout(() => (btn.textContent = 'Re‑download'), 1500);
+        btn.textContent = res && res.ok ? t('optionsRedownloadStarted') : t('optionsRedownloadFailed');
+        setTimeout(() => (btn.textContent = t('optionsRedownload')), 1500);
       }),
     );
     actions.appendChild(
-      mkBtn('Remove', async () => {
+      mkBtn(t('optionsRemove'), async () => {
         await removeHistoryEntry(r.key);
       }),
     );
@@ -297,12 +314,12 @@ $('clearBatchFilter').addEventListener('click', () => {
 
 $('clearBtn').addEventListener('click', async () => {
   if (!historyCache.length) return;
-  if (!confirm(`Delete all ${historyCache.length} history entries? This does not delete downloaded files.`)) return;
+  if (!confirm(t('optionsConfirmClearAll', historyCache.length))) return;
   await clearHistory();
 });
 
 $('clearDownloadedBtn').addEventListener('click', async () => {
-  if (!confirm('Clear downloaded records? Previously saved media will be downloaded again. Files and history are kept.')) return;
+  if (!confirm(t('optionsConfirmClearDownloaded'))) return;
   await clearDownloaded();
 });
 
@@ -323,9 +340,9 @@ $('importInput').addEventListener('change', async (e) => {
     const parsed = JSON.parse(await file.text());
     const entries = Array.isArray(parsed) ? parsed : parsed.history || [];
     const n = await importHistory(entries, { replace: false });
-    alert(`Imported. History now has ${n} entrie(s).`);
+    alert(t('optionsImportOk', n));
   } catch (err) {
-    alert('Import failed: ' + (err.message || err));
+    alert(t('optionsImportFailed', err.message || err));
   } finally {
     e.target.value = '';
   }

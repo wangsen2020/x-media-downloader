@@ -6,5 +6,719 @@
   "extDesc": {
     "message": "X(트위터)의 동영상, GIF, 사진을 한 번에 저장하세요. 화질 선택, 저장 폴더 지정, 다운로드 기록까지. 무료이며 추적하지 않습니다.",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
+  },
+  "popupTitle": {
+    "message": "X Media Downloader",
+    "description": "Popup title and brand name; also the options page heading"
+  },
+  "popupOpenOptions": {
+    "message": "기록 및 설정",
+    "description": "Popup gear button tooltip"
+  },
+  "popupOpenTweet": {
+    "message": "게시물 열기 ↗",
+    "description": "Popup link to the current tweet"
+  },
+  "popupQuality": {
+    "message": "화질",
+    "description": "Popup quality dropdown label"
+  },
+  "popupDownloadVideo": {
+    "message": "동영상 다운로드",
+    "description": "Popup primary download button"
+  },
+  "popupEmpty": {
+    "message": "동영상이 있는 게시물이나 타임라인을 연 다음 확장 프로그램을 다시 클릭하세요.",
+    "description": "Popup empty state when the tab is not a tweet with video"
+  },
+  "popupEmptyTip": {
+    "message": "타임라인의 각 동영상 아래에도 다운로드 버튼이 나타납니다.",
+    "description": "Popup empty-state hint about the timeline button"
+  },
+  "popupRecent": {
+    "message": "최근 다운로드",
+    "description": "Popup recent-downloads heading"
+  },
+  "popupViewAll": {
+    "message": "모두 보기",
+    "description": "Popup link that opens the history page"
+  },
+  "popupQualityDefault": {
+    "message": "기본값($LABEL$)",
+    "description": "Popup quality option that uses the user's default setting",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "Highest available"
+      }
+    }
+  },
+  "popupBatchDownload": {
+    "message": "@$USER$의 미디어 모두 다운로드",
+    "description": "Popup button on a profile Media tab",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "NASA"
+      }
+    }
+  },
+  "popupBatchStarting": {
+    "message": "시작하는 중…",
+    "description": "Popup status while a batch is starting"
+  },
+  "popupBatchAlready": {
+    "message": "이 페이지에서 일괄 다운로드가 이미 진행 중입니다.",
+    "description": "Popup status when a batch is already in progress"
+  },
+  "popupBatchStarted": {
+    "message": "시작했습니다. 진행 상황은 페이지에 표시됩니다.",
+    "description": "Popup status after a batch starts successfully"
+  },
+  "popupBatchFailed": {
+    "message": "시작할 수 없습니다.",
+    "description": "Popup status when a batch could not start"
+  },
+  "popupBatchReload": {
+    "message": "미디어 페이지를 새로고침한 뒤 다시 시도하세요.",
+    "description": "Popup status when the content script is missing"
+  },
+  "popupPreparing": {
+    "message": "준비 중…",
+    "description": "Popup status while a single download is prepared"
+  },
+  "popupDownloading": {
+    "message": "$LABEL$ 다운로드 중 → $FILE$",
+    "description": "Popup status after a download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "popupFailed": {
+    "message": "실패: $ERROR$",
+    "description": "Popup status when a download fails",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "network error"
+      }
+    }
+  },
+  "popupUnknownError": {
+    "message": "알 수 없는 오류",
+    "description": "Popup fallback when a failure has no message"
+  },
+  "popupRecentEmpty": {
+    "message": "아직 없습니다.",
+    "description": "Popup recent list when history is empty"
+  },
+  "popupNoCapture": {
+    "message": "동영상을 아직 가져오지 못했습니다. 동영상을 화면에 보이게 스크롤하거나 게시물을 연 뒤 이 팝업을 다시 여세요.",
+    "description": "Popup status when the tweet is known but variants are not cached"
+  },
+  "popupVariant": {
+    "message": "$HEIGHT$p · $BITRATE$ kbps",
+    "description": "Popup quality option for a captured rendition",
+    "placeholders": {
+      "height": {
+        "content": "$1",
+        "example": "720"
+      },
+      "bitrate": {
+        "content": "$2",
+        "example": "2176"
+      }
+    }
+  },
+  "popupVariantBitrate": {
+    "message": "$BITRATE$ kbps",
+    "description": "Quality option when only bitrate is known",
+    "placeholders": {
+      "bitrate": {
+        "content": "$1",
+        "example": "2176"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "X Media Downloader — 기록 및 설정",
+    "description": "Options page document title"
+  },
+  "optionsSub": {
+    "message": "다운로드 기록 및 설정",
+    "description": "Options page subtitle"
+  },
+  "optionsTabHistory": {
+    "message": "기록",
+    "description": "Options page History tab"
+  },
+  "optionsTabSettings": {
+    "message": "설정",
+    "description": "Options page Settings tab"
+  },
+  "optionsSearchPlaceholder": {
+    "message": "@사용자, 파일 이름, 게시물 ID로 필터",
+    "description": "History search field placeholder"
+  },
+  "optionsStateAll": {
+    "message": "모든 상태",
+    "description": "History state filter: no filter"
+  },
+  "optionsStateComplete": {
+    "message": "완료",
+    "description": "History state: finished download"
+  },
+  "optionsStateInProgress": {
+    "message": "진행 중",
+    "description": "History state: download still running"
+  },
+  "optionsStateInterrupted": {
+    "message": "중단됨",
+    "description": "History state: download failed or was cancelled"
+  },
+  "optionsExport": {
+    "message": "JSON 내보내기",
+    "description": "History toolbar: export button"
+  },
+  "optionsImport": {
+    "message": "JSON 가져오기",
+    "description": "History toolbar: import button"
+  },
+  "optionsClearDownloaded": {
+    "message": "다운로드 기록 지우기",
+    "description": "History toolbar: clear the duplicate-detection index"
+  },
+  "optionsClearAll": {
+    "message": "모두 지우기",
+    "description": "History toolbar: delete all history rows"
+  },
+  "optionsClearFilter": {
+    "message": "필터 해제",
+    "description": "History batch-filter banner action"
+  },
+  "optionsHistoryEmpty": {
+    "message": "아직 다운로드가 없습니다. X를 열고 동영상을 찾아 다운로드하세요.",
+    "description": "History empty state"
+  },
+  "optionsQualityLabel": {
+    "message": "기본 동영상 화질",
+    "description": "Settings: default quality field label"
+  },
+  "optionsQualityHint": {
+    "message": "팝업과 타임라인의 다운로드 버튼에 사용됩니다. X는 동영상마다 몇 가지 고정 화질을 제공합니다. ‘지정 이하에서 가장 가까운’은 목표를 넘지 않는 최고 화질을 고릅니다.",
+    "description": "Settings: default quality help text"
+  },
+  "optionsQualityHighest": {
+    "message": "최고 화질",
+    "description": "Quality option: best rendition X served"
+  },
+  "optionsQuality1080": {
+    "message": "1080p(또는 그보다 낮고 가장 가까운 화질)",
+    "description": "Quality option: 1080p target"
+  },
+  "optionsQuality720": {
+    "message": "720p(또는 그보다 낮고 가장 가까운 화질)",
+    "description": "Quality option: 720p target"
+  },
+  "optionsQuality480": {
+    "message": "480p(또는 그보다 낮고 가장 가까운 화질)",
+    "description": "Quality option: 480p target"
+  },
+  "optionsQuality360": {
+    "message": "360p(또는 그보다 낮고 가장 가까운 화질)",
+    "description": "Quality option: 360p target"
+  },
+  "optionsQualityLowest": {
+    "message": "최저 화질",
+    "description": "Quality option: smallest rendition X served"
+  },
+  "optionsFilenameLabel": {
+    "message": "파일 이름 템플릿",
+    "description": "Settings: filename template field label"
+  },
+  "optionsFilenameTokens": {
+    "message": "토큰:",
+    "description": "Settings: label before the unlocalized {token} code chips on filename and subfolder hints"
+  },
+  "optionsFilenameHint": {
+    "message": "{text}는 게시물 앞부분의 몇 단어이고, {datetime}/{date}/{time}은 게시 시각입니다. .mp4는 자동으로 붙고 / 는 하위 폴더입니다. 기본값({user}_{text}_{datetime}_{id})은 게시물 ID 덕분에 항상 고유합니다.",
+    "description": "Settings: filename template help text after the token chips. Keep {tokens} unchanged."
+  },
+  "optionsFilenamePreview": {
+    "message": "미리보기:",
+    "description": "Settings: live filename preview label"
+  },
+  "optionsSubfolderLabel": {
+    "message": "하위 폴더(브라우저 다운로드 폴더 안)",
+    "description": "Settings: subfolder field label"
+  },
+  "optionsSubfolderHint": {
+    "message": "Chrome 확장 프로그램은 브라우저 다운로드 폴더 안에만 저장할 수 있습니다. 상대 경로 하위 폴더가 ‘경로 선택’에 가장 가깝습니다. 비워 두면 다운로드 폴더에 바로 저장됩니다. 매번 위치를 고르려면 아래 옵션을 켜세요.",
+    "description": "Settings: subfolder help text before the token chips"
+  },
+  "optionsSubfolderHintNest": {
+    "message": "/ 로 폴더를 겹칩니다.",
+    "description": "Settings: subfolder help text after the token chips. Keep the / character."
+  },
+  "optionsSubfolderPlaceholder": {
+    "message": "X Media Downloader/{user}",
+    "description": "Settings: subfolder input placeholder; keep as a disk path"
+  },
+  "optionsSubfolderPreview": {
+    "message": "폴더 미리보기:",
+    "description": "Settings: live folder preview label"
+  },
+  "optionsAskWhere": {
+    "message": "저장할 때마다 위치 묻기",
+    "description": "Settings: save-as checkbox label"
+  },
+  "optionsAskWhereHint": {
+    "message": "다운로드마다 Chrome의 ‘다른 이름으로 저장’ 대화상자가 열려 원하는 폴더를 고를 수 있습니다. 위의 하위 폴더보다 우선합니다.",
+    "description": "Settings: save-as checkbox help text"
+  },
+  "optionsShowButton": {
+    "message": "타임라인 동영상 아래에 다운로드 버튼 표시",
+    "description": "Settings: timeline button checkbox"
+  },
+  "optionsClickImmediate": {
+    "message": "타임라인 버튼으로 바로 다운로드",
+    "description": "Settings: click-downloads-immediately checkbox"
+  },
+  "optionsClickImmediateHint": {
+    "message": "끄면 버튼이 화질 메뉴를 엽니다. (Alt+클릭은 항상 메뉴를 엽니다.)",
+    "description": "Settings: click-downloads-immediately help text"
+  },
+  "optionsMaxHistory": {
+    "message": "최대 보관",
+    "description": "Settings: history size field label"
+  },
+  "optionsMaxHistoryHint": {
+    "message": "이 개수를 넘는 가장 오래된 기록이 삭제됩니다.",
+    "description": "Settings: history size help text"
+  },
+  "optionsReset": {
+    "message": "설정을 기본값으로 복원",
+    "description": "Settings: reset button"
+  },
+  "optionsSaved": {
+    "message": "저장됨",
+    "description": "Settings: brief saved confirmation"
+  },
+  "optionsFooter": {
+    "message": "오픈 소스 · MIT",
+    "description": "Options page footer license line"
+  },
+  "optionsRepo": {
+    "message": "GitHub 저장소",
+    "description": "Options page footer repository link"
+  },
+  "optionsBatchShowingFrom": {
+    "message": "$DATE$ 일괄 다운로드 표시 중",
+    "description": "History banner when filtering by a batch id",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "Apr 2, 2026, 03:15 PM"
+      }
+    }
+  },
+  "optionsBatchShowing": {
+    "message": "일괄 다운로드 표시 중",
+    "description": "History banner when the batch has no timestamps"
+  },
+  "optionsHistoryCount": {
+    "message": "$SHOWN$ / $TOTAL$",
+    "description": "History count of filtered vs all rows",
+    "placeholders": {
+      "shown": {
+        "content": "$1",
+        "example": "4"
+      },
+      "total": {
+        "content": "$2",
+        "example": "20"
+      }
+    }
+  },
+  "optionsOpenTweet": {
+    "message": "게시물 열기",
+    "description": "History card action"
+  },
+  "optionsShowFile": {
+    "message": "파일 표시",
+    "description": "History card action that reveals the file in the folder"
+  },
+  "optionsRedownload": {
+    "message": "다시 다운로드",
+    "description": "History card action"
+  },
+  "optionsRedownloadStarted": {
+    "message": "시작됨",
+    "description": "History re-download button while the new download begins"
+  },
+  "optionsRedownloadFailed": {
+    "message": "실패",
+    "description": "History re-download button after a failure"
+  },
+  "optionsRemove": {
+    "message": "삭제",
+    "description": "History card action that deletes the row"
+  },
+  "optionsConfirmClearAll": {
+    "message": "기록 $COUNT$개를 모두 삭제할까요. 다운로드한 파일은 삭제되지 않습니다.",
+    "description": "Confirm dialog before clearing history",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
+  "optionsConfirmClearDownloaded": {
+    "message": "다운로드 기록을 지울까요. 이전에 저장한 미디어는 다시 다운로드됩니다. 파일과 기록은 유지됩니다.",
+    "description": "Confirm dialog before clearing the duplicate index"
+  },
+  "optionsImportOk": {
+    "message": "가져왔습니다. 기록은 현재 $COUNT$개입니다.",
+    "description": "Alert after a successful history import",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "optionsImportFailed": {
+    "message": "가져오기 실패: $ERROR$",
+    "description": "Alert after a failed history import",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Unexpected token"
+      }
+    }
+  },
+  "optionsFolderDownloads": {
+    "message": "다운로드",
+    "description": "Fallback folder name when a file is saved at the Downloads root"
+  },
+  "optionsTypeVideo": {
+    "message": "동영상",
+    "description": "History card media type"
+  },
+  "optionsTypeImage": {
+    "message": "이미지",
+    "description": "History card media type"
+  },
+  "optionsByteB": {
+    "message": "B",
+    "description": "File size unit: bytes"
+  },
+  "optionsByteKB": {
+    "message": "KB",
+    "description": "File size unit: kilobytes"
+  },
+  "optionsByteMB": {
+    "message": "MB",
+    "description": "File size unit: megabytes"
+  },
+  "optionsByteGB": {
+    "message": "GB",
+    "description": "File size unit: gigabytes"
+  },
+  "toastDownloadAgain": {
+    "message": "다시 다운로드",
+    "description": "Toast retry button tooltip and aria-label"
+  },
+  "toastPreparing": {
+    "message": "다운로드 준비 중…",
+    "description": "Toast shown while a timeline download is prepared"
+  },
+  "toastFailed": {
+    "message": "다운로드 실패: $ERROR$",
+    "description": "Toast when chrome.runtime.lastError is set",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Extension context invalidated"
+      }
+    }
+  },
+  "toastAlready": {
+    "message": "이미 다운로드함 · $DATE$",
+    "description": "Toast when this media is already in the downloaded index",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "4/2/2026"
+      }
+    }
+  },
+  "toastNoImage": {
+    "message": "이 게시물에서 다운로드할 이미지를 찾을 수 없음",
+    "description": "Toast when an image download fails with no extra error"
+  },
+  "toastNoVideo": {
+    "message": "이 게시물에서 다운로드할 동영상을 찾을 수 없음",
+    "description": "Toast when a video download fails with no extra error"
+  },
+  "toastNoImageError": {
+    "message": "이 게시물에서 다운로드할 이미지를 찾을 수 없음($ERROR$)",
+    "description": "Toast when an image download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No images on this tweet."
+      }
+    }
+  },
+  "toastNoVideoError": {
+    "message": "이 게시물에서 다운로드할 동영상을 찾을 수 없음($ERROR$)",
+    "description": "Toast when a video download fails with a reason",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "No MP4 rendition is available."
+      }
+    }
+  },
+  "toastDownloading": {
+    "message": "$LABEL$ 다운로드 중 → $FILE$",
+    "description": "Toast after a single-file download starts",
+    "placeholders": {
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
+    }
+  },
+  "toastDownloadingImages": {
+    "message": "이미지 다운로드 중: $COUNT$ → $FOLDER$",
+    "description": "Toast after a multi-image download starts",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "folder": {
+        "content": "$2",
+        "example": "X Media Downloader/NASA"
+      }
+    }
+  },
+  "toastFileFallback": {
+    "message": "파일",
+    "description": "Toast fallback when the download has no filename yet"
+  },
+  "toastErrTombstone": {
+    "message": "이 게시물은 공개 API에서 볼 수 없어 대체 방식으로 읽지 못했습니다. 동영상이 화면에 보이게 새로고침한 뒤 다시 시도하세요.",
+    "description": "Error when syndication returns a tombstone"
+  },
+  "toastErrHls": {
+    "message": "X가 이 동영상을 스트리밍 재생목록(HLS)으로만 제공하므로 단일 파일로 저장할 수 없습니다.",
+    "description": "Error when the video has no progressive MP4"
+  },
+  "toastErrNoVideo": {
+    "message": "이 게시물에 다운로드할 동영상이 없습니다.",
+    "description": "Error when resolveMedia returns nothing"
+  },
+  "toastErrNoMp4": {
+    "message": "사용 가능한 MP4가 없습니다.",
+    "description": "Error when captured variants include no mp4"
+  },
+  "toastErrNoImages": {
+    "message": "이 게시물에 이미지가 없습니다.",
+    "description": "Error when an image download has no URLs"
+  },
+  "toastErrImagesFailed": {
+    "message": "이미지 다운로드가 모두 실패했습니다.",
+    "description": "Error when every image in a set failed to start"
+  },
+  "toastErrHistoryGone": {
+    "message": "기록 항목이 없습니다.",
+    "description": "Error when re-download cannot find the history row"
+  },
+  "toastErrSyndication": {
+    "message": "공개 API가 $STATUS$를 반환했습니다.",
+    "description": "Error when the syndication request is not OK",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
+    }
+  },
+  "toastImageLabel": {
+    "message": "이미지: $COUNT$",
+    "description": "Download label for an image set, shown in popup status",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImages": {
+    "message": "이미지 다운로드($COUNT$)",
+    "description": "Quality menu title for a multi-image post",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "menuDownloadImage": {
+    "message": "이미지 다운로드",
+    "description": "Quality menu title and timeline button aria-label for an image"
+  },
+  "menuDownloadVideo": {
+    "message": "동영상 다운로드",
+    "description": "Quality menu title and timeline button aria-label for a video"
+  },
+  "menuOriginal": {
+    "message": "원본 크기",
+    "description": "Image size menu: orig"
+  },
+  "menuLarge": {
+    "message": "크게",
+    "description": "Image size menu: large"
+  },
+  "menuMedium": {
+    "message": "보통",
+    "description": "Image size menu: medium"
+  },
+  "menuHighest": {
+    "message": "최고",
+    "description": "Video quality menu fallback when variants are not captured yet"
+  },
+  "tipDownloadVideo": {
+    "message": "동영상 다운로드 · 오른쪽 클릭으로 화질 선택",
+    "description": "Timeline button tooltip for a video"
+  },
+  "tipDownloadMixed": {
+    "message": "동영상 및 이미지 다운로드 · 오른쪽 클릭으로 화질 선택",
+    "description": "Timeline button tooltip for a post with video and images"
+  },
+  "ariaDownloadMixed": {
+    "message": "동영상 및 이미지 다운로드",
+    "description": "Timeline button aria-label for a post with video and images"
+  },
+  "tipDownloadImage": {
+    "message": "이미지 다운로드 · 오른쪽 클릭으로 화질 선택",
+    "description": "Timeline button tooltip for an image"
+  },
+  "batchAria": {
+    "message": "일괄 다운로드",
+    "description": "In-page batch panel aria-label"
+  },
+  "batchStop": {
+    "message": "중지",
+    "description": "Batch panel stop button tooltip and aria-label"
+  },
+  "batchContinue": {
+    "message": "다음 일괄 계속",
+    "description": "Batch panel continue button tooltip and aria-label"
+  },
+  "batchHistory": {
+    "message": "기록에서 보기",
+    "description": "Batch panel link to filtered history"
+  },
+  "batchFolder": {
+    "message": "폴더 열기",
+    "description": "Batch panel link to the last downloaded file"
+  },
+  "batchCounts": {
+    "message": "다운로드 $DOWNLOADED$ / $COLLECTED$ · 건너뜀 $SKIPPED$ · 실패 $FAILED$",
+    "description": "Batch panel status while running",
+    "placeholders": {
+      "downloaded": {
+        "content": "$1",
+        "example": "12"
+      },
+      "collected": {
+        "content": "$2",
+        "example": "40"
+      },
+      "skipped": {
+        "content": "$3",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$4",
+        "example": "1"
+      }
+    }
+  },
+  "batchFinished": {
+    "message": "완료: $COUNT$",
+    "description": "Batch panel status when the run completed",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "40"
+      }
+    }
+  },
+  "batchStopped": {
+    "message": "중지됨 · $COUNT$ 다운로드됨",
+    "description": "Batch panel status when the user stopped the run",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "batchRateLimited": {
+    "message": "X가 요청을 제한하는 중 — 일시 중지됨",
+    "description": "Batch panel note when X returns 429 or error 88"
+  },
+  "batchCapped": {
+    "message": "$COUNT$개에 도달함 — 다음 일괄을 계속할 수 있음",
+    "description": "Batch panel note at the 500-file cap",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "batchSkippedFailed": {
+    "message": "건너뜀 $SKIPPED$ · 실패 $FAILED$",
+    "description": "Batch panel note after a finished run that skipped or failed some files",
+    "placeholders": {
+      "skipped": {
+        "content": "$1",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "batchResume": {
+    "message": "다시 시작",
+    "description": "Batch panel toggle tooltip while paused"
+  },
+  "batchPause": {
+    "message": "일시 중지",
+    "description": "Batch panel toggle tooltip while running"
+  },
+  "batchNeedMediaTab": {
+    "message": "먼저 프로필의 미디어 탭을 여세요.",
+    "description": "Error returned when batch start is not on /media"
   }
 }
