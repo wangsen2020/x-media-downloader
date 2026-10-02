@@ -236,12 +236,12 @@ function renderHistory() {
     const info = document.createElement('div');
     info.className = 'info';
     info.innerHTML = `
-      <div class="who">@${escapeHtml(r.screenName || 'unknown')}
+      <div class="who"><bdi dir="ltr">@${escapeHtml(r.screenName || 'unknown')}</bdi>
         <span class="badge ${r.state}">${escapeHtml(stateLabel(r.state))}</span></div>
-      <div class="file">${escapeHtml(r.filename || r.url || '')}</div>
+      <div class="file"><bdi dir="ltr">${escapeHtml(r.filename || r.url || '')}</bdi></div>
       <div class="meta">
         <span>${escapeHtml(typeLabel(r.type))}</span>
-        <span>${r.height ? r.height + 'p' : (r.quality || '')}</span>
+        <bdi dir="ltr">${escapeHtml(r.height ? r.height + 'p' : (r.quality || ''))}</bdi>
         ${r.bitrate ? `<span>${escapeHtml(t('popupVariantBitrate', Math.round(r.bitrate / 1000)))}</span>` : ''}
         ${r.bytes ? `<span>${human(r.bytes)}</span>` : ''}
         <span>${escapeHtml(fmtDate(r.createdAt))}</span>

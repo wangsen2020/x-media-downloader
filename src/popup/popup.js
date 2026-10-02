@@ -63,7 +63,8 @@ async function init() {
   }
 
   buildQualityOptions(settings.defaultQuality);
-  $('tweetUser').textContent = '@' + (current.screenName || 'unknown');
+  // LRI/PDI keep "@user" intact inside the RTL (Arabic) popup.
+  $('tweetUser').textContent = `⁦@${current.screenName || 'unknown'}⁩`;
   const link = $('tweetLink');
   link.href = `https://x.com/${current.screenName}/status/${current.tweetId}`;
   if (record && record.poster) {
@@ -111,7 +112,7 @@ function buildQualityOptions(defaultQuality) {
 function mountBatch(tabId, user) {
   const section = $('batch');
   const btn = $('batchDownload');
-  btn.textContent = t('popupBatchDownload', user);
+  btn.textContent = t('popupBatchDownload', user).replace(`@${user}`, `\u2066@${user}\u2069`);
   section.hidden = false;
   btn.addEventListener('click', () => startBatch(tabId, btn));
 }
@@ -157,7 +158,7 @@ async function doDownload() {
     });
     if (res && res.ok) {
       statusEl.className = 'pp-status ok';
-      statusEl.textContent = t('popupDownloading', res.label, res.filename);
+      statusEl.textContent = t('popupDownloading', `\u2066${res.label}\u2069`, `\u2066${res.filename}\u2069`);
       renderRecent();
     } else {
       statusEl.className = 'pp-status err';
@@ -190,6 +191,8 @@ async function renderRecent() {
     dot.className = 'dot ' + rec.state;
     const name = document.createElement('span');
     name.className = 'name';
+    name.style.direction = 'ltr';
+    name.style.unicodeBidi = 'isolate';
     name.textContent = `@${rec.screenName} · ${rec.quality || 'video'}`;
     name.title = rec.filename || rec.tweetUrl;
     li.appendChild(dot);

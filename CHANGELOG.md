@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.3
+
+- Keep handles, filenames, recent-download labels, and batch-button handles LTR-isolated in RTL popup and history views.
+
 ## 1.5.2
 
 - Pause Media-tab batches only for media timeline rate limits, ignoring notification badge polling quotas.
