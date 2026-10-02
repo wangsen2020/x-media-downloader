@@ -623,6 +623,9 @@
     "message": "Descarga por lotes",
     "description": "In-page batch panel aria-label"
   },
+  "batchClose": {
+    "message": "Cerrar panel de descarga por lotes"
+  },
   "batchStop": {
     "message": "Detener",
     "description": "Batch panel stop button tooltip and aria-label"

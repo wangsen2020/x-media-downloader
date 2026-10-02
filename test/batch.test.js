@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
 import {
   BATCH_LIMITS,
   jitterMs,
@@ -9,6 +11,7 @@ import {
   nextEmptyStreak,
   collectionStatus,
   isRateLimited,
+  isMediaTimelineOperation,
   startGapMs,
   retryDelayMs,
   isRetryableDownloadError,
@@ -17,6 +20,52 @@ import {
   mediaUserFromUrl,
   sameAuthor,
 } from '../src/lib/batch.js';
+
+test('media operation detection agrees with MAIN-world copy', () => {
+  const source = readFileSync(new URL('../src/injected.js', import.meta.url), 'utf8');
+  const copy = source.slice(source.indexOf('  function isMediaTimelineOperation('), source.indexOf('  function postRateLimit('));
+  const ctx = vm.createContext({ URL });
+  vm.runInContext(copy, ctx);
+  const base = 'https://x.com/i/api/graphql/5A9PzD08T6PbvC2QlEYxMg/';
+  const cases = [
+    [base + 'UserVideoTimeline?variables=...', true],
+    [base + 'ViewerBadgeCounts?variables=%7B%7D', false],
+    ...['UserMedia', 'UserTweets', 'UserTweetsAndReplies', 'HomeTimeline', 'SearchTimeline', 'UserExtraMedia'].map(op => [base + op, true]),
+    ...['TweetDetail', 'UserByScreenName', 'ViewerBadgeCounts?UserTweets', 'UserTweetsExtraCountsTimelinePoll'].map(op => [base + op, op.startsWith('UserTweets')]),
+    ['https://x.com/UserTweets', false],
+    [base + 'ViewerBadgeCounts/UserTweets', false],
+    [base + 'UserTweets/extra', false],
+    [null, false],
+    ['', false],
+    ['/i/api/graphql/hash/UserMedia', true],
+  ];
+  for (const [url, expected] of cases) {
+    assert.equal(isMediaTimelineOperation(url), expected, String(url));
+    assert.equal(ctx.isMediaTimelineOperation(url), expected, String(url));
+  }
+});
+
+test('page hook ignores badge quota failures but signals timeline failures', () => {
+  const source = readFileSync(new URL('../src/injected.js', import.meta.url), 'utf8');
+  const posts = [];
+  function XHR() {}
+  XHR.prototype.open = () => {};
+  XHR.prototype.send = () => {};
+  const ctx = vm.createContext({ URL, XMLHttpRequest: XHR, window: {
+    location: { origin: 'https://x.com' }, postMessage: msg => posts.push(msg),
+    fetch: async url => ({ url, status: url.includes('Badge') ? 429 : 200, clone: () => ({ text: async () => '{"errors":[{"code":88}]}' }) }),
+  } });
+  vm.runInContext(source, ctx);
+  return (async () => {
+    await ctx.window.fetch('https://x.com/i/api/graphql/hash/ViewerBadgeCounts');
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(posts.length, 0);
+    await ctx.window.fetch('https://x.com/i/api/graphql/hash/UserVideoTimeline');
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(posts.length, 1);
+    assert.equal(posts[0].kind, 'ratelimit');
+  })();
+});
 
 function seq(values) {
   let i = 0;

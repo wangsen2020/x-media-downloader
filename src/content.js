@@ -5,6 +5,29 @@
 (function () {
   'use strict';
 
+  let mo;
+  let scanTimer = 0;
+  let batchApi;
+  let contextTimer;
+  let invalidated = false;
+  function contextValid() {
+    if (invalidated) return false;
+    try {
+      if (!chrome.runtime || !chrome.runtime.id) throw new Error();
+      chrome.runtime.getURL('');
+      return true;
+    } catch (_) {
+      invalidated = true;
+      if (mo) mo.disconnect();
+      cancelAnimationFrame(scanTimer);
+      clearInterval(contextTimer);
+      if (batchApi && batchApi.dispose) batchApi.dispose();
+      return false;
+    }
+  }
+  if (!contextValid()) return;
+  contextTimer = setInterval(contextValid, 1000);
+
   const origin = window.location.origin;
   let mediaKind;
   const mediaReady = import(chrome.runtime.getURL('src/lib/media.js')).then((mod) => {
@@ -14,6 +37,7 @@
   mediaReady.catch(() => {});
 
   function t(key, ...subs) {
+    if (!contextValid()) return '';
     try {
       if (!chrome.i18n || !chrome.i18n.getMessage) return key;
       const msg = subs.length
@@ -23,11 +47,13 @@
     } catch (_) {
       /* ignore */
     }
+    if (!contextValid()) return '';
     console.warn('[i18n] missing message:', key);
     return key;
   }
 
   function uiLang() {
+    if (!contextValid()) return;
     try {
       return (chrome.i18n && chrome.i18n.getUILanguage && chrome.i18n.getUILanguage()) || 'en';
     } catch (_) {
@@ -81,7 +107,7 @@
 
   // No-ops until the controller module arrives. Page messages still fill the
   // maps above, so a single-post download never waits on that fetch.
-  let batchApi = {
+  batchApi = {
     ingest() {},
     onRateLimit() {},
   };
@@ -91,7 +117,9 @@
     defaultQuality: 'highest',
   };
   const batchReady = import(chrome.runtime.getURL('src/content-batch.js')).then((mod) => {
+    if (!contextValid()) return { start: () => ({ ok: false }) };
     batchApi = mod.attachBatch({
+      contextValid,
       getVideos: () => allVideos,
       getPhotos: () => photosByTweet,
       getSettings: () => settings,
@@ -101,6 +129,7 @@
   batchReady.catch(() => {});
 
   window.addEventListener('message', (ev) => {
+    if (!contextValid()) return;
     if (ev.source !== window || ev.origin !== origin) return;
     const data = ev.data;
     if (!data || data.__src !== 'xvd') return;
@@ -139,10 +168,12 @@
 
   // --- settings (kept in sync) ------------------------------------------------
   chrome.storage.local.get('settings').then((g) => {
+    if (!contextValid()) return;
     if (g.settings) settings = { ...settings, ...g.settings };
     scheduleScan();
   });
   chrome.storage.onChanged.addListener((changes, area) => {
+    if (!contextValid()) return;
     if (area === 'local' && changes.settings) {
       settings = { ...settings, ...(changes.settings.newValue || {}) };
       document.querySelectorAll('.xvd-btn').forEach((b) => b.remove());
@@ -215,7 +246,9 @@
         msg.record = mediaByTweet.get(info.tweetId) || null;
       }
       try {
+        if (!contextValid()) return resolve({ ok: false });
         chrome.runtime.sendMessage(msg, (res) => {
+          if (!contextValid()) return resolve({ ok: false });
           const error = chrome.runtime.lastError;
           resolve({ kind, res, error: error && error.message });
         });
@@ -494,6 +527,7 @@
   }
 
   function scan() {
+    if (!contextValid()) return;
     document.querySelectorAll('article').forEach(decorate);
   }
 
@@ -512,8 +546,8 @@
     scheduleScan();
   }
 
-  let scanTimer = 0;
   function scheduleScan() {
+    if (!contextValid()) return;
     if (scanTimer) return;
     scanTimer = requestAnimationFrame(() => {
       scanTimer = 0;
@@ -525,8 +559,9 @@
     });
   }
 
-  const mo = new MutationObserver(scheduleScan);
+  mo = new MutationObserver(scheduleScan);
   function startObserver() {
+    if (!contextValid()) return;
     if (!document.body) return void requestAnimationFrame(startObserver);
     mo.observe(document.body, { childList: true, subtree: true });
     scheduleScan();
@@ -535,7 +570,7 @@
 
   // --- popup / background queries ----------------------------------------
   chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
-    if (!msg) return;
+    if (!contextValid() || !msg) return;
     if (msg.type === 'xvd:batch-start') {
       // Registered now, not after the import. return true holds the channel
       // open so a popup click during that fetch still gets start()'s answer.

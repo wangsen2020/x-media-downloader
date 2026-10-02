@@ -623,6 +623,9 @@
     "message": "一括ダウンロード",
     "description": "In-page batch panel aria-label"
   },
+  "batchClose": {
+    "message": "一括ダウンロードパネルを閉じる"
+  },
   "batchStop": {
     "message": "停止",
     "description": "Batch panel stop button tooltip and aria-label"

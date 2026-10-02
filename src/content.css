@@ -394,3 +394,8 @@ body > #xvd-batch a.xvd-batch__link[hidden] {
     color: rgb(139, 152, 165);
   }
 }
+
+#xvd-batch button.xvd-batch__close {
+  font-size: 22px;
+  line-height: 1;
+}

@@ -623,6 +623,9 @@
     "message": "批次下載",
     "description": "In-page batch panel aria-label"
   },
+  "batchClose": {
+    "message": "關閉批次下載面板"
+  },
   "batchStop": {
     "message": "停止",
     "description": "Batch panel stop button tooltip and aria-label"

@@ -128,3 +128,17 @@ export function sameAuthor(recordName, pageUser) {
   if (!pageUser || !recordName) return false;
   return String(recordName).toLowerCase() === String(pageUser).toLowerCase();
 }
+
+// GraphQL operation name only: query variables cannot turn badge polls into timelines.
+export function isMediaTimelineOperation(url) {
+  try {
+    const path = new URL(url, 'https://x.com').pathname;
+    const match = /^\/i\/api\/graphql\/[^/]+\/([^/]+)\/?$/.exec(path);
+    if (!match) return false;
+    const operation = match[1];
+    return operation.endsWith('Timeline') ||
+      (operation.startsWith('User') && /Tweets|Media/.test(operation));
+  } catch (_) {
+    return false;
+  }
+}

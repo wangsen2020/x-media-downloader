@@ -19,6 +19,20 @@
     }
   }
 
+  // Mirrored from src/lib/batch.js; parity is checked in batch.test.js.
+  function isMediaTimelineOperation(url) {
+    try {
+      const path = new URL(url, 'https://x.com').pathname;
+      const match = /^\/i\/api\/graphql\/[^/]+\/([^/]+)\/?$/.exec(path);
+      if (!match) return false;
+      const operation = match[1];
+      return operation.endsWith('Timeline') ||
+        (operation.startsWith('User') && /Tweets|Media/.test(operation));
+    } catch (_) {
+      return false;
+    }
+  }
+
   function postRateLimit() {
     try {
       window.postMessage({ __src: TAG, kind: 'ratelimit' }, window.location.origin);
@@ -176,10 +190,10 @@
   }
 
   function handleText(url, text, status) {
-    const graphql = /\/graphql\//i.test(String(url || ''));
+    const graphql = isMediaTimelineOperation(url);
     // 429 is decisive even when the body is empty or not JSON.
     if (graphql && status === 429) postRateLimit();
-    if (!text || text.length < 20) return;
+    if (!text) return;
     const hasMedia = text.indexOf('video_info') !== -1 || text.indexOf('media_url_https') !== -1;
     const maybeLimit = graphql && status !== 429 && /"code"\s*:\s*88\b/.test(text);
     if (!hasMedia && !maybeLimit) return;

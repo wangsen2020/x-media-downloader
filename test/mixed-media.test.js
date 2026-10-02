@@ -37,6 +37,7 @@ function downloadHarness(fresh, responses) {
   const requests = [];
   const toasts = [];
   const ctx = vm.createContext({
+    contextValid: () => true,
     mediaReady: Promise.resolve(), articleMedia: () => fresh,
     settings: { defaultQuality: '720' }, origin: 'https://x.com',
     mediaByTweet: new Map([['123', { variants: [{ url: 'video' }] }]]),

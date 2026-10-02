@@ -1,6 +1,17 @@
 // chrome.i18n wrapper for popup, options, and module content scripts.
 
+export function isExtensionContextValid() {
+  try {
+    if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.runtime.id) return false;
+    chrome.runtime.getURL('');
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 export function t(key, ...subs) {
+  if (!isExtensionContextValid()) return '';
   try {
     if (typeof chrome === 'undefined' || !chrome.i18n || !chrome.i18n.getMessage) {
       return key;
@@ -12,6 +23,7 @@ export function t(key, ...subs) {
   } catch (_) {
     /* ignore */
   }
+  if (!isExtensionContextValid()) return '';
   console.warn('[i18n] missing message:', key);
   return key;
 }

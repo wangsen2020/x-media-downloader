@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.2
+
+- Pause Media-tab batches only for media timeline rate limits, ignoring notification badge polling quotas.
+- Clear stale rate-limit messages when resuming or stopping a batch.
+- Add an icon-only close button to finished and stopped batch panels in all nine languages.
+- Silently stop orphaned content scripts, observers, and batch loops after extension reloads or updates.
+
 ## 1.5.1
 
 - Posts with both a video and photos: one click now saves the video and the

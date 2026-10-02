@@ -548,6 +548,9 @@
     "message": "Batch download",
     "description": "In-page batch panel aria-label"
   },
+  "batchClose": {
+    "message": "Close batch panel"
+  },
   "batchStop": {
     "message": "Stop",
     "description": "Batch panel stop button tooltip and aria-label"

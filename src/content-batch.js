@@ -16,7 +16,7 @@ import {
   mediaUserFromPath,
   sameAuthor,
 } from './lib/batch.js';
-import { t } from './lib/i18n.js';
+import { t, isExtensionContextValid } from './lib/i18n.js';
 
 const PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.2v14H7V5Zm6.8 0H17v14h-3.2V5Z"/></svg>';
 const PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5L8 5.5Z"/></svg>';
@@ -61,7 +61,27 @@ function newBatchId() {
   return `b-${Date.now().toString(36)}-${rand}`;
 }
 
-export function attachBatch({ getVideos, getPhotos, getSettings }) {
+export function attachBatch({ getVideos, getPhotos, getSettings, contextValid = isExtensionContextValid }) {
+  let disposed = false;
+  function valid() {
+    if (disposed) return false;
+    if (contextValid()) return true;
+    dispose();
+    return false;
+  }
+  function dispose() {
+    disposed = true;
+    clearTimeout(pumpTimer);
+    if (batch) {
+      batch.phase = 'stopped';
+      batch.gen++;
+      batch.pending.length = 0;
+      batch.rateLimited = false;
+    }
+    wakeWaiters();
+    clients.clear();
+    document.removeEventListener('visibilitychange', wakeWaiters);
+  }
   let batch = null;
   let active = 0;
   let lastStartAt = 0;
@@ -88,6 +108,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function updateBadge() {
+    if (!valid()) return;
     const text = remaining() > 0 ? String(Math.min(remaining(), 999)) : '';
     if (text === badgeText) return;
     badgeText = text;
@@ -112,6 +133,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
       `<button type="button" class="xvd-batch__btn" data-act="toggle">${PAUSE_SVG}</button>` +
       `<button type="button" class="xvd-batch__btn" data-act="stop">${STOP_SVG}</button>` +
       `<button type="button" class="xvd-batch__btn" data-act="continue" hidden>${PLAY_SVG}</button>` +
+      '<button type="button" class="xvd-batch__btn xvd-batch__close" data-act="close" hidden>×</button>' +
       '</div></div>' +
       '<div class="xvd-batch__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
       '<div class="xvd-batch__fill"></div></div>' +
@@ -120,6 +142,9 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
       '<a class="xvd-batch__link" data-act="history" href="#"></a>' +
       '<a class="xvd-batch__link" data-act="folder" href="#"></a>' +
       '</p>';
+    const close = root.querySelector('[data-act="close"]');
+    close.title = t('batchClose');
+    close.setAttribute('aria-label', t('batchClose'));
     const stop = root.querySelector('[data-act="stop"]');
     stop.title = t('batchStop');
     stop.setAttribute('aria-label', t('batchStop'));
@@ -134,6 +159,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function render() {
+    if (!valid()) return;
     if (!batch) return;
     const root = ensurePanel();
     const status = root.querySelector('.xvd-batch__status');
@@ -158,7 +184,8 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     }
 
     note.hidden = true;
-    if (batch.rateLimited) {
+    note.textContent = '';
+    if (batch.rateLimited && !finished) {
       note.hidden = false;
       note.textContent = t('batchRateLimited');
     } else if (batch.phase === 'capped') {
@@ -176,7 +203,8 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     track.setAttribute('aria-valuenow', String(pct));
     fill.style.width = pct + '%';
 
-    controls.hidden = finished;
+    controls.hidden = false;
+    root.querySelector('[data-act="close"]').hidden = !finished;
     toggle.hidden = finished;
     stop.hidden = finished;
     toggle.innerHTML = held ? PLAY_SVG : PAUSE_SVG;
@@ -191,13 +219,18 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function onPanelClick(event) {
+    if (!valid()) return;
     const el = event.target.closest('[data-act]');
     const root = document.getElementById('xvd-batch');
     if (!el || !root || !root.contains(el)) return;
     event.preventDefault();
     event.stopPropagation();
     const act = el.dataset.act;
-    if (act === 'toggle') togglePause();
+    if (act === 'close' && (batch.phase === 'finished' || batch.phase === 'stopped')) {
+      root.remove();
+      batch = null;
+      clients.clear();
+    } else if (act === 'toggle') togglePause();
     else if (act === 'stop') stopBatch();
     else if (act === 'continue') continueBatch();
     else if (act === 'history') openHistory();
@@ -262,6 +295,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function ingest(records) {
+    if (!valid()) return;
     if (!batch || (batch.phase !== 'running' && batch.phase !== 'draining')) return 0;
     let added = 0;
     for (const rec of records || []) {
@@ -306,7 +340,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     const session = batch;
     batch.delayed++;
     setTimeout(() => {
-      if (batch !== session || session.phase === 'stopped') return;
+      if (!valid() || batch !== session || session.phase === 'stopped') return;
       session.delayed = Math.max(0, session.delayed - 1);
       item.settled = false;
       item.clientId = null;
@@ -344,6 +378,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   async function launch(item) {
+    if (!valid()) return;
     // Stop + a new run replaces `batch` while this request is still open.
     // The response has to settle on the run that started it.
     const session = batch;
@@ -355,11 +390,12 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
     try {
       res = await chrome.runtime.sendMessage(buildMessage(item, clientId));
     } catch (e) {
+      if (!valid()) return;
       clients.delete(clientId);
       if (batch === session && !item.settled) failItem(item, e && e.message);
       return;
     }
-    if (item.settled || batch !== session) return;
+    if (!valid() || item.settled || batch !== session) return;
     if (res && res.duplicate) {
       clients.delete(clientId);
       releaseActive();
@@ -376,6 +412,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function pump() {
+    if (!valid()) return;
     if (!batch) return;
     clearTimeout(pumpTimer);
     while (batch.phase !== 'stopped') {
@@ -410,6 +447,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function onDownloadDone(msg) {
+    if (!valid()) return;
     if (!msg || !msg.clientId) return;
     const item = clients.get(msg.clientId);
     if (!item || item.settled) return;
@@ -435,7 +473,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   async function runScroll(gen) {
     scrollLoopGen = gen;
     try {
-      while (batch && batch.gen === gen && batch.phase !== 'stopped' && batch.phase !== 'finished') {
+      while (valid() && batch && batch.gen === gen && batch.phase !== 'stopped' && batch.phase !== 'finished') {
         if (!scrollable()) {
           await waitUntil(() => !batch || batch.gen !== gen || batch.phase === 'stopped' || scrollable());
           continue;
@@ -477,6 +515,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function togglePause() {
+    if (!valid()) return;
     if (!batch || batch.phase === 'finished' || batch.phase === 'stopped') return;
     if (batch.rateLimited || batch.userPaused) {
       batch.rateLimited = false;
@@ -492,8 +531,10 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function stopBatch() {
+    if (!valid()) return;
     if (!batch || batch.phase === 'finished' || batch.phase === 'stopped') return;
     batch.phase = 'stopped';
+    batch.rateLimited = false;
     batch.gen++;
     batch.pending.length = 0;
     batch.delayed = 0;
@@ -505,6 +546,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function continueBatch() {
+    if (!valid()) return;
     if (!batch || batch.phase !== 'capped' || batch.rateLimited) return;
     batch.phase = 'running';
     batch.runCount = 0;
@@ -518,6 +560,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function openHistory() {
+    if (!valid()) return;
     if (!batch) return;
     try {
       chrome.runtime.sendMessage({ type: 'xvd:open-batch', batchId: batch.id }).catch(() => {});
@@ -527,6 +570,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function openFolder() {
+    if (!valid()) return;
     if (!batch || batch.lastDownloadId == null) return;
     try {
       chrome.runtime.sendMessage({ type: 'xvd:show-file', downloadId: batch.lastDownloadId }).catch(() => {});
@@ -540,6 +584,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function start() {
+    if (!valid()) return { ok: false };
     const user = mediaUserFromPath(location.pathname);
     if (!user) return { ok: false, error: t('batchNeedMediaTab') };
     if (busy()) return { ok: true, already: true, batchId: batch.id };
@@ -578,6 +623,7 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
   }
 
   function onRateLimit() {
+    if (!valid()) return;
     if (!batch || batch.phase === 'finished' || batch.phase === 'stopped') return;
     if (batch.rateLimited) return;
     batch.rateLimited = true;
@@ -587,10 +633,10 @@ export function attachBatch({ getVideos, getPhotos, getSettings }) {
 
   // content.js answers xvd:batch-start. This module may still be loading
   // when the popup clicks, so the listener has to live in the classic script.
-  chrome.runtime.onMessage.addListener((msg) => {
+  if (valid()) chrome.runtime.onMessage.addListener((msg) => {
     if (!msg || msg.type !== 'xvd:download-done') return;
     onDownloadDone(msg);
   });
 
-  return { ingest, onRateLimit, start };
+  return { ingest, onRateLimit, start, dispose };
 }
