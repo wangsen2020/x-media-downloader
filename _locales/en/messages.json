@@ -4,7 +4,7 @@
     "description": "Extension name shown in the browser and the Chrome Web Store"
   },
   "extDesc": {
-    "message": "Download videos, GIFs and photos from X (Twitter) in one click. Choose the quality and folder, with a full download history.",
+    "message": "Download X (Twitter) videos, GIFs and photos in one click, or a whole profile at once. Pick quality and folder; full history.",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
   },
   "popupTitle": {

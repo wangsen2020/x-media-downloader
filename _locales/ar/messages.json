@@ -4,7 +4,7 @@
     "description": "Extension name shown in the browser and the Chrome Web Store"
   },
   "extDesc": {
-    "message": "حمّل مقاطع الفيديو وصور GIF والصور من إكس (تويتر) بنقرة واحدة. اختر الجودة ومجلد الحفظ، مع سجل تحميل كامل. مجاني وبدون تتبع.",
+    "message": "نزّل مقاطع الفيديو وصور GIF والصور من إكس (تويتر) بنقرة واحدة، أو كل وسائط حساب دفعة واحدة. اختر الجودة والمجلد، مع سجل كامل.",
     "description": "Short extension summary (Chrome Web Store search-result text, max 132 chars)"
   },
   "popupTitle": {
