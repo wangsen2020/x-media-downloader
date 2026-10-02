@@ -8,6 +8,9 @@ test('download completion, duplicates, force, deleted files, and history re-down
   let message;
   let changed;
   let nextId = 0;
+  const tabMessages = [];
+  let badge = null;
+  let createdUrl = '';
   let deletedFile = false;
   let existenceCheckTriggered = false;
   const searches = [];
@@ -40,6 +43,18 @@ test('download completion, duplicates, force, deleted files, and history re-down
     runtime: {
       onMessage: { addListener(fn) { message = fn; } },
       onInstalled: { addListener() {} },
+      getURL(path) { return 'chrome-extension://test/' + path; },
+    },
+    tabs: {
+      sendMessage(tabId, msg) {
+        tabMessages.push({ tabId, msg });
+        return Promise.resolve();
+      },
+      async create(opts) { createdUrl = opts.url; return opts; },
+    },
+    action: {
+      setBadgeText(opts) { badge = opts; },
+      setBadgeBackgroundColor() {},
     },
   };
   await import('../src/background.js');
@@ -79,4 +94,43 @@ test('download completion, duplicates, force, deleted files, and history re-down
   const interrupted = await send({ ...req, force: true });
   await changed({ id: interrupted.downloadId, state: { current: 'interrupted' } });
   assert.equal(local.downloaded['v:99'].downloadId, 0);
+
+  message({ type: 'xvd:media', records: [
+    { tweetId: '555', type: 'photo', images: ['https://pbs.twimg.com/media/Z.jpg'] },
+    { tweetId: '556', variants: [{ url: 'https://video.twimg.com/ext_tw_video/7/vid/1x1/a.mp4', bitrate: 1 }] },
+  ] }, {}, () => {});
+  await new Promise((r) => setTimeout(r, 30));
+  assert.equal(session['media:555'], undefined);
+  assert.equal(session['media:556'].tweetId, '556');
+
+  const batched = await new Promise((resolve) => message({
+    ...req, force: true, batchId: 'batch-1', clientId: 'c-1',
+  }, { tab: { id: 42 } }, resolve));
+  assert.equal(batched.ok, true);
+  assert.equal(local.history.find((r) => r.key === batched.key).batchId, 'batch-1');
+  assert.deepEqual(session['dl:' + batched.downloadId], { tabId: 42, clientId: 'c-1' });
+  items.get(batched.downloadId).state = 'complete';
+  await changed({ id: batched.downloadId, state: { current: 'complete' } });
+  await new Promise((r) => setTimeout(r, 30));
+  assert.equal(tabMessages.length, 1);
+  assert.deepEqual(tabMessages[0], {
+    tabId: 42,
+    msg: { type: 'xvd:download-done', downloadId: batched.downloadId, state: 'complete', error: '', clientId: 'c-1' },
+  });
+
+  const batchedImage = await new Promise((resolve) => message({
+    type: 'xvd:download', kind: 'image', tweetId: '790', screenName: 'NASA', batchId: 'batch-1',
+    clientId: 'c-img', force: true,
+    images: ['https://pbs.twimg.com/media/Other?format=jpg&name=small'],
+  }, { tab: { id: 42 } }, resolve));
+  assert.equal(batchedImage.ok, true);
+  assert.equal(batchedImage.downloadId, nextId - 1);
+  assert.equal(local.history.find((r) => r.downloadId === batchedImage.downloadId).batchId, 'batch-1');
+
+  await new Promise((resolve) => message({ type: 'xvd:badge', text: '12' }, { tab: { id: 3 } }, resolve));
+  assert.deepEqual(badge, { text: '12', tabId: 3 });
+  await new Promise((resolve) => message({ type: 'xvd:badge', text: '' }, { tab: { id: 3 } }, resolve));
+  assert.equal(badge.text, '');
+  await new Promise((resolve) => message({ type: 'xvd:open-batch', batchId: 'b 1' }, {}, resolve));
+  assert.equal(createdUrl, 'chrome-extension://test/src/options/options.html#batch=b%201');
 });

@@ -19,6 +19,49 @@
     }
   }
 
+  function postRateLimit() {
+    try {
+      window.postMessage({ __src: TAG, kind: 'ratelimit' }, window.location.origin);
+    } catch (_) {
+      /* ignore */
+    }
+  }
+
+  // Same decision as isRateLimited() in src/lib/batch.js. This file runs in the
+  // page world, which cannot import an extension module.
+  function isRateLimited(status, body) {
+    if (Number(status) === 429) return true;
+    const errors = body && body.errors;
+    return Array.isArray(errors) && errors.some((e) => e && e.code === 88);
+  }
+
+  function rememberPhoto(photos, curId, curScreen, curText, curCreated, media) {
+    const id =
+      curId ||
+      media.source_status_id_str ||
+      (media.expanded_url && (media.expanded_url.match(/status\/(\d+)/) || [])[1]);
+    if (!id || !media.media_url_https) return;
+    const tweetId = String(id);
+    let rec = photos.get(tweetId);
+    if (!rec) {
+      rec = {
+        tweetId,
+        screenName: curScreen || 'unknown',
+        type: 'photo',
+        images: [],
+        text: (curText || '').trim(),
+        postDate: curCreated || 0,
+        capturedAt: Date.now(),
+        source: 'api',
+      };
+      photos.set(tweetId, rec);
+    }
+    if (curScreen && rec.screenName === 'unknown') rec.screenName = curScreen;
+    if (!rec.text && curText) rec.text = String(curText).trim();
+    if (!rec.postDate && curCreated) rec.postDate = curCreated;
+    if (!rec.images.includes(media.media_url_https)) rec.images.push(media.media_url_https);
+  }
+
   function heightFromUrl(url = '') {
     const m = url.match(/\/(\d+)x(\d+)\//);
     return m ? Number(m[2]) : 0;
@@ -35,6 +78,7 @@
   function scan(root) {
     const out = [];
     const seenTweets = new Set();
+    const photos = new Map();
     const stack = [{ node: root, tweetId: null, screen: null, text: null, created: 0 }];
     let budget = 60000;
 
@@ -78,7 +122,13 @@
 
       for (const list of mediaLists) {
         for (const media of list) {
-          if (!media || !media.video_info || !media.video_info.variants) continue;
+          if (!media) continue;
+          // Photos stay out of the video records below. A post can carry both,
+          // and the content script keeps them in separate maps.
+          if (media.type === 'photo' && media.media_url_https) {
+            rememberPhoto(photos, curId, curScreen, curText, curCreated, media);
+          }
+          if (!media.video_info || !media.video_info.variants) continue;
           const variants = variantsOf(media.video_info);
           if (!variants.length) continue;
           // File the record under the post that shows the video (curId) - that is
@@ -121,19 +171,27 @@
         }
       }
     }
+    for (const rec of photos.values()) out.push(rec);
     return out;
   }
 
-  function handleText(url, text) {
+  function handleText(url, text, status) {
+    const graphql = /\/graphql\//i.test(String(url || ''));
+    // 429 is decisive even when the body is empty or not JSON.
+    if (graphql && status === 429) postRateLimit();
     if (!text || text.length < 20) return;
-    if (!API_HINT.test(url) && text.indexOf('video_info') === -1) return;
-    if (text.indexOf('video_info') === -1) return;
+    const hasMedia = text.indexOf('video_info') !== -1 || text.indexOf('media_url_https') !== -1;
+    const maybeLimit = graphql && status !== 429 && /"code"\s*:\s*88\b/.test(text);
+    if (!hasMedia && !maybeLimit) return;
+    if (!API_HINT.test(url) && text.indexOf('video_info') === -1 && text.indexOf('media_url_https') === -1) return;
     let json;
     try {
       json = JSON.parse(text);
     } catch (_) {
       return;
     }
+    if (maybeLimit && isRateLimited(0, json)) postRateLimit();
+    if (!hasMedia) return;
     try {
       post(scan(json));
     } catch (_) {
@@ -148,10 +206,11 @@
       try {
         const url = (res && res.url) || (typeof args[0] === 'string' ? args[0] : (args[0] && args[0].url)) || '';
         if (res && res.clone && (API_HINT.test(url) || url.indexOf('graphql') !== -1)) {
+          const status = res.status;
           res
             .clone()
             .text()
-            .then((t) => handleText(url, t))
+            .then((t) => handleText(url, t, status))
             .catch(() => {});
         }
       } catch (_) {
@@ -172,9 +231,10 @@
     this.addEventListener('load', () => {
       try {
         const url = this.__xvdUrl || this.responseURL || '';
+        const status = this.status;
         const type = this.responseType;
-        if (type === '' || type === 'text') handleText(url, this.responseText);
-        else if (type === 'json' && this.response) handleText(url, JSON.stringify(this.response));
+        if (type === '' || type === 'text') handleText(url, this.responseText, status);
+        else if (type === 'json' && this.response) handleText(url, JSON.stringify(this.response), status);
       } catch (_) {
         /* ignore */
       }

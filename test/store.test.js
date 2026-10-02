@@ -78,6 +78,14 @@ test('downloaded index survives history clearing and clears independently', asyn
   assert.equal((await getHistory()).length, 1);
 });
 
+test('history entries keep their batch id', async () => {
+  const rec = await addHistoryEntry({ tweetId: '1', batchId: 'b-1' });
+  assert.equal(rec.batchId, 'b-1');
+  assert.equal((await getHistory())[0].batchId, 'b-1');
+  const plain = await addHistoryEntry({ tweetId: '2' });
+  assert.equal(plain.batchId, '');
+});
+
 test('downloaded index evicts the oldest timestamp at 20000 records', async () => {
   data.downloaded = Object.fromEntries(Array.from({ length: 20000 }, (_, i) => [`v:${i}`, { at: i }]));
   await recordDownloaded('v:new', { at: 20000 });

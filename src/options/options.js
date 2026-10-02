@@ -16,16 +16,42 @@ const REPO_URL = 'https://github.com/wangsen2020/x-media-downloader';
 $('repoLink').href = REPO_URL;
 
 // --- tabs ---------------------------------------------------------------
-document.querySelectorAll('.tab').forEach((t) => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('is-active', x === t));
-    $('tab-history').hidden = t.dataset.tab !== 'history';
-    $('tab-settings').hidden = t.dataset.tab !== 'settings';
-    location.hash = t.dataset.tab;
+function batchIdFromHash() {
+  const match = /^#batch=([^&]+)/.exec(location.hash || '');
+  if (!match) return '';
+  try {
+    return decodeURIComponent(match[1]);
+  } catch (_) {
+    return '';
+  }
+}
+
+let batchFilter = location.hash === '#settings' ? '' : batchIdFromHash();
+
+function syncFromHash() {
+  const settingsOn = location.hash === '#settings';
+  document.querySelectorAll('.tab').forEach((tab) => {
+    tab.classList.toggle('is-active', tab.dataset.tab === (settingsOn ? 'settings' : 'history'));
+  });
+  $('tab-history').hidden = settingsOn;
+  $('tab-settings').hidden = !settingsOn;
+  batchFilter = settingsOn ? '' : batchIdFromHash();
+  if (typeof renderHistory === 'function') renderHistory();
+}
+
+document.querySelectorAll('.tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const next = '#' + tab.dataset.tab;
+    if (location.hash === next) syncFromHash();
+    else location.hash = tab.dataset.tab;
   });
 });
+window.addEventListener('hashchange', syncFromHash);
 if (location.hash === '#settings') {
-  document.querySelector('.tab[data-tab="settings"]').click();
+  document.querySelector('.tab[data-tab="settings"]').classList.add('is-active');
+  document.querySelector('.tab[data-tab="history"]').classList.remove('is-active');
+  $('tab-history').hidden = true;
+  $('tab-settings').hidden = false;
 }
 
 // --- settings ---------------------------------------------------------------
@@ -141,10 +167,28 @@ function fmtDate(ts) {
   });
 }
 
+function renderBatchBanner() {
+  const banner = $('batchBanner');
+  if (!batchFilter) {
+    banner.hidden = true;
+    return;
+  }
+  banner.hidden = false;
+  const times = historyCache
+    .filter((r) => r.batchId === batchFilter)
+    .map((r) => r.createdAt)
+    .filter((t) => t);
+  $('batchWhen').textContent = times.length
+    ? `Showing batch from ${fmtDate(Math.min(...times))}`
+    : 'Showing batch';
+}
+
 function renderHistory() {
   const q = $('search').value.trim().toLowerCase();
   const stateF = $('stateFilter').value;
+  renderBatchBanner();
   const rows = historyCache.filter((r) => {
+    if (batchFilter && r.batchId !== batchFilter) return false;
     if (stateF && r.state !== stateF) return false;
     if (!q) return true;
     return (
@@ -247,6 +291,9 @@ async function loadHistory() {
 
 $('search').addEventListener('input', renderHistory);
 $('stateFilter').addEventListener('change', renderHistory);
+$('clearBatchFilter').addEventListener('click', () => {
+  location.hash = 'history';
+});
 
 $('clearBtn').addEventListener('click', async () => {
   if (!historyCache.length) return;
@@ -295,4 +342,4 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 loadSettings();
-loadHistory();
+loadHistory().then(() => syncFromHash());

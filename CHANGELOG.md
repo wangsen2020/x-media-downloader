@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.4.0
+
+- Download every video and photo from a profile's Media tab. The popup shows
+  "Download all media from @user" only on `x.com/<user>/media`. The page is
+  scrolled at a human pace; the extension never calls X's APIs itself.
+- Pause scrolling when X returns HTTP 429 or error code 88, and while the tab
+  is in the background. Files already queued keep downloading. A run stops
+  after 500 files and can continue from the same position.
+- Download at most 3 files at once, spaced 300–800 ms apart. Duplicates are
+  skipped quietly. Network or server failures retry after 5 s and 15 s. Each
+  history row stores its batch id.
+- Show an in-page progress card with icon-only pause and stop controls, a
+  per-tab badge for the number still queued, and links to that batch in
+  history and to the last file. Nothing opens on its own. History filters
+  with `#batch=<id>`.
+
 ## 1.3.0
 
 - Serialize storage updates to prevent concurrent downloads from losing history;

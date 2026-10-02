@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "default_locale": "en",
   "name": "__MSG_extName__",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "__MSG_extDesc__",
   "icons": {
     "16": "icons/icon16.png",
@@ -70,7 +70,10 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "src/injected.js"
+        "src/injected.js",
+        "src/content-batch.js",
+        "src/lib/batch.js",
+        "src/lib/media.js"
       ],
       "matches": [
         "*://x.com/*",

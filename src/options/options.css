@@ -101,6 +101,22 @@ input[type="text"], input[type="search"] { width: 100%; }
 
 .count { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
 
+.batch-banner {
+  margin: 0 0 12px;
+  color: var(--fg);
+  font-size: 13px;
+}
+.batch-banner button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+.batch-banner button:hover,
+.batch-banner button:focus-visible { text-decoration: underline; }
+
 .cards { display: flex; flex-direction: column; gap: 10px; }
 
 .card {

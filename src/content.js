@@ -1,5 +1,7 @@
 // Content script (isolated world). Bridges the page hook to the service worker
 // and adds a download button to every video in the timeline.
+// This file stays a classic script. Chrome has no "type" key for
+// content_scripts, so a top-level import throws and the button never runs.
 (function () {
   'use strict';
 
@@ -25,32 +27,89 @@
     /* ignore */
   }
 
-  // tweetId -> record captured from the API
+  // tweetId -> record captured from the API. Photos are kept apart so a mixed
+  // post cannot replace the video variants the quality menu reads.
   const mediaByTweet = new Map();
+  const photosByTweet = new Map();
+  // Every captured video, not just the last one per tweet. The button still
+  // reads mediaByTweet; a multi-video post must not drop renditions at batch start.
+  const allVideos = new Map();
 
-  window.addEventListener('message', (ev) => {
-    if (ev.source !== window || ev.origin !== origin) return;
-    const data = ev.data;
-    if (!data || data.__src !== 'xvd' || data.kind !== 'media') return;
-    for (const rec of data.records || []) {
-      if (!rec || !rec.tweetId) continue;
-      mediaByTweet.set(rec.tweetId, rec);
+  function mergePhoto(prev, rec) {
+    if (!prev) return rec;
+    const images = prev.images ? prev.images.slice() : [];
+    for (const url of rec.images || []) {
+      if (url && !images.includes(url)) images.push(url);
     }
-    try {
-      chrome.runtime.sendMessage({ type: 'xvd:media', records: data.records });
-    } catch (_) {
-      /* service worker asleep is fine, it also listens itself */
-    }
-    // A late capture might belong to a button we already drew.
-    refreshButtons();
-  });
+    return {
+      ...prev,
+      ...rec,
+      images,
+      screenName: rec.screenName && rec.screenName !== 'unknown' ? rec.screenName : prev.screenName,
+      text: rec.text || prev.text,
+      postDate: rec.postDate || prev.postDate,
+    };
+  }
 
-  // --- settings (kept in sync) ------------------------------------------------
+  // No-ops until the controller module arrives. Page messages still fill the
+  // maps above, so a single-post download never waits on that fetch.
+  let batchApi = {
+    ingest() {},
+    onRateLimit() {},
+  };
   let settings = {
     showTimelineButton: true,
     clickDownloadsImmediately: true,
     defaultQuality: 'highest',
   };
+  const batchReady = import(chrome.runtime.getURL('src/content-batch.js')).then((mod) => {
+    batchApi = mod.attachBatch({
+      getVideos: () => allVideos,
+      getPhotos: () => photosByTweet,
+      getSettings: () => settings,
+    });
+    return batchApi;
+  });
+  batchReady.catch(() => {});
+
+  window.addEventListener('message', (ev) => {
+    if (ev.source !== window || ev.origin !== origin) return;
+    const data = ev.data;
+    if (!data || data.__src !== 'xvd') return;
+    if (data.kind === 'ratelimit') {
+      batchApi.onRateLimit();
+      return;
+    }
+    if (data.kind !== 'media') return;
+    const videos = [];
+    for (const rec of data.records || []) {
+      if (!rec || !rec.tweetId) continue;
+      if (rec.type === 'photo') {
+        photosByTweet.set(rec.tweetId, mergePhoto(photosByTweet.get(rec.tweetId), rec));
+        continue;
+      }
+      if (rec.variants && rec.variants.length) {
+        mediaByTweet.set(rec.tweetId, rec);
+        // Query-stripped URL, not mediaKeyFromUrl: that helper lives in the
+        // batch module, and this path must not wait for it. The queue dedupes.
+        const url = rec.variants[0] && rec.variants[0].url;
+        allVideos.set((url && url.split('?')[0]) || ('tweet:' + rec.tweetId), rec);
+        videos.push(rec);
+      }
+    }
+    if (videos.length) {
+      try {
+        chrome.runtime.sendMessage({ type: 'xvd:media', records: videos });
+      } catch (_) {
+        /* service worker asleep is fine, it also listens itself */
+      }
+    }
+    batchApi.ingest(data.records);
+    // A late capture might belong to a button we already drew.
+    refreshButtons();
+  });
+
+  // --- settings (kept in sync) ------------------------------------------------
   chrome.storage.local.get('settings').then((g) => {
     if (g.settings) settings = { ...settings, ...g.settings };
     scheduleScan();
@@ -417,6 +476,15 @@
   // --- popup / background queries ----------------------------------------
   chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     if (!msg) return;
+    if (msg.type === 'xvd:batch-start') {
+      // Registered now, not after the import. return true holds the channel
+      // open so a popup click during that fetch still gets start()'s answer.
+      batchReady.then(
+        (api) => sendResponse(api.start()),
+        (err) => sendResponse({ ok: false, error: String((err && err.message) || err) }),
+      );
+      return true;
+    }
     if (msg.type === 'xvd:page-context') {
       const p = window.location.pathname.match(/^\/([^/]+)\/status\/(\d+)/);
       let current = p ? { screenName: p[1], tweetId: p[2] } : null;

@@ -1,4 +1,5 @@
 import { QUALITY_OPTIONS } from '../lib/media.js';
+import { mediaUserFromUrl } from '../lib/batch.js';
 import { getSettings, getHistory } from '../lib/store.js';
 
 const $ = (id) => document.getElementById(id);
@@ -21,6 +22,9 @@ async function init() {
   renderRecent();
 
   const tab = await activeTab();
+  const batchUser = tab && mediaUserFromUrl(tab.url || '');
+  if (batchUser) mountBatch(tab.id, batchUser);
+
   if (!tab || !/^https?:\/\/([^/]+\.)?(x|twitter)\.com\//.test(tab.url || '')) {
     return showEmpty();
   }
@@ -29,9 +33,13 @@ async function init() {
   try {
     ctx = await chrome.tabs.sendMessage(tab.id, { type: 'xvd:page-context' });
   } catch (_) {
-    return showEmpty();
+    if (!batchUser) showEmpty();
+    return;
   }
-  if (!ctx || !ctx.current) return showEmpty();
+  if (!ctx || !ctx.current) {
+    if (!batchUser) showEmpty();
+    return;
+  }
 
   current = ctx.current;
   record = ctx.record;
@@ -93,6 +101,38 @@ function buildQualityOptions(defaultQuality) {
       el.selected = o.value === defaultQuality;
       qualitySel.appendChild(el);
     }
+  }
+}
+
+function mountBatch(tabId, user) {
+  const section = $('batch');
+  const btn = $('batchDownload');
+  btn.textContent = `Download all media from @${user}`;
+  section.hidden = false;
+  btn.addEventListener('click', () => startBatch(tabId, btn));
+}
+
+async function startBatch(tabId, btn) {
+  const status = $('batchStatus');
+  btn.disabled = true;
+  status.className = 'pp-status';
+  status.textContent = 'Starting…';
+  try {
+    const res = await chrome.tabs.sendMessage(tabId, { type: 'xvd:batch-start' });
+    if (res && res.ok) {
+      status.className = 'pp-status ok';
+      status.textContent = res.already
+        ? 'A batch is already running on this page.'
+        : 'Started. Progress stays on the page.';
+    } else {
+      status.className = 'pp-status err';
+      status.textContent = (res && res.error) || 'Could not start.';
+    }
+  } catch (_) {
+    status.className = 'pp-status err';
+    status.textContent = 'Reload the media page, then try again.';
+  } finally {
+    btn.disabled = false;
   }
 }
 

@@ -260,3 +260,139 @@ body > .xvd-toast > button > svg {
   width: 20px;
   height: 20px;
 }
+
+/* Batch progress. Appended to document.body, so X's global resets apply and
+   every property that matters is stated here. Scoped to the panel id. */
+body > #xvd-batch {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483646;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(92vw, 440px);
+  min-width: 260px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  color: #0f1419;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 8px 28px rgba(0, 0, 0, 0.22);
+  font: 600 13px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body > #xvd-batch .xvd-batch__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+body > #xvd-batch .xvd-batch__status,
+body > #xvd-batch .xvd-batch__note,
+body > #xvd-batch .xvd-batch__links {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+
+body > #xvd-batch .xvd-batch__status {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+body > #xvd-batch .xvd-batch__controls {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 2px;
+}
+
+body > #xvd-batch button.xvd-batch__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+body > #xvd-batch button.xvd-batch__btn:hover,
+body > #xvd-batch button.xvd-batch__btn:focus-visible {
+  background: rgba(29, 155, 240, 0.12);
+  color: rgb(29, 155, 240);
+  outline: none;
+}
+
+body > #xvd-batch button.xvd-batch__btn svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+body > #xvd-batch .xvd-batch__track {
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 9999px;
+  background: rgba(29, 155, 240, 0.18);
+  overflow: hidden;
+}
+
+body > #xvd-batch .xvd-batch__fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: rgb(29, 155, 240);
+}
+
+body > #xvd-batch .xvd-batch__note {
+  margin-top: 6px;
+  font-weight: 500;
+  color: rgb(83, 100, 113);
+}
+
+body > #xvd-batch .xvd-batch__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 8px;
+}
+
+body > #xvd-batch a.xvd-batch__link {
+  color: rgb(29, 155, 240);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body > #xvd-batch a.xvd-batch__link:hover,
+body > #xvd-batch a.xvd-batch__link:focus-visible {
+  text-decoration: underline;
+}
+
+/* The button rule sets `display`, and it outranks a bare [hidden] selector.
+   Repeat the button selector so a hidden control actually stays hidden. */
+body > #xvd-batch [hidden],
+body > #xvd-batch button.xvd-batch__btn[hidden],
+body > #xvd-batch a.xvd-batch__link[hidden] {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  body > #xvd-batch {
+    background: #1e2732;
+    color: #e7e9ea;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 8px 28px rgba(0, 0, 0, 0.5);
+  }
+
+  body > #xvd-batch .xvd-batch__note {
+    color: rgb(139, 152, 165);
+  }
+}

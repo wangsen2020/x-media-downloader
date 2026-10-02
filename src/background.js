@@ -20,6 +20,7 @@ import {
 } from './lib/store.js';
 
 const SESSION_PREFIX = 'media:';
+const DOWNLOAD_TAB_PREFIX = 'dl:';
 const MAX_SESSION = 150;
 // Chrome search triggers an asynchronous file-existence check; allow it to refresh.
 const DOWNLOAD_EXISTS_REFRESH_DELAY_MS = 300;
@@ -30,7 +31,9 @@ async function cacheRecords(records) {
   if (!records || !records.length) return;
   const items = {};
   for (const r of records) {
-    if (r && r.tweetId && r.variants && r.variants.length) {
+    // Photo records have no variants. Keeping them out of this cache leaves
+    // the single-post video path reading only real renditions.
+    if (r && r.tweetId && r.type !== 'photo' && r.variants && r.variants.length) {
       items[SESSION_PREFIX + r.tweetId] = r;
     }
   }
@@ -102,6 +105,40 @@ async function resolveMedia(tweetId, hint) {
 
 // --- download ------------------------------------------------------------
 
+// Which tab asked for a download. Session storage survives a service-worker
+// restart; the map covers the gap before that write finishes.
+const downloadOrigins = new Map();
+
+async function rememberDownloadOrigin(downloadId, origin) {
+  if (downloadId == null || !origin || origin.tabId == null) return;
+  const info = { tabId: origin.tabId, clientId: origin.clientId || '' };
+  downloadOrigins.set(downloadId, info);
+  await chrome.storage.session.set({ [DOWNLOAD_TAB_PREFIX + downloadId]: info });
+}
+
+function notifyDownloadDone(downloadId, state, error) {
+  const key = DOWNLOAD_TAB_PREFIX + downloadId;
+  const cached = downloadOrigins.get(downloadId);
+  const lookup = cached
+    ? Promise.resolve(cached)
+    : chrome.storage.session.get(key).then((got) => (got && got[key]) || null);
+  // Not awaited. Waiting here while still answering xvd:download can deadlock
+  // the content script that is blocked on our response.
+  lookup.then((origin) => {
+    if (!origin || origin.tabId == null || !chrome.tabs || !chrome.tabs.sendMessage) return null;
+    return chrome.tabs.sendMessage(origin.tabId, {
+      type: 'xvd:download-done',
+      downloadId,
+      state,
+      error: error || '',
+      clientId: origin.clientId || '',
+    });
+  }).then(() => {
+    downloadOrigins.delete(downloadId);
+    return chrome.storage.session.remove(key);
+  }).catch(() => {});
+}
+
 async function duplicateResponse(url, force) {
   if (force) return null;
   const key = mediaKeyFromUrl(url);
@@ -125,7 +162,7 @@ async function attachDownload(entry, downloadId) {
   }
 }
 
-async function startDownload(req) {
+async function startDownload(req, origin) {
   const settings = await getSettings();
   const record = await resolveMedia(req.tweetId, req.record);
   if (!record) throw new Error('No downloadable video found for this post.');
@@ -175,6 +212,7 @@ async function startDownload(req) {
     filename,
     url: chosen.url,
     state: 'in_progress',
+    batchId: req.batchId || '',
   });
 
   let downloadId;
@@ -182,7 +220,8 @@ async function startDownload(req) {
     downloadId = await chrome.downloads.download({
       url: chosen.url,
       filename,
-      saveAs: !!settings.askWhereToSave,
+      // A save dialog per file would stall the batch queue on the user.
+      saveAs: !!settings.askWhereToSave && !req.batchId,
       conflictAction: 'uniquify',
     });
   } catch (e) {
@@ -193,13 +232,14 @@ async function startDownload(req) {
     throw e;
   }
 
+  await rememberDownloadOrigin(downloadId, origin).catch(() => {});
   await attachDownload(entry, downloadId);
   return { ok: true, filename, label, downloadId, key: entry.key };
 }
 
 const SIZE_MAP = { orig: 'orig', large: 'large', medium: 'medium', small: 'small' };
 
-async function startImageDownload(req) {
+async function startImageDownload(req, origin) {
   const settings = await getSettings();
   const realName = (n) => (n && n !== 'unknown' ? n : null);
   const screenName = realName(req.screenName) || 'unknown';
@@ -223,6 +263,7 @@ async function startImageDownload(req) {
     req.tweetUrl || `https://x.com/${screenName}/status/${req.tweetId}`;
   let started = 0;
   let firstName = '';
+  const downloadIds = [];
 
   for (let i = 0; i < uniq.length; i++) {
     const url = uniq[i];
@@ -236,6 +277,7 @@ async function startImageDownload(req) {
         index: i,
         count: uniq.length,
         date: Date.now(),
+        postDate: req.postDate || 0,
         text: req.text || '',
         ext,
       },
@@ -253,15 +295,18 @@ async function startImageDownload(req) {
       filename,
       url,
       state: 'in_progress',
+      batchId: req.batchId || '',
     });
     try {
       const downloadId = await chrome.downloads.download({
         url,
         filename,
-        saveAs: !!settings.askWhereToSave && i === 0,
+        saveAs: !!settings.askWhereToSave && !req.batchId && i === 0,
         conflictAction: 'uniquify',
       });
+      await rememberDownloadOrigin(downloadId, origin).catch(() => {});
       await attachDownload(entry, downloadId);
+      downloadIds.push(downloadId);
       started++;
     } catch (e) {
       await updateHistoryEntry(
@@ -281,6 +326,8 @@ async function startImageDownload(req) {
     filename: firstName,
     folder,
     label: `${started} image${started > 1 ? 's' : ''}`,
+    downloadId: downloadIds[0],
+    downloadIds,
   };
 }
 
@@ -318,6 +365,9 @@ async function updateDownload(delta) {
       });
     }
   }
+  if (patch.state === 'complete' || patch.state === 'interrupted') {
+    notifyDownloadDone(delta.id, patch.state, patch.error || '');
+  }
 }
 
 chrome.downloads.onChanged.addListener((delta) => {
@@ -342,7 +392,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
 
   if (msg.type === 'xvd:download') {
-    const run = msg.kind === 'image' ? startImageDownload(msg) : startDownload(msg);
+    const origin = { tabId: sender.tab && sender.tab.id, clientId: msg.clientId || '' };
+    const run = msg.kind === 'image' ? startImageDownload(msg, origin) : startDownload(msg, origin);
     run
       .then((r) => sendResponse(r))
       .catch((e) => sendResponse({ ok: false, error: String(e.message || e) }));
@@ -386,6 +437,25 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
   if (msg.type === 'xvd:open-options') {
     chrome.runtime.openOptionsPage();
+    sendResponse({ ok: true });
+    return true;
+  }
+
+  if (msg.type === 'xvd:open-batch') {
+    // openOptionsPage() cannot carry a hash, and the history filter is the hash.
+    const id = encodeURIComponent(String(msg.batchId || ''));
+    chrome.tabs.create({ url: chrome.runtime.getURL('src/options/options.html') + '#batch=' + id });
+    sendResponse({ ok: true });
+    return true;
+  }
+
+  if (msg.type === 'xvd:badge') {
+    const tabId = sender.tab && sender.tab.id;
+    if (tabId != null) {
+      const text = String(msg.text || '').slice(0, 4);
+      chrome.action.setBadgeText({ text, tabId });
+      if (text) chrome.action.setBadgeBackgroundColor({ color: '#1d9bf0', tabId });
+    }
     sendResponse({ ok: true });
     return true;
   }

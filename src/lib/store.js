@@ -105,6 +105,7 @@ export async function addHistoryEntry(entry) {
       state: entry.state || 'in_progress', // in_progress | complete | interrupted
       error: '',
       downloadId: entry.downloadId ?? null,
+      batchId: entry.batchId || '',
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };

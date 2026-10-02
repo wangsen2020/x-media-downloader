@@ -55,6 +55,9 @@ body {
 
 .pp-body { padding: 14px; }
 
+.pp-batch { margin-bottom: 4px; }
+#batchDownload { white-space: normal; line-height: 1.3; }
+
 .pp-tweet {
   display: flex;
   gap: 10px;
