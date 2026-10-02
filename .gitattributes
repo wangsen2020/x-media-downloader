@@ -6,6 +6,9 @@
 /CONTRIBUTING.md export-ignore
 /CHANGELOG.md   export-ignore
 /package.json   export-ignore
+/.claude        export-ignore
+/docs          export-ignore
+/test          export-ignore
 
 * text=auto eol=lf
 *.png binary
