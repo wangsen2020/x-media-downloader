@@ -1,0 +1,40 @@
+Download any video, GIF or photo from X (formerly Twitter) in a single click — at the quality you choose, into the folder you choose, with a complete history of everything you have saved.
+
+SAVE THE VIDEOS YOUR PHONE CAN'T
+
+In the X mobile app, many videos have no Download or Save option at all — you can watch them, but you can't keep them. Open the same post on your computer and this extension adds a download icon right next to Like and Bookmark. If the video plays in your browser, one click saves it as a normal MP4 file, in its highest available quality.
+
+SAVE A WHOLE PROFILE
+
+Open someone's Videos tab, click the extension icon and choose "Download all media from @user". Every video and GIF on it is saved into a folder named after that account, and a small panel at the top of the page shows the progress, with pause and stop buttons.
+
+It is paced like a person browsing, not a scraper: one screen every 2–4 seconds, at most 3 downloads at a time, and it stops the moment X says it is getting too many requests. It only reads what X already loads while the page scrolls — it never calls X on its own. Up to 500 files per run; run it again to continue where it stopped, and files you already have are skipped.
+
+WHY THIS ONE
+
+Most X video downloaders give you one button and one guess: you get whatever resolution they felt like, dumped into your Downloads folder under a name like video.mp4 that overwrites the last one you saved. This extension was written to fix exactly those three problems.
+
+FEATURES
+
+• Videos, GIFs and photos — a download icon appears in the action bar of every post that has media, drawn to match X's own icons so it never looks bolted on. Photo posts and link-preview cards are covered too. A post with both a video and photos saves all of them in one click.
+
+• Pick the quality — set a default (Highest / 1080p / 720p / 480p / 360p / Lowest) and the extension always takes the best rendition that does not exceed your target. Right-click the icon to choose a one-off resolution from the renditions X actually served for that post.
+
+• No duplicate copies — the extension remembers what you have already saved, even when the same video turns up in someone else's repost. Clicking again tells you "Already downloaded" instead of creating a "(1)" copy, and one more click downloads it anyway. If you deleted the file, it simply downloads again.
+
+• One folder per account — files go into Downloads/X Media Downloader/<account>/ by default, so each account's media stays together. Rename the folder, use any of the filename variables in it, or switch on "Ask where to save every time" to get the native Save As dialog for each file.
+
+• Filenames that never collide — the default template is {user}_{text}_{datetime}_{id}: the author, the first words of the post, the post's own timestamp and its ID. Descriptive, sortable, and impossible to overwrite by accident.
+
+• Full download history — every file is logged on the options page with thumbnail, account, quality, size, date and status. Search it, re-download, reveal the file on disk, or export the whole log as JSON. A profile download can be viewed on its own.
+
+• Multi-image posts download every photo at original resolution, numbered _1 to _4.
+
+• In your language — the whole interface follows your browser's language: English, Simplified and Traditional Chinese, Japanese, Korean, Spanish (Spain and Latin America), Brazilian Portuguese and Arabic.
+
+PRIVACY
+
+No account, no servers, no analytics, no tracking. Everything runs locally in your browser and your download history never leaves your machine. The only network requests are to X's own domains to resolve the media you asked for.
+
+Open source under the MIT licence — read or audit every line:
+https://github.com/wangsen2020/x-media-downloader

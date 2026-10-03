@@ -7,3 +7,4 @@ dist/
 Thumbs.db
 .idea/
 .vscode/
+tools/poster/out/

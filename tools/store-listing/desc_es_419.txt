@@ -1,0 +1,40 @@
+Descarga cualquier video, GIF o foto de X (antes Twitter) con un solo clic: en la calidad que elijas, en la carpeta que elijas y con un historial completo de todo lo que guardaste.
+
+GUARDA LOS VIDEOS QUE TU CELULAR NO TE DEJA GUARDAR
+
+En la app de X para celular, muchos videos no tienen la opción de Descargar o Guardar: puedes verlos, pero no quedártelos. Abre la misma publicación en tu computadora y esta extensión agrega un ícono de descarga junto a Me gusta y Elementos guardados. Si el video se reproduce en tu navegador, con un clic se guarda como un archivo MP4 normal, en la máxima calidad disponible.
+
+GUARDA TODO UN PERFIL
+
+Abre la pestaña Videos del perfil de alguien, haz clic en el ícono de la extensión y elige "Descargar todos los contenidos de @usuario". Todos sus videos y GIF se guardan en una carpeta con el nombre de esa cuenta, y un panel pequeño en la parte de arriba de la página muestra el progreso, con botones de pausa y detener.
+
+Va al ritmo de una persona que navega, no de un scraper: una pantalla cada 2–4 segundos, como máximo 3 descargas a la vez, y se detiene en cuanto X dice que está recibiendo demasiadas solicitudes. Solo lee lo que X ya carga mientras se desplaza la página; nunca llama a X por su cuenta. Hasta 500 archivos por ejecución; vuelve a lanzarla para continuar donde se detuvo, y los archivos que ya tienes se omiten.
+
+POR QUÉ ESTA EXTENSIÓN
+
+La mayoría de los descargadores de videos de X te dan un botón y nada más: te quedas con la resolución que ellos decidan, en la carpeta de descargas, con un nombre como video.mp4 que reemplaza el archivo anterior. Esta extensión se creó justamente para resolver esos tres problemas.
+
+FUNCIONES
+
+• Videos, GIF y fotos: aparece un ícono de descarga en la barra de acciones de cada publicación con contenido multimedia, con el mismo diseño y tamaño que los íconos de X para que no desentone. También funciona en publicaciones de fotos y en las tarjetas de vista previa de enlaces. Una publicación con video y fotos guarda todo con un solo clic.
+
+• Elige la calidad: define una opción predeterminada (Máxima / 1080p / 720p / 480p / 360p / Mínima) y la extensión siempre tomará la mejor versión que no supere ese límite. Haz clic derecho en el ícono para elegir en el momento entre las resoluciones que X realmente ofrece para esa publicación.
+
+• Sin copias duplicadas: la extensión recuerda lo que ya guardaste, aunque el mismo video aparezca en el repost de otra persona. Si haces clic de nuevo, te indica "Ya se descargó" en lugar de crear una copia "(1)"; un clic más lo descarga igual. Si borraste el archivo, simplemente lo vuelve a descargar.
+
+• Una carpeta por cuenta: los archivos van por defecto a Downloads/X Media Downloader/<cuenta>/, en tu carpeta de Descargas, así el contenido de cada cuenta queda junto. Puedes cambiar el nombre de la carpeta, usar en ella cualquiera de las variables de nombre de archivo, o activar "Preguntar dónde guardar cada archivo" para que aparezca el cuadro de diálogo Guardar como del sistema en cada archivo.
+
+• Nombres de archivo que nunca se repiten: la plantilla predeterminada es {user}_{text}_{datetime}_{id}: el autor, las primeras palabras del texto, la fecha y hora de la publicación y su ID. Descriptivos, fáciles de ordenar e imposibles de sobrescribir por error.
+
+• Historial de descargas completo: cada archivo queda registrado en la página de opciones con miniatura, cuenta, calidad, tamaño, fecha y estado. Búscalo, vuelve a descargarlo, ábrelo en la carpeta o exporta todo el registro en JSON. Una descarga de perfil se puede consultar por separado.
+
+• En las publicaciones con varias imágenes se descargan todas en resolución original, numeradas de _1 a _4.
+
+• En tu idioma: toda la interfaz sigue el idioma de tu navegador: inglés, chino simplificado, chino tradicional, japonés, coreano, español (España y América Latina), portugués brasileño y árabe.
+
+PRIVACIDAD
+
+Sin cuenta, sin servidores, sin analíticas, sin rastreo. Todo se ejecuta localmente en tu navegador y tu historial de descargas nunca sale de tu computadora. Las únicas solicitudes de red van a los dominios de X para obtener el archivo que pediste.
+
+Código abierto con licencia MIT: puedes leer y revisar cada línea.
+https://github.com/wangsen2020/x-media-downloader

@@ -1,0 +1,40 @@
+Baixe qualquer vídeo, GIF ou foto do X (antigo Twitter) com um clique: na qualidade que você escolher, na pasta que você escolher e com um histórico completo de tudo o que já salvou.
+
+SALVE OS VÍDEOS QUE O CELULAR NÃO DEIXA SALVAR
+
+No app do X para celular, muitos vídeos não têm opção de Baixar ou Salvar: dá para assistir, mas não para guardar. Abra o mesmo post no computador e esta extensão adiciona um ícone de download ao lado de Curtir e Salvos. Se o vídeo toca no seu navegador, um clique salva como um arquivo MP4 comum, na maior qualidade disponível.
+
+SALVE UM PERFIL INTEIRO
+
+Abra a aba Vídeos do perfil de alguém, clique no ícone da extensão e escolha "Baixar toda a mídia de @usuário". Todos os vídeos e GIFs dela são salvos numa pasta com o nome dessa conta, e um painel pequeno no topo da página mostra o progresso, com botões de pausar e parar.
+
+O ritmo é o de uma pessoa navegando, não de um scraper: uma tela a cada 2–4 segundos, no máximo 3 downloads ao mesmo tempo, e para no instante em que o X diz que está recebendo pedidos demais. Só lê o que o X já carrega enquanto a página rola — nunca chama o X por conta própria. Até 500 arquivos por execução; rode de novo para continuar de onde parou, e os arquivos que você já tem são ignorados.
+
+POR QUE ESTA EXTENSÃO
+
+A maioria dos downloaders de vídeo do X oferece um botão e nada mais: você recebe a resolução que eles decidirem, jogada na pasta de downloads, com um nome como video.mp4 que sobrescreve o arquivo anterior. Esta extensão foi escrita exatamente para resolver esses três problemas.
+
+RECURSOS
+
+• Vídeos, GIFs e fotos: um ícone de download aparece na barra de ações de todo post com mídia, desenhado e dimensionado para combinar com os ícones do próprio X, sem parecer remendo. Posts de fotos e cards de prévia de link também são cobertos. Um post com vídeo e fotos salva tudo com um clique.
+
+• Escolha a qualidade: defina um padrão (Máxima / 1080p / 720p / 480p / 360p / Mínima) e a extensão sempre pega a melhor versão que não ultrapasse esse limite. Clique com o botão direito no ícone para escolher pontualmente entre as resoluções que o X realmente serviu para aquele post.
+
+• Sem cópias duplicadas: a extensão lembra o que você já salvou, mesmo quando o mesmo vídeo aparece no repost de outra pessoa. Clicar de novo avisa "Já baixado" em vez de criar uma cópia "(1)", e mais um clique baixa mesmo assim. Se você apagou o arquivo, ele simplesmente baixa de novo.
+
+• Uma pasta por conta: os arquivos vão por padrão para Downloads/X Media Downloader/<conta>/, assim a mídia de cada conta fica junta. Renomeie a pasta, use nela qualquer variável de nome de arquivo, ou ative "Perguntar onde salvar cada arquivo" para abrir a caixa de diálogo nativa Salvar como a cada arquivo.
+
+• Nomes de arquivo que nunca colidem: o modelo padrão é {user}_{text}_{datetime}_{id}: o autor, as primeiras palavras do post, o horário do próprio post e o ID dele. Descritivos, ordenáveis e impossíveis de sobrescrever por acidente.
+
+• Histórico de downloads completo: cada arquivo fica registrado na página de opções com miniatura, conta, qualidade, tamanho, data e status. Pesquise, baixe de novo, abra o arquivo na pasta ou exporte o registro inteiro em JSON. Um download de perfil pode ser visto à parte.
+
+• Posts com várias imagens baixam todas as fotos em resolução original, numeradas de _1 a _4.
+
+• No seu idioma: a interface inteira segue o idioma do seu navegador: inglês, chinês simplificado, chinês tradicional, japonês, coreano, espanhol (Espanha e América Latina), português brasileiro e árabe.
+
+PRIVACIDADE
+
+Sem conta, sem servidores, sem analytics, sem rastreamento. Tudo roda localmente no seu navegador e seu histórico de downloads nunca sai da sua máquina. As únicas requisições de rede vão para os domínios do próprio X, para obter a mídia que você pediu.
+
+Código aberto sob licença MIT: leia ou audite cada linha.
+https://github.com/wangsen2020/x-media-downloader

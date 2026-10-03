@@ -137,6 +137,8 @@ X Media Downloader card.
 
 ### Batch download
 
+<img src="docs/promo-batch.webp" alt="Open a profile's Videos tab, click Download all, files land in a folder per account" width="420">
+
 Batch download is built to look like a person scrolling, not a scraper:
 
 - It **never calls X's API itself**. It only reads the responses X already
@@ -220,6 +222,8 @@ src/
   options/          history + settings page
 _locales/          9 languages; every locale has the same keys as en
 icons/             generated PNGs (see tools/genicons.mjs)
+tools/poster/      localized store/README poster renderer (see its README)
+tools/store-listing/ store descriptions + default screenshots per language
 test/              node --test unit tests
 ```
 
