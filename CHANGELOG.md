@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.4
+
+- Open a localized product welcome page on first install instead of the options page.
+- Register a localized uninstall feedback page with only version, browser language,
+  install date (when known), and fixed attribution parameters; no user identifiers.
+
 ## 1.5.3
 
 - Keep handles, filenames, recent-download labels, and batch-button handles LTR-isolated in RTL popup and history views.

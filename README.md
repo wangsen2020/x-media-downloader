@@ -82,7 +82,7 @@ build step — you load the folder directly. Takes about a minute.
 4. **Load unpacked.** Click **Load unpacked** (**“加载未打包的扩展程序”**) and
    pick the repository folder — the one that directly contains `manifest.json`.
 
-5. **Done.** The history / settings page opens automatically on first install.
+5. **Done.** The product website welcome page opens automatically on first install.
    Open the puzzle‑piece menu in the toolbar and pin **X Media Downloader** so
    its icon is always visible.
 
@@ -196,8 +196,12 @@ posts download every picture, numbered `_1`…`_4`.
 
 ## Privacy
 
-- No analytics, no external calls except to X / Twitter’s own domains and the
+- No analytics. Download requests go only to X / Twitter’s own domains and the
   public Twitter syndication CDN to resolve a video.
+- First install opens the product website welcome page; uninstall opens a feedback
+  page with only version, browser language, install date (when known), and fixed
+  attribution parameters. Feedback is voluntary and covered by the
+  [website privacy policy](https://xdown.goodexts.com/privacy-policy).
 - History and settings live in `chrome.storage.local` on your machine and never
   leave it. Export is a manual button.
 - Permissions: `downloads` (save files), `storage` (settings/history),

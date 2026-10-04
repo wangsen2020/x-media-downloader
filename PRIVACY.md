@@ -1,15 +1,16 @@
 # Privacy Policy — X Media Downloader
 
-**Last updated: 20 September 2026**
+**Last updated: 5 October 2026**
 
 ## Short version
 
 X Media Downloader collects nothing, transmits nothing, and has no servers.
-Everything it stores stays in your own browser profile on your own computer.
+Settings and download history stay in your own browser profile on your own
+computer. Product website navigation is described below.
 
 ## What the extension stores locally
 
-Two things are written to `chrome.storage.local`, which lives on your machine
+The following are written to `chrome.storage.local`, which lives on your machine
 and is readable only by this extension:
 
 1. **Your settings** — preferred video quality, destination subfolder,
@@ -20,11 +21,15 @@ and is readable only by this extension:
    the filename, and the time. This exists so the options page can show you
    what you have saved and let you re-download or reveal a file later.
 
+3. **Install date** — the local calendar date of first install, used in the
+   uninstall feedback page address. Updates do not fill in an unknown date.
+
 A short-lived cache of media URLs for the current browsing session is kept in
 `chrome.storage.session`, which Chrome clears when the browser closes.
 
-You can delete all of this at any time from the extension's options page
-("Clear all"), or by removing the extension.
+You can delete download history from the extension's options page ("Clear all")
+and clear the downloaded-media index separately. These actions preserve the
+install date. Removing the extension deletes its local storage.
 
 ## What the extension does not do
 
@@ -50,8 +55,21 @@ ask it to download something:
   single post when the page's own response was not observed. Only the post ID
   is sent.
 
-No request is ever made to any server operated by the author or by any third
-party.
+The extension itself has no backend and sends no settings, download history,
+or user identifiers to the author.
+
+## Product website pages
+
+On first install, the extension opens a welcome page on the product website.
+When uninstalled, Chrome opens a feedback page whose address contains only the
+extension version, browser language, and install date (when known), alongside
+fixed attribution parameters identifying the extension and navigation source.
+Neither address contains account handles, user IDs, or download history.
+
+Opening these pages is browser navigation, not an extension backend request.
+Anything on the feedback page is submitted only if you choose to submit it.
+Website visits and voluntary submissions are covered by the
+[website privacy policy](https://xdown.goodexts.com/privacy-policy).
 
 ## Permissions and why they exist
 
