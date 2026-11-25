@@ -18,6 +18,7 @@
         </div>
         <nav class="tabs">
           <button class="tab is-active" data-tab="history" type="button" data-i18n="optionsTabHistory">History</button>
+          <button class="tab" data-tab="uploads" type="button" data-i18n="optionsTabUploads">Google Drive</button>
           <button class="tab" data-tab="settings" type="button" data-i18n="optionsTabSettings">Settings</button>
         </nav>
       </header>
@@ -51,6 +52,40 @@
         <div id="historyList" class="cards"></div>
         <p id="historyEmpty" class="empty" hidden data-i18n="optionsHistoryEmpty">
           No downloads yet. Open X, find a video, and hit Download.
+        </p>
+      </section>
+
+      <!-- GOOGLE DRIVE UPLOADS ------------------------------------------>
+      <section id="tab-uploads" class="panel" hidden>
+        <div id="gdriveAuthCard" class="gdrive-auth-card" hidden>
+          <div class="gdrive-auth-copy">
+            <h2 data-i18n="gdriveAuthTitle">Connect Google Drive to start cloud uploads</h2>
+            <p class="hint" data-i18n="gdriveAuthDesc">Permissions are requested only when you upload. This extension only creates and accesses its own folder and never reads your other Drive files.</p>
+            <p id="gdriveAuthPending" class="gdrive-auth-pending" hidden></p>
+            <p id="gdriveAuthError" class="gdrive-auth-error" hidden></p>
+          </div>
+          <button id="gdriveConnectBtn" class="btn btn-primary" type="button" data-i18n="gdriveConnectBtn">Connect Google Drive</button>
+        </div>
+
+        <div id="gdriveConnectedBar" class="gdrive-connected" hidden>
+          <span id="gdriveConnectedText" class="gdrive-connected-text"></span>
+          <div class="gdrive-connected-actions">
+            <button id="gdriveOpenFolderBtn" class="btn" type="button" hidden data-i18n="gdriveOpenFolder">Open folder ↗</button>
+            <button id="gdriveDisconnectBtn" class="btn" type="button" data-i18n="gdriveDisconnectBtn">Disconnect</button>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <span id="uploadCount" class="count" style="margin: 0"></span>
+          <span class="spacer"></span>
+          <button id="pauseAllUploadsBtn" class="btn" type="button" data-i18n="gdrivePauseAll">Pause all</button>
+          <button id="resumeAllUploadsBtn" class="btn" type="button" data-i18n="gdriveResumeAll">Resume all</button>
+          <button id="clearDoneUploadsBtn" class="btn" type="button" data-i18n="gdriveClearDone">Clear completed</button>
+        </div>
+
+        <div id="uploadList" class="cards"></div>
+        <p id="uploadEmpty" class="empty" hidden data-i18n="gdriveEmpty">
+          No cloud uploads yet. Right-click the download icon on any post and choose “Upload to Google Drive”.
         </p>
       </section>
 
@@ -131,6 +166,20 @@
           <label for="maxHistory"><strong data-i18n="optionsMaxHistory">Keep at most</strong></label>
           <p class="hint" data-i18n="optionsMaxHistoryHint">Oldest history entries beyond this count are dropped.</p>
           <input id="maxHistory" type="number" min="10" max="5000" step="10" />
+        </div>
+
+        <div class="setting">
+          <label for="gdriveFolder"><strong data-i18n="optionsGdriveFolderLabel">Google Drive folder name</strong></label>
+          <p class="hint" data-i18n="optionsGdriveFolderHint">Root folder created in your Google Drive for cloud uploads.</p>
+          <input id="gdriveFolder" type="text" placeholder="X Media Downloader" data-i18n-placeholder="optionsGdriveFolderPlaceholder" />
+        </div>
+
+        <div class="setting setting-row">
+          <input id="gdriveByUser" type="checkbox" />
+          <label for="gdriveByUser">
+            <strong data-i18n="optionsGdriveByUser">Group Google Drive uploads into @user subfolders</strong>
+            <span class="hint" data-i18n="optionsGdriveByUserHint">Creates a subfolder per account inside your Google Drive upload folder.</span>
+          </label>
         </div>
 
         <div class="setting">

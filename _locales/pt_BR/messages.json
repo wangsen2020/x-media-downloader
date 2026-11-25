@@ -15,6 +15,14 @@
     "message": "Histórico e configurações",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "Gerencie seguidores e unfollows no X",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "abrir post ↗",
     "description": "Popup link to the current tweet"
@@ -723,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "Abra primeiro a aba Mídia do perfil.",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ Enviar para o Google Drive"
+  },
+  "toastDriveQueued": {
+    "message": "$COUNT$ arquivo(s) adicionado(s) à fila do Google Drive",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "Já enviado para o Google Drive"
+  },
+  "gdriveAuthTitle": {
+    "message": "Conecte o Google Drive para enviar arquivos para a nuvem"
+  },
+  "gdriveAuthDesc": {
+    "message": "As permissões são solicitadas apenas ao enviar. A extensão só acessa a própria pasta e nunca lê seus outros arquivos."
+  },
+  "gdriveAuthPendingCount": {
+    "message": "$COUNT$ arquivo(s) aguardando; o envio começará automaticamente após conectar.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "Autorização cancelada. Suas tarefas continuam na fila."
+  },
+  "gdriveConnectBtn": {
+    "message": "Conectar Google Drive"
+  },
+  "gdriveConnectedAs": {
+    "message": "Conectado ao Google Drive · Pasta: $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "Abrir pasta ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "Desconectar"
+  },
+  "gdrivePauseAll": {
+    "message": "Pausar tudo"
+  },
+  "gdriveResumeAll": {
+    "message": "Retomar tudo"
+  },
+  "gdriveClearDone": {
+    "message": "Limpar concluídos"
+  },
+  "gdriveQueueCount": {
+    "message": "$TOTAL$ tarefa(s) · $ACTIVE$ ativa(s)",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "Nenhum envio ainda. Clique com o botão direito no ícone de download de qualquer post e escolha “Enviar para o Google Drive”."
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "Aguardando autorização"
+  },
+  "gdriveStateQueued": {
+    "message": "Na fila"
+  },
+  "gdriveStateFetching": {
+    "message": "Baixando mídia…"
+  },
+  "gdriveStateUploading": {
+    "message": "Enviando…"
+  },
+  "gdriveStatePaused": {
+    "message": "Pausado"
+  },
+  "gdriveStateFailed": {
+    "message": "Falhou"
+  },
+  "gdriveStateCancelled": {
+    "message": "Cancelado"
+  },
+  "gdriveOpenFile": {
+    "message": "Abrir no Drive ↗"
+  },
+  "gdrivePause": {
+    "message": "Pausar"
+  },
+  "gdriveCancel": {
+    "message": "Cancelar"
+  },
+  "gdriveRetry": {
+    "message": "Tentar novamente"
+  },
+  "gdriveErrQuota": {
+    "message": "Cota de armazenamento do Google Drive excedida."
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "Nome da pasta no Google Drive"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "Pasta raiz criada no seu Google Drive para os envios."
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "Agrupar envios em subpastas por @usuário"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "Cria uma subpasta por conta dentro da sua pasta do Google Drive."
+  },
+  "driveModalTitle": {
+    "message": "Conectar ao Google Drive"
+  },
+  "driveModalDesc": {
+    "message": "O primeiro envio requer permissão do Google Drive. Clique abaixo para abrir a janela de autorização; após aprovar, o download e envio começarão automaticamente."
+  },
+  "driveModalConfirm": {
+    "message": "Iniciar autorização"
+  },
+  "driveModalCancel": {
+    "message": "Cancelar"
+  },
+  "gdrivePopupConfirm": {
+    "message": "Autorizar e enviar"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "Autorizado e enviando"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "Seus arquivos foram adicionados à fila e estão sendo enviados para o Google Drive em segundo plano."
+  },
+  "gdriveAuthClose": {
+    "message": "Fechar"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "Ver tarefas de envio"
+  },
+  "toastClose": {
+    "message": "Fechar"
+  },
+  "toastDriveViewQueue": {
+    "message": "Clique para ver na fila de envio"
   }
 }

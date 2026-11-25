@@ -15,6 +15,14 @@
     "message": "履歴と設定",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "X フォロワー管理・片思いを一括整理",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "ポストを開く ↗",
     "description": "Popup link to the current tweet"
@@ -723,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "先にプロフィールのメディアタブを開いてください。",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ Google Drive にアップロード"
+  },
+  "toastDriveQueued": {
+    "message": "Google Drive キューに $COUNT$ 件追加しました",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "Google Drive にアップロード済みです"
+  },
+  "gdriveAuthTitle": {
+    "message": "Google Drive を接続してクラウド保存を開始"
+  },
+  "gdriveAuthDesc": {
+    "message": "権限はアップロード時のみ要求されます。この拡張機能が作成した専用フォルダのみにアクセスし、他のファイルは読み取りません。"
+  },
+  "gdriveAuthPendingCount": {
+    "message": "$COUNT$ 件の待機中タスクがあります。接続すると自動的に開始します。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "認証がキャンセルされました。タスクはキューに保持されています。"
+  },
+  "gdriveConnectBtn": {
+    "message": "Google Drive に接続"
+  },
+  "gdriveConnectedAs": {
+    "message": "Google Drive 接続済み · フォルダ: $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "フォルダを開く ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "切断"
+  },
+  "gdrivePauseAll": {
+    "message": "すべて一時停止"
+  },
+  "gdriveResumeAll": {
+    "message": "すべて再開"
+  },
+  "gdriveClearDone": {
+    "message": "完了済みを削除"
+  },
+  "gdriveQueueCount": {
+    "message": "全 $TOTAL$ 件 · 実行中 $ACTIVE$ 件",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "クラウドアップロードはまだありません。投稿のダウンロードアイコンを右クリックして「Google Drive にアップロード」を選択してください。"
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "認証待ち"
+  },
+  "gdriveStateQueued": {
+    "message": "待機中"
+  },
+  "gdriveStateFetching": {
+    "message": "取得中…"
+  },
+  "gdriveStateUploading": {
+    "message": "アップロード中…"
+  },
+  "gdriveStatePaused": {
+    "message": "一時停止"
+  },
+  "gdriveStateFailed": {
+    "message": "失敗"
+  },
+  "gdriveStateCancelled": {
+    "message": "キャンセル"
+  },
+  "gdriveOpenFile": {
+    "message": "Drive で開く ↗"
+  },
+  "gdrivePause": {
+    "message": "一時停止"
+  },
+  "gdriveCancel": {
+    "message": "キャンセル"
+  },
+  "gdriveRetry": {
+    "message": "再試行"
+  },
+  "gdriveErrQuota": {
+    "message": "Google Drive の容量が不足しています。"
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "Google Drive フォルダ名"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "Google Drive のルートに作成される保存先フォルダ名です。"
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "@ユーザー名 ごとにサブフォルダを作成"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "保存先フォルダ内にアカウント別のサブフォルダを作成します。"
+  },
+  "driveModalTitle": {
+    "message": "Google Drive の連携が必要です"
+  },
+  "driveModalDesc": {
+    "message": "初回アップロードには Google Drive の権限が必要です。下のボタンから認証ウィンドウを開き、許可すると自動でダウンロードとアップロードを開始します。"
+  },
+  "driveModalConfirm": {
+    "message": "認証を開始"
+  },
+  "driveModalCancel": {
+    "message": "キャンセル"
+  },
+  "gdrivePopupConfirm": {
+    "message": "許可してアップロード開始"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "認証完了・アップロード中"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "アップロードキューに追加されました。バックグラウンドで Google Drive へ送信しています。"
+  },
+  "gdriveAuthClose": {
+    "message": "閉じる"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "アップロード一覧を見る"
+  },
+  "toastClose": {
+    "message": "閉じる"
+  },
+  "toastDriveViewQueue": {
+    "message": "クリックしてアップロードキューを開く"
   }
 }

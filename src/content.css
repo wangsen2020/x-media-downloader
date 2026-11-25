@@ -196,6 +196,120 @@ body > #xvd-menu .xvd-menu__check {
   font-weight: 700;
 }
 
+body > #xvd-menu .xvd-menu__sep {
+  height: 1px;
+  margin: 4px 8px;
+  background: rgba(128, 128, 128, 0.22);
+}
+
+body > #xvd-drive-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.48);
+  font: 400 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body > #xvd-drive-modal .xvd-modal__card {
+  width: 100%;
+  max-width: 380px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  color: #0f1419;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+}
+
+body > #xvd-drive-modal .xvd-modal__title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+body > #xvd-drive-modal .xvd-modal__desc {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: #536471;
+}
+
+body > #xvd-drive-modal .xvd-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+body > #xvd-drive-modal .xvd-modal__btn {
+  padding: 8px 14px;
+  border: 1px solid #cfd9de;
+  border-radius: 9999px;
+  background: transparent;
+  color: #0f1419;
+  font: 600 13px/1 inherit;
+  cursor: pointer;
+}
+
+body > #xvd-drive-modal .xvd-modal__btn--primary {
+  border-color: rgb(29, 155, 240);
+  background: rgb(29, 155, 240);
+  color: #fff;
+}
+
+body > .xvd-toast .xvd-toast__link {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+body > .xvd-toast .xvd-toast__timer {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-left: 8px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+body > .xvd-toast .xvd-toast__close {
+  border: 0;
+  padding: 0 4px;
+  background: transparent;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.85;
+}
+body > .xvd-toast .xvd-toast__close:hover { opacity: 1; }
+
+@media (prefers-color-scheme: dark) {
+  body > #xvd-drive-modal .xvd-modal__card {
+    background: #15202b;
+    color: #e7e9ea;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 12px 36px rgba(0, 0, 0, 0.55);
+  }
+  body > #xvd-drive-modal .xvd-modal__desc {
+    color: #8b98a5;
+  }
+  body > #xvd-drive-modal .xvd-modal__btn {
+    border-color: #38444d;
+    color: #e7e9ea;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   body > #xvd-menu {
     background: #1e2732;
@@ -205,6 +319,9 @@ body > #xvd-menu .xvd-menu__check {
 }
 
 body > .xvd-toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   position: fixed;
   left: 50%;
   bottom: 28px;
@@ -230,7 +347,7 @@ body > .xvd-toast--in {
 body > .xvd-toast--error { background: #f4212e; }
 body > .xvd-toast--ok { background: #00ba7c; }
 
-body > .xvd-toast > button {
+body > .xvd-toast > button:not(.xvd-toast__link) {
   display: inline-flex;
   align-items: center;
   justify-content: center;

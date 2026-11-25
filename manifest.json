@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "default_locale": "en",
   "name": "__MSG_extName__",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "__MSG_extDesc__",
   "icons": {
     "16": "icons/icon16.png",
@@ -30,6 +30,9 @@
     "downloads",
     "storage"
   ],
+  "optional_permissions": [
+    "identity"
+  ],
   "host_permissions": [
     "*://x.com/*",
     "*://twitter.com/*",
@@ -37,6 +40,17 @@
     "*://pro.x.com/*",
     "*://cdn.syndication.twimg.com/*"
   ],
+  "optional_host_permissions": [
+    "https://www.googleapis.com/*",
+    "https://video.twimg.com/*",
+    "https://pbs.twimg.com/*"
+  ],
+  "oauth2": {
+    "client_id": "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [

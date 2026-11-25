@@ -233,6 +233,19 @@ export function parseSyndicationResponse(json, wantId) {
   const details = []
     .concat(json.mediaDetails || [])
     .concat(json.video ? [json.video] : []);
+  const ucRaw =
+    json.card &&
+    json.card.binding_values &&
+    json.card.binding_values.unified_card &&
+    json.card.binding_values.unified_card.string_value;
+  if (typeof ucRaw === 'string') {
+    try {
+      const uc = JSON.parse(ucRaw);
+      if (uc && uc.media_entities && typeof uc.media_entities === 'object') {
+        details.push(...Object.values(uc.media_entities));
+      }
+    } catch (_) {}
+  }
   const out = [];
   for (const md of details) {
     const videoInfo = md.video_info || (md.type ? md : null);

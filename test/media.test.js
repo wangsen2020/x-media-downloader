@@ -1,6 +1,6 @@
 ﻿import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mediaKeyFromUrl, buildFilename, sanitizePart } from '../src/lib/media.js';
+import { mediaKeyFromUrl, buildFilename, sanitizePart, parseSyndicationResponse } from '../src/lib/media.js';
 
 test('video identity ignores quality, query strings, and hosting post', () => {
   for (const kind of ['amplify_video', 'ext_tw_video', 'tweet_video']) {
@@ -48,4 +48,41 @@ test('filename sanitizer removes invisible characters before collapsing separato
   for (const ext of ['mp4', 'jpg']) {
     assert.equal(buildFilename('{user}_{text}_{id}', { ...ctx, ext }), `dai_hui30485_\u6e2f\u53f0_123.${ext}`);
   }
+});
+
+test('parseSyndicationResponse extracts video variants from unified_card media_entities', () => {
+  const payload = {
+    id_str: '2122737596971503885',
+    user: { screen_name: 'GeminiApp' },
+    text: 'Gemini Discord event',
+    created_at: 'Tue Nov 24 20:00:00 +0000 2026',
+    card: {
+      binding_values: {
+        unified_card: {
+          string_value: JSON.stringify({
+            media_entities: {
+              '13_999': {
+                type: 'video',
+                media_url_https: 'https://pbs.twimg.com/media/demo.jpg',
+                video_info: {
+                  duration_millis: 15000,
+                  variants: [
+                    { content_type: 'application/x-mpegURL', url: 'https://video.twimg.com/ext_tw_video/1/pl/a.m3u8' },
+                    { bitrate: 832000, content_type: 'video/mp4', url: 'https://video.twimg.com/ext_tw_video/1/pu/vid/avc1/640x360/a.mp4' },
+                    { bitrate: 2176000, content_type: 'video/mp4', url: 'https://video.twimg.com/ext_tw_video/1/pu/vid/avc1/1280x720/a.mp4' },
+                  ],
+                },
+              },
+            },
+          }),
+        },
+      },
+    },
+  };
+  const records = parseSyndicationResponse(payload, '2122737596971503885');
+  assert.equal(records.length, 1);
+  assert.equal(records[0].tweetId, '2122737596971503885');
+  assert.equal(records[0].screenName, 'GeminiApp');
+  assert.equal(records[0].variants.length, 2);
+  assert.equal(records[0].variants[0].height, 720);
 });

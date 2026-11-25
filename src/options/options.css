@@ -22,6 +22,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -97,6 +98,13 @@ input[type="text"], input[type="search"] { width: 100%; }
   cursor: pointer;
 }
 .btn:hover { background: var(--hover); }
+.btn:disabled { opacity: 0.6; cursor: default; }
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { filter: brightness(0.95); background: var(--accent); }
 .btn-danger { color: var(--danger); border-color: rgba(244, 33, 46, 0.4); }
 
 .count { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
@@ -127,6 +135,11 @@ input[type="text"], input[type="search"] { width: 100%; }
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--card);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card.is-highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.22);
 }
 .card .thumb {
   width: 96px;
@@ -157,8 +170,75 @@ input[type="text"], input[type="search"] { width: 100%; }
   font-size: 11px;
 }
 .badge.complete { background: rgba(0, 186, 124, 0.15); color: var(--ok); }
-.badge.in_progress { background: rgba(29, 155, 240, 0.15); color: var(--accent); }
-.badge.interrupted { background: rgba(244, 33, 46, 0.15); color: var(--danger); }
+.badge.in_progress,
+.badge.uploading,
+.badge.fetching { background: rgba(29, 155, 240, 0.15); color: var(--accent); }
+.badge.interrupted,
+.badge.failed { background: rgba(244, 33, 46, 0.15); color: var(--danger); }
+.badge.awaiting_auth,
+.badge.paused { background: rgba(245, 158, 11, 0.16); color: #d97706; }
+.badge.queued,
+.badge.cancelled { background: var(--hover); color: var(--muted); }
+
+.gdrive-auth-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(29, 155, 240, 0.35);
+  border-radius: 12px;
+  background: rgba(29, 155, 240, 0.06);
+}
+.gdrive-auth-copy { min-width: 0; }
+.gdrive-auth-copy h2 { margin: 0 0 4px; font-size: 16px; }
+.gdrive-auth-copy .hint { margin: 0; }
+.gdrive-auth-pending { margin: 6px 0 0; font-size: 13px; font-weight: 600; color: var(--accent); }
+.gdrive-auth-error { margin: 6px 0 0; font-size: 13px; color: var(--danger); }
+.gdrive-auth-card .btn-primary { flex: none; white-space: nowrap; }
+
+.gdrive-connected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  font-size: 13px;
+}
+.gdrive-connected-text { color: var(--ok); font-weight: 600; }
+.gdrive-connected-actions { display: flex; gap: 8px; align-items: center; }
+
+.upload-progress { margin-top: 8px; }
+.upload-bar {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--hover);
+  overflow: hidden;
+}
+.upload-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 9999px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+.upload-bar-fill.complete { background: var(--ok); }
+.upload-bar-fill.failed { background: var(--danger); }
+.upload-progress-text {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .gdrive-auth-card { flex-direction: column; align-items: stretch; }
+}
 
 .card .actions {
   display: flex;

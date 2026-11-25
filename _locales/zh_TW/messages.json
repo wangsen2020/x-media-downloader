@@ -15,6 +15,14 @@
     "message": "歷史與設定",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "管理 X 追蹤與互追，一鍵查未回追",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "開啟貼文 ↗",
     "description": "Popup link to the current tweet"
@@ -723,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "請先開啟個人檔案的媒體分頁。",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ 上傳到 Google Drive"
+  },
+  "toastDriveQueued": {
+    "message": "已加入 Google Drive 上傳佇列（$COUNT$ 個檔案）",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "已上傳至 Google Drive"
+  },
+  "gdriveAuthTitle": {
+    "message": "連線你的 Google Drive，開始雲端儲存"
+  },
+  "gdriveAuthDesc": {
+    "message": "僅在你主動上傳時請求權限，本擴充功能只會建立並存取自己的資料夾，不會讀取其他雲端檔案。"
+  },
+  "gdriveAuthPendingCount": {
+    "message": "目前有 $COUNT$ 個待上傳任務，連線後將自動開始。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "已取消授權，任務仍保留在佇列中，可隨時重新連線。"
+  },
+  "gdriveConnectBtn": {
+    "message": "連線 Google Drive"
+  },
+  "gdriveConnectedAs": {
+    "message": "已連線 Google Drive · 資料夾：$FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "開啟資料夾 ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "中斷連線"
+  },
+  "gdrivePauseAll": {
+    "message": "全部暫停"
+  },
+  "gdriveResumeAll": {
+    "message": "全部繼續"
+  },
+  "gdriveClearDone": {
+    "message": "清除已完成"
+  },
+  "gdriveQueueCount": {
+    "message": "共 $TOTAL$ 項 · $ACTIVE$ 項進行中",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "尚無雲端上傳任務。在 X 貼文上右鍵點擊下載圖示並選擇「上傳到 Google Drive」即可。"
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "等待授權"
+  },
+  "gdriveStateQueued": {
+    "message": "排隊中"
+  },
+  "gdriveStateFetching": {
+    "message": "擷取媒體中…"
+  },
+  "gdriveStateUploading": {
+    "message": "上傳中…"
+  },
+  "gdriveStatePaused": {
+    "message": "已暫停"
+  },
+  "gdriveStateFailed": {
+    "message": "失敗"
+  },
+  "gdriveStateCancelled": {
+    "message": "已取消"
+  },
+  "gdriveOpenFile": {
+    "message": "在 Drive 開啟 ↗"
+  },
+  "gdrivePause": {
+    "message": "暫停"
+  },
+  "gdriveCancel": {
+    "message": "取消"
+  },
+  "gdriveRetry": {
+    "message": "重試"
+  },
+  "gdriveErrQuota": {
+    "message": "Google Drive 儲存空間不足。"
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "Google Drive 資料夾名稱"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "在你的 Google Drive 根目錄建立的歸檔資料夾名稱。"
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "依 @使用者名稱 建立子資料夾"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "開啟後會在目標資料夾內為每個帳號單獨建立子資料夾。"
+  },
+  "driveModalTitle": {
+    "message": "需要授權 Google Drive"
+  },
+  "driveModalDesc": {
+    "message": "首次雲端上傳需要授權 Google Drive 權限（僅存取專用資料夾）。點擊下方按鈕將彈出授權視窗，授權完成後自動開始下載與上傳。"
+  },
+  "driveModalConfirm": {
+    "message": "開始授權"
+  },
+  "driveModalCancel": {
+    "message": "取消"
+  },
+  "gdrivePopupConfirm": {
+    "message": "確認授權並開始上傳"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "授權成功，正在上傳"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "已加入上傳佇列，正在背景上傳至 Google Drive。"
+  },
+  "gdriveAuthClose": {
+    "message": "關閉"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "查看上傳任務"
+  },
+  "toastClose": {
+    "message": "關閉"
+  },
+  "toastDriveViewQueue": {
+    "message": "點擊查看上傳佇列並定位"
   }
 }
