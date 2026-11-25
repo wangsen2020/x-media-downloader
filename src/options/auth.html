@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" dir="__MSG_@@bidi_dir__">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="gdriveAuthTitle">Connect Google Drive</title>
+    <link rel="stylesheet" href="options.css" />
+    <style>
+      body { display: grid; place-items: center; min-height: 100vh; padding: 20px; }
+      .auth-box { max-width: 380px; width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+      .auth-box h1 { margin: 0 0 8px; font-size: 17px; }
+      .auth-box .hint { margin: 0 0 16px; }
+      .auth-box .gdrive-auth-error { margin: 0 0 12px; }
+      .auth-actions { display: flex; justify-content: flex-end; gap: 8px; }
+      .auth-ok { color: var(--ok); }
+    </style>
+  </head>
+  <body>
+    <main id="authView" class="auth-box">
+      <h1 data-i18n="gdriveAuthTitle">Connect Google Drive to start cloud uploads</h1>
+      <p class="hint" data-i18n="gdriveAuthDesc">Permissions are requested only when you upload. This extension only creates and accesses its own folder and never reads your other Drive files.</p>
+      <p id="err" class="gdrive-auth-error" hidden></p>
+      <div class="auth-actions">
+        <button id="cancelBtn" class="btn" type="button" data-i18n="driveModalCancel">Cancel</button>
+        <button id="authBtn" class="btn btn-primary" type="button" data-i18n="gdrivePopupConfirm">Authorize &amp; start upload</button>
+      </div>
+    </main>
+
+    <main id="successView" class="auth-box" hidden>
+      <h1 class="auth-ok" data-i18n="gdriveAuthSuccessTitle">Authorized &amp; uploading</h1>
+      <p class="hint" data-i18n="gdriveAuthSuccessDesc">Your media has been added to the queue and is now uploading to Google Drive in the background.</p>
+      <div class="auth-actions">
+        <button id="closeBtn" class="btn" type="button" data-i18n="gdriveAuthClose">Close</button>
+        <button id="viewUploadsBtn" class="btn btn-primary" type="button" data-i18n="gdriveAuthViewTasks">View upload tasks</button>
+      </div>
+    </main>
+
+    <script type="module" src="auth.js"></script>
+  </body>
+</html>

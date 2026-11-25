@@ -17,7 +17,11 @@ import {
   getHistory,
   getDownloaded,
   recordDownloaded,
+  enqueueGDriveTasks,
+  updateGDriveTasksWhere,
+  getGDriveUploaded,
 } from './lib/store.js';
+import { isDriveAuthorized } from './lib/gdrive.js';
 import { t } from './lib/i18n.js';
 import { welcomeUrl, uninstallUrl } from './lib/site.js';
 
@@ -445,6 +449,34 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     return true;
   }
 
+  if (msg.type === 'xvd:open-uploads') {
+    openOrFocusUploadsTab(true, { tweetId: msg.tweetId, taskId: msg.taskId })
+      .then(() => sendResponse({ ok: true }))
+      .catch((e) => sendResponse({ ok: false, error: String(e.message || e) }));
+    return true;
+  }
+
+  if (msg.type === 'xvd:gdrive-check-auth') {
+    isDriveAuthorized()
+      .then((authorized) => sendResponse({ ok: true, authorized: !!authorized }))
+      .catch(() => sendResponse({ ok: true, authorized: false }));
+    return true;
+  }
+
+  if (msg.type === 'xvd:gdrive-enqueue') {
+    enqueueDriveUpload(msg, sender.tab?.id)
+      .then((r) => sendResponse(r))
+      .catch((e) => sendResponse({ ok: false, error: String(e.message || e) }));
+    return true;
+  }
+
+  if (msg.type === 'xvd:gdrive-auth-done') {
+    completeDriveAuth()
+      .then(() => sendResponse({ ok: true }))
+      .catch((e) => sendResponse({ ok: false, error: String(e.message || e) }));
+    return true;
+  }
+
   if (msg.type === 'xvd:badge') {
     const tabId = sender.tab && sender.tab.id;
     if (tabId != null) {
@@ -495,3 +527,201 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   }
   if (details.reason === 'install' || details.reason === 'update') await setUninstallUrl();
 });
+
+// --- Google Drive upload queue helpers ----------------------------------
+
+function mimeForImageExt(ext) {
+  if (ext === 'png') return 'image/png';
+  if (ext === 'webp') return 'image/webp';
+  return 'image/jpeg';
+}
+
+function baseFilenameOnly(template, vars) {
+  const full = buildFilename(template, vars, '');
+  const idx = full.lastIndexOf('/');
+  return idx >= 0 ? full.slice(idx + 1) : full;
+}
+
+async function openOrFocusUploadsTab(active, focus = {}) {
+  const baseUrl = chrome.runtime.getURL('src/options/options.html');
+  const suffix = focus.taskId
+    ? `&focus=${encodeURIComponent(String(focus.taskId))}`
+    : focus.tweetId
+      ? `&tweet=${encodeURIComponent(String(focus.tweetId))}`
+      : '';
+  const targetUrl = `${baseUrl}#uploads${suffix}`;
+  const tabs = await chrome.tabs.query({ url: `${baseUrl}*` });
+  if (tabs && tabs.length) {
+    const tab = tabs[0];
+    if (active) {
+      await chrome.tabs.update(tab.id, { url: targetUrl, active: true });
+      if (tab.windowId != null) await chrome.windows.update(tab.windowId, { focused: true }).catch(() => {});
+    } else if (!String(tab.url || '').includes('#uploads')) {
+      await chrome.tabs.update(tab.id, { url: targetUrl });
+    }
+    chrome.runtime.sendMessage({ type: 'xvd:gdrive-queue-updated' }).catch(() => {});
+    return tab;
+  }
+  return chrome.tabs.create({ url: targetUrl, active: !!active });
+}
+
+let lastDriveAuthSource = null;
+
+async function enqueueDriveUpload(req, sourceTabId = null) {
+  const settings = await getSettings();
+  const realName = (n) => (n && n !== 'unknown' ? n : null);
+  let screenName = realName(req.screenName) || 'unknown';
+  const tweetUrl = req.tweetUrl || `https://x.com/${screenName}/status/${req.tweetId}`;
+  const uploadedMap = await getGDriveUploaded();
+  const hasPerm = await isDriveAuthorized();
+  const initialStatus = hasPerm ? 'queued' : 'awaiting_auth';
+  const tasks = [];
+  let skippedDup = 0;
+
+  const kinds = Array.isArray(req.kinds) && req.kinds.length ? req.kinds : ['video'];
+
+  if (kinds.includes('video')) {
+    const record = await resolveMedia(req.tweetId, req.record);
+    if (record) {
+      const variants = record.variants?.length ? record.variants : parseVariants(record.video_info || {});
+      const chosen = pickVariant(variants, req.quality || settings.defaultQuality) || variants[0];
+      if (chosen) {
+        screenName = realName(record.screenName) || screenName;
+        const mKey = mediaKeyFromUrl(chosen.url);
+        if (hasPerm && !req.force && mKey && uploadedMap[mKey]) {
+          skippedDup++;
+        } else {
+          const label = labelForVariant(chosen);
+          tasks.push({
+            tweetId: req.tweetId,
+            screenName,
+            tweetUrl,
+            mediaKind: record.type || 'video',
+            mediaKey: mKey || '',
+            mediaUrl: chosen.url,
+            poster: record.poster || '',
+            filename: baseFilenameOnly(settings.filenameTemplate, {
+              user: screenName,
+              id: req.tweetId,
+              height: chosen.height,
+              bitrate: chosen.bitrate,
+              quality: label,
+              index: 0,
+              count: 1,
+              date: Date.now(),
+              postDate: record.postDate || 0,
+              text: record.text || '',
+            }),
+            mimeType: 'video/mp4',
+            quality: label,
+            status: initialStatus,
+          });
+        }
+      }
+    }
+  }
+
+  if (kinds.includes('image') && Array.isArray(req.images) && req.images.length) {
+    const uniq = [...new Set(req.images.filter(Boolean).map((u) => bestImageUrl(u)))];
+    for (let i = 0; i < uniq.length; i++) {
+      const url = uniq[i];
+      const mKey = mediaKeyFromUrl(url);
+      if (hasPerm && !req.force && mKey && uploadedMap[mKey]) {
+        skippedDup++;
+        continue;
+      }
+      const ext = imageExt(url);
+      tasks.push({
+        tweetId: req.tweetId,
+        screenName,
+        tweetUrl,
+        mediaKind: 'image',
+        mediaKey: mKey || '',
+        mediaUrl: url,
+        poster: url,
+        filename: baseFilenameOnly(settings.filenameTemplate, {
+          user: screenName,
+          id: req.tweetId,
+          quality: 'img',
+          index: i,
+          count: uniq.length,
+          date: Date.now(),
+          postDate: req.postDate || 0,
+          text: req.text || '',
+          ext,
+        }),
+        mimeType: mimeForImageExt(ext),
+        quality: 'orig',
+        status: initialStatus,
+      });
+    }
+  }
+
+  if (!tasks.length) {
+    if (skippedDup > 0) return { ok: true, alreadyUploaded: true, count: 0, awaitingAuth: !hasPerm };
+    throw new Error(t('toastErrNoVideo'));
+  }
+
+  await enqueueGDriveTasks(tasks);
+  if (!hasPerm) {
+    lastDriveAuthSource = { tabId: sourceTabId, tweetId: req.tweetId || '' };
+    await openDriveAuthPopup(sourceTabId);
+  } else {
+    await openOrFocusUploadsTab(false);
+  }
+  return { ok: true, count: tasks.length, awaitingAuth: !hasPerm };
+}
+
+async function openDriveAuthPopup(sourceTabId = null) {
+  const url = chrome.runtime.getURL('src/options/auth.html');
+  const width = 440;
+  const height = 320;
+  let win = null;
+  if (sourceTabId != null) {
+    const tab = await chrome.tabs.get(sourceTabId).catch(() => null);
+    if (tab && tab.windowId != null) {
+      win = await chrome.windows.get(tab.windowId).catch(() => null);
+    }
+  }
+  if (!win) {
+    win = await chrome.windows.getLastFocused().catch(() => null);
+  }
+  const pos =
+    win && typeof win.left === 'number' && typeof win.top === 'number' && win.width && win.height
+      ? {
+          left: Math.round(win.left + (win.width - width) / 2),
+          top: Math.round(win.top + (win.height - height) / 2),
+        }
+      : {};
+
+  const tabs = await chrome.tabs.query({ url });
+  if (tabs && tabs.length) {
+    const t = tabs[0];
+    if (t.windowId != null) {
+      await chrome.windows.update(t.windowId, { focused: true, ...pos }).catch(() => {});
+    }
+    return;
+  }
+  await chrome.windows.create({
+    url,
+    type: 'popup',
+    width,
+    height,
+    ...pos,
+    focused: true,
+  });
+}
+
+async function completeDriveAuth() {
+  const count = await updateGDriveTasksWhere((r) => r.status === 'awaiting_auth', { status: 'queued', error: '' });
+  await openOrFocusUploadsTab(false);
+  const src = lastDriveAuthSource;
+  lastDriveAuthSource = null;
+  if (count > 0 && src && src.tabId != null) {
+    chrome.tabs.sendMessage(src.tabId, {
+      type: 'xvd:drive-queued-toast',
+      count,
+      tweetId: src.tweetId || '',
+    }).catch(() => {});
+  }
+}

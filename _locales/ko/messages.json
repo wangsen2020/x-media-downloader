@@ -15,6 +15,14 @@
     "message": "기록 및 설정",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "X 팔로워 관리 및 맞팔·언팔 추적",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "게시물 열기 ↗",
     "description": "Popup link to the current tweet"
@@ -723,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "먼저 프로필의 미디어 탭을 여세요.",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ Google Drive에 업로드"
+  },
+  "toastDriveQueued": {
+    "message": "Google Drive 대기열에 $COUNT$개 추가됨",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "이미 Google Drive에 업로드됨"
+  },
+  "gdriveAuthTitle": {
+    "message": "클라우드 업로드를 시작하려면 Google Drive를 연결하세요"
+  },
+  "gdriveAuthDesc": {
+    "message": "권한은 업로드할 때만 요청됩니다. 이 확장 프로그램이 만든 전용 폴더에만 접근하며 다른 파일은 읽지 않습니다."
+  },
+  "gdriveAuthPendingCount": {
+    "message": "$COUNT$개 작업이 대기 중입니다. 연결되면 자동으로 시작됩니다.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "인증이 취소되었습니다. 작업은 대기열에 유지되며 언제든 다시 연결할 수 있습니다."
+  },
+  "gdriveConnectBtn": {
+    "message": "Google Drive 연결"
+  },
+  "gdriveConnectedAs": {
+    "message": "Google Drive 연결됨 · 폴더: $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "폴더 열기 ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "연결 해제"
+  },
+  "gdrivePauseAll": {
+    "message": "모두 일시중지"
+  },
+  "gdriveResumeAll": {
+    "message": "모두 재개"
+  },
+  "gdriveClearDone": {
+    "message": "완료 항목 지우기"
+  },
+  "gdriveQueueCount": {
+    "message": "총 $TOTAL$개 · 진행 중 $ACTIVE$개",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "클라우드 업로드가 없습니다. 게시물의 다운로드 아이콘을 마우스 오른쪽 버튼으로 클릭해 “Google Drive에 업로드”를 선택하세요."
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "인증 대기"
+  },
+  "gdriveStateQueued": {
+    "message": "대기 중"
+  },
+  "gdriveStateFetching": {
+    "message": "미디어 가져오는 중…"
+  },
+  "gdriveStateUploading": {
+    "message": "업로드 중…"
+  },
+  "gdriveStatePaused": {
+    "message": "일시중지됨"
+  },
+  "gdriveStateFailed": {
+    "message": "실패"
+  },
+  "gdriveStateCancelled": {
+    "message": "취소됨"
+  },
+  "gdriveOpenFile": {
+    "message": "Drive에서 열기 ↗"
+  },
+  "gdrivePause": {
+    "message": "일시중지"
+  },
+  "gdriveCancel": {
+    "message": "취소"
+  },
+  "gdriveRetry": {
+    "message": "다시 시도"
+  },
+  "gdriveErrQuota": {
+    "message": "Google Drive 저장 용량이 부족합니다."
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "Google Drive 폴더 이름"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "Google Drive 루트에 생성할 업로드 폴더 이름입니다."
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "@사용자별 하위 폴더로 분류"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "Google Drive 업로드 폴더 안에 계정별 하위 폴더를 생성합니다."
+  },
+  "driveModalTitle": {
+    "message": "Google Drive 권한 연결 필요"
+  },
+  "driveModalDesc": {
+    "message": "첫 업로드 시 Google Drive 권한이 필요합니다. 아래 버튼을 눌러 권한 창에서 승인하면 자동으로 다운로드와 업로드가 시작됩니다."
+  },
+  "driveModalConfirm": {
+    "message": "권한 인증 시작"
+  },
+  "driveModalCancel": {
+    "message": "취소"
+  },
+  "gdrivePopupConfirm": {
+    "message": "승인 후 업로드 시작"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "인증 완료 · 업로드 중"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "업로드 대기열에 추가되어 백그라운드에서 Google Drive로 전송 중입니다."
+  },
+  "gdriveAuthClose": {
+    "message": "닫기"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "업로드 작업 보기"
+  },
+  "toastClose": {
+    "message": "닫기"
+  },
+  "toastDriveViewQueue": {
+    "message": "클릭하여 업로드 대기열 보기"
   }
 }

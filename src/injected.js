@@ -133,6 +133,17 @@
         mediaLists.push(legacy.extended_entities.media);
       if (legacy && legacy.entities && Array.isArray(legacy.entities.media))
         mediaLists.push(legacy.entities.media);
+      const ucRaw =
+        (node.key === 'unified_card' && node.value && typeof node.value.string_value === 'string' && node.value.string_value) ||
+        (node.unified_card && typeof node.unified_card.string_value === 'string' && node.unified_card.string_value);
+      if (ucRaw) {
+        try {
+          const uc = JSON.parse(ucRaw);
+          if (uc && uc.media_entities && typeof uc.media_entities === 'object') {
+            mediaLists.push(Object.values(uc.media_entities));
+          }
+        } catch (_) {}
+      }
 
       for (const list of mediaLists) {
         for (const media of list) {

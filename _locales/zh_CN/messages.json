@@ -15,6 +15,14 @@
     "message": "历史和设置",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "管理 X 关注与互关，一键查未回关",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "打开帖子 ↗",
     "description": "Popup link to the current tweet"
@@ -47,14 +55,20 @@
     "message": "默认（$LABEL$）",
     "description": "Popup quality option that uses the user's default setting",
     "placeholders": {
-      "label": { "content": "$1", "example": "Highest available" }
+      "label": {
+        "content": "$1",
+        "example": "Highest available"
+      }
     }
   },
   "popupBatchDownload": {
     "message": "下载 @$USER$ 的全部媒体",
     "description": "Popup button on a profile Media tab",
     "placeholders": {
-      "user": { "content": "$1", "example": "NASA" }
+      "user": {
+        "content": "$1",
+        "example": "NASA"
+      }
     }
   },
   "popupBatchStarting": {
@@ -85,15 +99,24 @@
     "message": "正在下载 $LABEL$ → $FILE$",
     "description": "Popup status after a download starts",
     "placeholders": {
-      "label": { "content": "$1", "example": "720p" },
-      "file": { "content": "$2", "example": "NASA_id.mp4" }
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
     }
   },
   "popupFailed": {
     "message": "失败：$ERROR$",
     "description": "Popup status when a download fails",
     "placeholders": {
-      "error": { "content": "$1", "example": "network error" }
+      "error": {
+        "content": "$1",
+        "example": "network error"
+      }
     }
   },
   "popupUnknownError": {
@@ -112,15 +135,24 @@
     "message": "$HEIGHT$p · $BITRATE$ kbps",
     "description": "Popup quality option for a captured rendition",
     "placeholders": {
-      "height": { "content": "$1", "example": "720" },
-      "bitrate": { "content": "$2", "example": "2176" }
+      "height": {
+        "content": "$1",
+        "example": "720"
+      },
+      "bitrate": {
+        "content": "$2",
+        "example": "2176"
+      }
     }
   },
   "popupVariantBitrate": {
     "message": "$BITRATE$ kbps",
     "description": "Quality option when only bitrate is known",
     "placeholders": {
-      "bitrate": { "content": "$1", "example": "2176" }
+      "bitrate": {
+        "content": "$1",
+        "example": "2176"
+      }
     }
   },
   "optionsTitle": {
@@ -299,7 +331,10 @@
     "message": "正在显示 $DATE$ 的批次",
     "description": "History banner when filtering by a batch id",
     "placeholders": {
-      "date": { "content": "$1", "example": "Apr 2, 2026, 03:15 PM" }
+      "date": {
+        "content": "$1",
+        "example": "Apr 2, 2026, 03:15 PM"
+      }
     }
   },
   "optionsBatchShowing": {
@@ -310,8 +345,14 @@
     "message": "$SHOWN$ / $TOTAL$",
     "description": "History count of filtered vs all rows",
     "placeholders": {
-      "shown": { "content": "$1", "example": "4" },
-      "total": { "content": "$2", "example": "20" }
+      "shown": {
+        "content": "$1",
+        "example": "4"
+      },
+      "total": {
+        "content": "$2",
+        "example": "20"
+      }
     }
   },
   "optionsOpenTweet": {
@@ -342,7 +383,10 @@
     "message": "删除全部 $COUNT$ 条历史记录？不会删除已下载的文件。",
     "description": "Confirm dialog before clearing history",
     "placeholders": {
-      "count": { "content": "$1", "example": "20" }
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
     }
   },
   "optionsConfirmClearDownloaded": {
@@ -353,14 +397,20 @@
     "message": "已导入。历史记录现有 $COUNT$ 条。",
     "description": "Alert after a successful history import",
     "placeholders": {
-      "count": { "content": "$1", "example": "25" }
+      "count": {
+        "content": "$1",
+        "example": "25"
+      }
     }
   },
   "optionsImportFailed": {
     "message": "导入失败：$ERROR$",
     "description": "Alert after a failed history import",
     "placeholders": {
-      "error": { "content": "$1", "example": "Unexpected token" }
+      "error": {
+        "content": "$1",
+        "example": "Unexpected token"
+      }
     }
   },
   "optionsFolderDownloads": {
@@ -403,14 +453,20 @@
     "message": "下载失败：$ERROR$",
     "description": "Toast when chrome.runtime.lastError is set",
     "placeholders": {
-      "error": { "content": "$1", "example": "Extension context invalidated" }
+      "error": {
+        "content": "$1",
+        "example": "Extension context invalidated"
+      }
     }
   },
   "toastAlready": {
     "message": "已经下载过 · $DATE$",
     "description": "Toast when this media is already in the downloaded index",
     "placeholders": {
-      "date": { "content": "$1", "example": "4/2/2026" }
+      "date": {
+        "content": "$1",
+        "example": "4/2/2026"
+      }
     }
   },
   "toastNoImage": {
@@ -425,30 +481,48 @@
     "message": "找不到可下载的图片（$ERROR$）",
     "description": "Toast when an image download fails with a reason",
     "placeholders": {
-      "error": { "content": "$1", "example": "No images on this tweet." }
+      "error": {
+        "content": "$1",
+        "example": "No images on this tweet."
+      }
     }
   },
   "toastNoVideoError": {
     "message": "找不到可下载的视频（$ERROR$）",
     "description": "Toast when a video download fails with a reason",
     "placeholders": {
-      "error": { "content": "$1", "example": "No MP4 rendition is available." }
+      "error": {
+        "content": "$1",
+        "example": "No MP4 rendition is available."
+      }
     }
   },
   "toastDownloading": {
     "message": "正在下载 $LABEL$ → $FILE$",
     "description": "Toast after a single-file download starts",
     "placeholders": {
-      "label": { "content": "$1", "example": "720p" },
-      "file": { "content": "$2", "example": "NASA_id.mp4" }
+      "label": {
+        "content": "$1",
+        "example": "720p"
+      },
+      "file": {
+        "content": "$2",
+        "example": "NASA_id.mp4"
+      }
     }
   },
   "toastDownloadingImages": {
     "message": "正在下载图片：$COUNT$ → $FOLDER$",
     "description": "Toast after a multi-image download starts",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "folder": { "content": "$2", "example": "X Media Downloader/NASA" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "folder": {
+        "content": "$2",
+        "example": "X Media Downloader/NASA"
+      }
     }
   },
   "toastFileFallback": {
@@ -487,21 +561,30 @@
     "message": "公开接口返回 $STATUS$。",
     "description": "Error when the syndication request is not OK",
     "placeholders": {
-      "status": { "content": "$1", "example": "404" }
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
     }
   },
   "toastImageLabel": {
     "message": "图片：$COUNT$",
     "description": "Download label for an image set, shown in popup status",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "menuDownloadImages": {
     "message": "下载图片（$COUNT$）",
     "description": "Quality menu title for a multi-image post",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "menuDownloadImage": {
@@ -571,24 +654,42 @@
     "message": "已下载 $DOWNLOADED$ / $COLLECTED$ · 已跳过 $SKIPPED$ · 失败 $FAILED$",
     "description": "Batch panel status while running",
     "placeholders": {
-      "downloaded": { "content": "$1", "example": "12" },
-      "collected": { "content": "$2", "example": "40" },
-      "skipped": { "content": "$3", "example": "2" },
-      "failed": { "content": "$4", "example": "1" }
+      "downloaded": {
+        "content": "$1",
+        "example": "12"
+      },
+      "collected": {
+        "content": "$2",
+        "example": "40"
+      },
+      "skipped": {
+        "content": "$3",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$4",
+        "example": "1"
+      }
     }
   },
   "batchFinished": {
     "message": "已完成：$COUNT$",
     "description": "Batch panel status when the run completed",
     "placeholders": {
-      "count": { "content": "$1", "example": "40" }
+      "count": {
+        "content": "$1",
+        "example": "40"
+      }
     }
   },
   "batchStopped": {
     "message": "已停止 · 已下载 $COUNT$",
     "description": "Batch panel status when the user stopped the run",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "batchRateLimited": {
@@ -599,15 +700,24 @@
     "message": "已达 $COUNT$ 个文件 — 可继续下一批",
     "description": "Batch panel note at the 500-file cap",
     "placeholders": {
-      "count": { "content": "$1", "example": "500" }
+      "count": {
+        "content": "$1",
+        "example": "500"
+      }
     }
   },
   "batchSkippedFailed": {
     "message": "已跳过 $SKIPPED$ · 失败 $FAILED$",
     "description": "Batch panel note after a finished run that skipped or failed some files",
     "placeholders": {
-      "skipped": { "content": "$1", "example": "2" },
-      "failed": { "content": "$2", "example": "1" }
+      "skipped": {
+        "content": "$1",
+        "example": "2"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "1"
+      }
     }
   },
   "batchResume": {
@@ -621,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "请先打开主页的媒体标签。",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ 上传到 Google Drive"
+  },
+  "toastDriveQueued": {
+    "message": "已加入 Google Drive 上传队列（$COUNT$ 个文件）",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "已上传过 Google Drive"
+  },
+  "gdriveAuthTitle": {
+    "message": "连接你的 Google Drive，开始云端保存"
+  },
+  "gdriveAuthDesc": {
+    "message": "仅在你主动上传时申请权限，本扩展只会创建并访问自己的文件夹，不会读取你云盘中的其他文件。"
+  },
+  "gdriveAuthPendingCount": {
+    "message": "当前有 $COUNT$ 个待上传任务，连接后将自动开始。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "已取消授权，任务仍保留在队列中，可随时重新连接。"
+  },
+  "gdriveConnectBtn": {
+    "message": "连接 Google Drive"
+  },
+  "gdriveConnectedAs": {
+    "message": "已连接 Google Drive · 目录：$FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "打开文件夹 ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "断开连接"
+  },
+  "gdrivePauseAll": {
+    "message": "全部暂停"
+  },
+  "gdriveResumeAll": {
+    "message": "全部继续"
+  },
+  "gdriveClearDone": {
+    "message": "清理已完成"
+  },
+  "gdriveQueueCount": {
+    "message": "共 $TOTAL$ 项 · $ACTIVE$ 项进行中",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "暂无云端上传任务。在 X 帖子上右键点击下载图标并选择“上传到 Google Drive”即可。"
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "等待授权"
+  },
+  "gdriveStateQueued": {
+    "message": "排队中"
+  },
+  "gdriveStateFetching": {
+    "message": "拉取媒体中…"
+  },
+  "gdriveStateUploading": {
+    "message": "上传中…"
+  },
+  "gdriveStatePaused": {
+    "message": "已暂停"
+  },
+  "gdriveStateFailed": {
+    "message": "失败"
+  },
+  "gdriveStateCancelled": {
+    "message": "已取消"
+  },
+  "gdriveOpenFile": {
+    "message": "在 Drive 打开 ↗"
+  },
+  "gdrivePause": {
+    "message": "暂停"
+  },
+  "gdriveCancel": {
+    "message": "取消"
+  },
+  "gdriveRetry": {
+    "message": "重试"
+  },
+  "gdriveErrQuota": {
+    "message": "Google Drive 云端存储空间不足。"
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "Google Drive 目标文件夹名称"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "在你的 Google Drive 根目录创建的归档文件夹名称。"
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "在 Google Drive 中按 @用户名 创建子文件夹"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "开启后会在目标文件夹内为每个账号单独建子目录。"
+  },
+  "driveModalTitle": {
+    "message": "需要授权 Google Drive"
+  },
+  "driveModalDesc": {
+    "message": "首次云端上传需要授权 Google Drive 权限（仅访问专用文件夹，不读取其他文件）。点击下方按钮弹出授权窗口，授权完毕后将自动开始下载并上传。"
+  },
+  "driveModalConfirm": {
+    "message": "开始授权"
+  },
+  "driveModalCancel": {
+    "message": "取消"
+  },
+  "gdrivePopupConfirm": {
+    "message": "确认授权并开始上传"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "授权成功，正在上传"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "已加入上传队列，正在后台上传至 Google Drive。"
+  },
+  "gdriveAuthClose": {
+    "message": "关闭"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "查看上传任务"
+  },
+  "toastClose": {
+    "message": "关闭"
+  },
+  "toastDriveViewQueue": {
+    "message": "点击查看上传队列并定位"
   }
 }

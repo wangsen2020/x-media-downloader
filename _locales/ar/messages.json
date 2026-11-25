@@ -15,6 +15,14 @@
     "message": "السجل والإعدادات",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "إدارة متابعي X وتتبع غير المتابعين",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "فتح المنشور ↗",
     "description": "Popup link to the current tweet"
@@ -723,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "افتح أولاً علامة تبويب الوسائط في الملف الشخصي.",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ الرفع إلى Google Drive"
+  },
+  "toastDriveQueued": {
+    "message": "تمت إضافة $COUNT$ ملف(ات) إلى قائمة الرفع في Google Drive",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "تم الرفع مسبقاً إلى Google Drive"
+  },
+  "gdriveAuthTitle": {
+    "message": "اربط Google Drive لبدء الرفع السحابي"
+  },
+  "gdriveAuthDesc": {
+    "message": "تُطلب الصلاحيات فقط عند الرفع. تصل الإضافة إلى مجلدها الخاص فقط ولا تقرأ ملفاتك الأخرى."
+  },
+  "gdriveAuthPendingCount": {
+    "message": "يوجد $COUNT$ ملف(ات) بالانتظار — سيبدأ الرفع تلقائياً بعد الربط.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "تم إلغاء التفويض. تم الاحتفاظ بالمهام في القائمة."
+  },
+  "gdriveConnectBtn": {
+    "message": "ربط Google Drive"
+  },
+  "gdriveConnectedAs": {
+    "message": "متصل بـ Google Drive · المجلد: $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "فتح المجلد ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "قطع الاتصال"
+  },
+  "gdrivePauseAll": {
+    "message": "إيقاف الكل مؤقتاً"
+  },
+  "gdriveResumeAll": {
+    "message": "استئناف الكل"
+  },
+  "gdriveClearDone": {
+    "message": "مسح المكتمل"
+  },
+  "gdriveQueueCount": {
+    "message": "$TOTAL$ مهمة · $ACTIVE$ نشطة",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "لا توجد مهام رفع بعد. انقر بزر الفأرة الأيمن على أيقونة التنزيل واختر “الرفع إلى Google Drive”."
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "بانتظار التفويض"
+  },
+  "gdriveStateQueued": {
+    "message": "في الانتظار"
+  },
+  "gdriveStateFetching": {
+    "message": "جارٍ جلب الوسائط…"
+  },
+  "gdriveStateUploading": {
+    "message": "جارٍ الرفع…"
+  },
+  "gdriveStatePaused": {
+    "message": "متوقف مؤقتاً"
+  },
+  "gdriveStateFailed": {
+    "message": "فشل"
+  },
+  "gdriveStateCancelled": {
+    "message": "ملغى"
+  },
+  "gdriveOpenFile": {
+    "message": "فتح في Drive ↗"
+  },
+  "gdrivePause": {
+    "message": "إيقاف مؤقت"
+  },
+  "gdriveCancel": {
+    "message": "إلغاء"
+  },
+  "gdriveRetry": {
+    "message": "إعادة المحاولة"
+  },
+  "gdriveErrQuota": {
+    "message": "تم تجاوز مساحة تخزين Google Drive."
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "اسم مجلد Google Drive"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "المجلد الرئيسي المنشأ في Google Drive للرفع السحابي."
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "تجميع الرفع في مجلدات فرعية حسب @المستخدم"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "ينشئ مجلداً فرعياً لكل حساب داخل مجلد الرفع."
+  },
+  "driveModalTitle": {
+    "message": "ربط Google Drive"
+  },
+  "driveModalDesc": {
+    "message": "يتطلب الرفع الأول تفويض Google Drive. انقر أدناه لفتح نافذة التفويض، وبعد الموافقة سيبدأ التنزيل والرفع تلقائياً."
+  },
+  "driveModalConfirm": {
+    "message": "بدء التفويض"
+  },
+  "driveModalCancel": {
+    "message": "إلغاء"
+  },
+  "gdrivePopupConfirm": {
+    "message": "تفويض وبدء الرفع"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "تم التفويض وجارٍ الرفع"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "تمت إضافة الوسائط إلى قائمة الانتظار وتُرفع الآن إلى Google Drive في الخلفية."
+  },
+  "gdriveAuthClose": {
+    "message": "إغلاق"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "عرض مهام الرفع"
+  },
+  "toastClose": {
+    "message": "إغلاق"
+  },
+  "toastDriveViewQueue": {
+    "message": "انقر للعرض في قائمة الرفع"
   }
 }

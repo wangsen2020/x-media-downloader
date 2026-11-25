@@ -25,6 +25,8 @@ get wrong:
 | **Always downloads the wrong quality** | A **default quality** setting (Highest / 1080p / 720p / 480p / 360p / Lowest, “closest below” your target) and a per‑download quality picker in the popup and the timeline button. |
 | **Saves the same file twice** | Already‑downloaded media is recognised (by the media itself, not the post, so reposts count too). One click shows “Already downloaded” instead of a `(1)` copy; a second icon downloads it anyway. |
 | **Everything in one heap** | Files go into one folder per account by default: `Downloads/X Media Downloader/<user>/`. |
+| **Manual cloud backup** | Right-click any download button → **Upload to Google Drive** to stream videos, GIFs, and photos directly to `X Media Downloader/@user` using least-privilege `drive.file` access, 4 MB resumable chunks, and 3-layer deduplication (`mediaKey` + `name` + `sha256Checksum`). |
+| **Website Card videos** | Extracts 1080p/720p MP4 variants embedded inside X Website Cards (`unified_card`) as well as standard tweets, GIFs, and multi-photo posts. |
 
 No servers, no tracking, no account. Everything runs locally in your browser.
 

@@ -9,3 +9,4 @@
 | 3 | [3. 复用视频帖无法下载排障_20261003_0100_wangsen.md](./3.%20复用视频帖无法下载排障_20261003_0100_wangsen.md) | 1.2.2 复用视频帖无法下载：source_status_id_str 与 screen_name 迁移 | 2026-10-03 01:00 | 排障复盘 |
 | 4 | [4. 安装欢迎页与卸载反馈方案_20261005_0045_wangsen.md](./4.%20安装欢迎页与卸载反馈方案_20261005_0045_wangsen.md) | 安装时打开官网欢迎页、卸载时打开反馈页（选项＋可选联系方式＋X 私信授权），Cloudflare Pages Functions＋D1 免费方案，不加人机验证；含实施记录 | 2026-10-05 00:45 | 新功能方案 |
 | 5 | [5. 安装欢迎页、卸载反馈与GEO复用手册_20261006_1449_wangsen.md](./5.%20安装欢迎页、卸载反馈与GEO复用手册_20261006_1449_wangsen.md) | 把欢迎页、卸载反馈（共用 D1＋Telegram）、GEO 优化、卖点文案和主站同步整理成手册，供 X Blocker、X Article to PDF 及其子站复用 | 2026-10-06 14:49 | 复用手册 |
+| 6 | [6. Google Drive直传方案_20261125_1346_wangsen.md](./6.%20Google%20Drive直传方案_20261125_1346_wangsen.md) | 基于 optional_permissions（identity + googleapis）与 Drive v3（图片 Multipart + 视频 Resumable 分片），右键菜单触发、Options 页面慢速队列与进度列表 | 2026-11-25 13:46 | 新功能方案 |

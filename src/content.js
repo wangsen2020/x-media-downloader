@@ -198,11 +198,41 @@
     return p ? { screenName: p[1], tweetId: p[2] } : null;
   }
 
-  function toast(text, kind, action) {
+  function toast(text, kind, action, extra = null) {
     const el = document.createElement('div');
     el.className = 'xvd-toast' + (kind ? ' xvd-toast--' + kind : '');
-    el.textContent = text;
     el.setAttribute('role', 'status');
+    let timerId = 0;
+    let tickId = 0;
+    let focusHandler = null;
+    const dismiss = () => {
+      if (timerId) clearTimeout(timerId);
+      if (tickId) clearInterval(tickId);
+      if (focusHandler) {
+        window.removeEventListener('focus', focusHandler);
+        document.removeEventListener('visibilitychange', focusHandler);
+      }
+      el.classList.remove('xvd-toast--in');
+      setTimeout(() => el.remove(), 300);
+    };
+
+    if (extra && extra.onOpen) {
+      const linkBtn = document.createElement('button');
+      linkBtn.type = 'button';
+      linkBtn.className = 'xvd-toast__link';
+      linkBtn.textContent = text;
+      linkBtn.title = t('toastDriveViewQueue');
+      linkBtn.addEventListener('click', () => {
+        dismiss();
+        extra.onOpen();
+      });
+      el.appendChild(linkBtn);
+    } else {
+      const span = document.createElement('span');
+      span.textContent = text;
+      el.appendChild(span);
+    }
+
     if (action) {
       const button = document.createElement('button');
       button.type = 'button';
@@ -215,12 +245,51 @@
       }, { once: true });
       el.appendChild(button);
     }
+    let timerEl = null;
+    if (extra && extra.closable) {
+      timerEl = document.createElement('span');
+      timerEl.className = 'xvd-toast__timer';
+      timerEl.textContent = '10s';
+      el.appendChild(timerEl);
+
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'xvd-toast__close';
+      closeBtn.title = t('toastClose');
+      closeBtn.setAttribute('aria-label', t('toastClose'));
+      closeBtn.textContent = '×';
+      closeBtn.addEventListener('click', dismiss, { once: true });
+      el.appendChild(closeBtn);
+    }
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('xvd-toast--in'));
-    setTimeout(() => {
-      el.classList.remove('xvd-toast--in');
-      setTimeout(() => el.remove(), 300);
-    }, action ? 10000 : 3200);
+    const ttl = (action || (extra && extra.closable)) ? 10000 : 3200;
+    const startCountdown = () => {
+      if (timerId) return;
+      let leftSec = Math.ceil(ttl / 1000);
+      if (timerEl) {
+        timerEl.textContent = `${leftSec}s`;
+        tickId = setInterval(() => {
+          leftSec = Math.max(0, leftSec - 1);
+          if (timerEl) timerEl.textContent = `${leftSec}s`;
+        }, 1000);
+      }
+      timerId = setTimeout(dismiss, ttl);
+    };
+    if (extra && extra.waitFocus && (!document.hasFocus() || document.visibilityState === 'hidden')) {
+      focusHandler = () => {
+        if (document.visibilityState === 'visible' && document.hasFocus()) {
+          window.removeEventListener('focus', focusHandler);
+          document.removeEventListener('visibilitychange', focusHandler);
+          focusHandler = null;
+          startCountdown();
+        }
+      };
+      window.addEventListener('focus', focusHandler);
+      document.addEventListener('visibilitychange', focusHandler);
+    } else {
+      startCountdown();
+    }
   }
 
   async function requestDownload(info, choice, force = false, targetKind) {
@@ -284,6 +353,135 @@
       } : undefined);
   }
 
+  function showDriveAuthModal(onConfirm) {
+    document.getElementById('xvd-drive-modal')?.remove();
+    const overlay = document.createElement('div');
+    overlay.id = 'xvd-drive-modal';
+    overlay.className = 'xvd-modal';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+
+    const card = document.createElement('div');
+    card.className = 'xvd-modal__card';
+
+    const h = document.createElement('h3');
+    h.className = 'xvd-modal__title';
+    h.textContent = t('driveModalTitle');
+
+    const p = document.createElement('p');
+    p.className = 'xvd-modal__desc';
+    p.textContent = t('driveModalDesc');
+
+    const actions = document.createElement('div');
+    actions.className = 'xvd-modal__actions';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'xvd-modal__btn';
+    cancelBtn.textContent = t('driveModalCancel');
+
+    const okBtn = document.createElement('button');
+    okBtn.type = 'button';
+    okBtn.className = 'xvd-modal__btn xvd-modal__btn--primary';
+    okBtn.textContent = t('driveModalConfirm');
+
+    const close = () => {
+      document.removeEventListener('keydown', onKey, true);
+      overlay.remove();
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') close();
+    };
+    document.addEventListener('keydown', onKey, true);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+    cancelBtn.addEventListener('click', close);
+    okBtn.addEventListener('click', () => {
+      close();
+      onConfirm();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(okBtn);
+    card.appendChild(h);
+    card.appendChild(p);
+    card.appendChild(actions);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    okBtn.focus();
+  }
+
+  async function requestDriveUpload(info, fresh, force = false, skipAuthPrompt = false) {
+    await mediaReady;
+    const snap = info.article ? articleMedia(info.article) : fresh;
+    if (!snap) return;
+    if (!skipAuthPrompt && contextValid()) {
+      const auth = await new Promise((resolve) => {
+        chrome.runtime.sendMessage({ type: 'xvd:gdrive-check-auth' }, (r) => {
+          resolve(r || { authorized: false });
+        });
+      });
+      if (!auth.authorized) {
+        showDriveAuthModal(() => requestDriveUpload(info, snap, force, true));
+        return;
+      }
+    }
+    const kinds = snap.kind === 'mixed' ? ['video', 'image'] : [snap.kind];
+    toast(t('toastPreparing'));
+    try {
+      if (!contextValid()) return;
+      const res = await new Promise((resolve) => {
+        chrome.runtime.sendMessage(
+          {
+            type: 'xvd:gdrive-enqueue',
+            force,
+            kinds,
+            tweetId: info.tweetId,
+            screenName: info.screenName,
+            tweetUrl: `${origin}/${info.screenName}/status/${info.tweetId}`,
+            text: info.text || '',
+            images: snap.images || [],
+            quality: settings.defaultQuality,
+            record: mediaByTweet.get(info.tweetId) || null,
+          },
+          (r) => {
+            if (!contextValid()) return resolve(null);
+            const error = chrome.runtime.lastError;
+            resolve(error ? { ok: false, error: error.message } : r);
+          },
+        );
+      });
+      if (!res || !res.ok) {
+        toast(t('toastFailed', (res && res.error) || t('popupUnknownError')), 'error');
+        return;
+      }
+      const openQueue = () => chrome.runtime.sendMessage({ type: 'xvd:open-uploads', tweetId: info.tweetId });
+      if (res.alreadyUploaded) {
+        toast(
+          t('toastDriveAlready'),
+          '',
+          () => requestDriveUpload(info, snap, true, true),
+          { closable: true, onOpen: openQueue },
+        );
+        return;
+      }
+      if (res.awaitingAuth) {
+        document.querySelectorAll('.xvd-toast').forEach((el) => el.remove());
+        return;
+      }
+      document.querySelectorAll('.xvd-toast').forEach((el) => el.remove());
+      toast(
+        t('toastDriveQueued', res.count),
+        'ok',
+        undefined,
+        { closable: true, onOpen: openQueue },
+      );
+    } catch (e) {
+      toast(t('toastFailed', (e && e.message) || t('popupUnknownError')), 'error');
+    }
+  }
+
   // X's action bar often sits near the bottom of the viewport, where a menu
   // anchored below the button would be clipped. Flip above when there is no
   // room, and clamp to the viewport on both axes.
@@ -309,7 +507,7 @@
 
   // `point` = viewport coords to open at (right-click); omit to anchor on the
   // button (Alt-click, keyboard menu key).
-  async function openQualityMenu(anchor, info, point) {
+  async function openQualityMenu(anchor, info, point, includeDrive = false) {
     await mediaReady;
     const fresh = info.article ? articleMedia(info.article) : info;
     if (!fresh) return;
@@ -403,6 +601,28 @@
       menu.appendChild(b);
     });
 
+    if (includeDrive) {
+      const sep = document.createElement('div');
+      sep.className = 'xvd-menu__sep';
+      menu.appendChild(sep);
+
+      const driveBtn = document.createElement('button');
+      driveBtn.type = 'button';
+      driveBtn.className = 'xvd-menu__item';
+      driveBtn.setAttribute('role', 'menuitem');
+      const driveLabel = document.createElement('span');
+      driveLabel.className = 'xvd-menu__label';
+      driveLabel.textContent = t('menuUploadDrive');
+      driveBtn.appendChild(driveLabel);
+      driveBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+        requestDriveUpload(info, fresh);
+      });
+      menu.appendChild(driveBtn);
+    }
+
     document.body.appendChild(menu);
     positionMenu(menu, anchor, point);
 
@@ -471,7 +691,7 @@
       e.preventDefault();
       e.stopPropagation();
       const point = e.clientX || e.clientY ? { x: e.clientX, y: e.clientY } : null;
-      openQualityMenu(btn, info, point);
+      openQualityMenu(btn, info, point, true);
     });
     return btn;
   }
@@ -597,6 +817,19 @@
     }
     if (msg.type === 'xvd:toast') {
       toast(msg.text, msg.kind);
+    }
+    if (msg.type === 'xvd:drive-queued-toast') {
+      document.querySelectorAll('.xvd-toast').forEach((el) => el.remove());
+      toast(
+        t('toastDriveQueued', msg.count || 1),
+        'ok',
+        undefined,
+        {
+          closable: true,
+          waitFocus: true,
+          onOpen: () => chrome.runtime.sendMessage({ type: 'xvd:open-uploads', tweetId: msg.tweetId || '' }),
+        },
+      );
     }
   });
 })();

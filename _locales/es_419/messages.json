@@ -15,6 +15,14 @@
     "message": "Historial y configuración",
     "description": "Popup gear button tooltip"
   },
+  "popupPromoBadge": {
+    "message": "XFollower",
+    "description": "Popup top promo bar brand badge"
+  },
+  "popupPromoText": {
+    "message": "Gestiona seguidores y no seguidores en X",
+    "description": "Popup top promo bar short value proposition"
+  },
   "popupOpenTweet": {
     "message": "abrir post ↗",
     "description": "Popup link to the current tweet"
@@ -723,5 +731,168 @@
   "batchNeedMediaTab": {
     "message": "Primero abran la pestaña Multimedia del perfil.",
     "description": "Error returned when batch start is not on /media"
+  },
+  "optionsTabUploads": {
+    "message": "Google Drive"
+  },
+  "menuUploadDrive": {
+    "message": "↗ Subir a Google Drive"
+  },
+  "toastDriveQueued": {
+    "message": "$COUNT$ archivo(s) añadido(s) a la cola de Google Drive",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastDriveAlready": {
+    "message": "Ya subido a Google Drive"
+  },
+  "gdriveAuthTitle": {
+    "message": "Conecta Google Drive para subir archivos a la nube"
+  },
+  "gdriveAuthDesc": {
+    "message": "Los permisos solo se solicitan al subir. La extensión solo accede a su propia carpeta y nunca lee tus otros archivos."
+  },
+  "gdriveAuthPendingCount": {
+    "message": "$COUNT$ archivo(s) en espera; comenzarán automáticamente al conectar.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "gdriveAuthCancelled": {
+    "message": "Autorización cancelada. Tus tareas siguen en la cola."
+  },
+  "gdriveConnectBtn": {
+    "message": "Conectar Google Drive"
+  },
+  "gdriveConnectedAs": {
+    "message": "Conectado a Google Drive · Carpeta: $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1",
+        "example": "X Media Downloader"
+      }
+    }
+  },
+  "gdriveOpenFolder": {
+    "message": "Abrir carpeta ↗"
+  },
+  "gdriveDisconnectBtn": {
+    "message": "Desconectar"
+  },
+  "gdrivePauseAll": {
+    "message": "Pausar todo"
+  },
+  "gdriveResumeAll": {
+    "message": "Reanudar todo"
+  },
+  "gdriveClearDone": {
+    "message": "Limpiar completados"
+  },
+  "gdriveQueueCount": {
+    "message": "$TOTAL$ tarea(s) · $ACTIVE$ activa(s)",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      },
+      "active": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "gdriveEmpty": {
+    "message": "Aún no hay subidas. Haz clic derecho en el botón de descarga de cualquier post y elige “Subir a Google Drive”."
+  },
+  "gdriveStateAwaitingAuth": {
+    "message": "Esperando autorización"
+  },
+  "gdriveStateQueued": {
+    "message": "En cola"
+  },
+  "gdriveStateFetching": {
+    "message": "Obteniendo medio…"
+  },
+  "gdriveStateUploading": {
+    "message": "Subiendo…"
+  },
+  "gdriveStatePaused": {
+    "message": "Pausado"
+  },
+  "gdriveStateFailed": {
+    "message": "Error"
+  },
+  "gdriveStateCancelled": {
+    "message": "Cancelado"
+  },
+  "gdriveOpenFile": {
+    "message": "Abrir en Drive ↗"
+  },
+  "gdrivePause": {
+    "message": "Pausar"
+  },
+  "gdriveCancel": {
+    "message": "Cancelar"
+  },
+  "gdriveRetry": {
+    "message": "Reintentar"
+  },
+  "gdriveErrQuota": {
+    "message": "Espacio de almacenamiento de Google Drive insuficiente."
+  },
+  "optionsGdriveFolderLabel": {
+    "message": "Nombre de la carpeta en Google Drive"
+  },
+  "optionsGdriveFolderHint": {
+    "message": "Carpeta raíz creada en tu Google Drive para las subidas."
+  },
+  "optionsGdriveFolderPlaceholder": {
+    "message": "X Media Downloader"
+  },
+  "optionsGdriveByUser": {
+    "message": "Agrupar subidas en subcarpetas por @usuario"
+  },
+  "optionsGdriveByUserHint": {
+    "message": "Crea una subcarpeta por cuenta dentro de tu carpeta de Google Drive."
+  },
+  "driveModalTitle": {
+    "message": "Conectar Google Drive"
+  },
+  "driveModalDesc": {
+    "message": "La primera subida requiere permiso de Google Drive. Haz clic abajo para abrir la ventana de autorización; al confirmar, la descarga y subida comenzarán automáticamente."
+  },
+  "driveModalConfirm": {
+    "message": "Iniciar autorización"
+  },
+  "driveModalCancel": {
+    "message": "Cancelar"
+  },
+  "gdrivePopupConfirm": {
+    "message": "Autorizar y subir"
+  },
+  "gdriveAuthSuccessTitle": {
+    "message": "Autorizado y subiendo"
+  },
+  "gdriveAuthSuccessDesc": {
+    "message": "Tus archivos se añadieron a la cola y se están subiendo a Google Drive en segundo plano."
+  },
+  "gdriveAuthClose": {
+    "message": "Cerrar"
+  },
+  "gdriveAuthViewTasks": {
+    "message": "Ver tareas de subida"
+  },
+  "toastClose": {
+    "message": "Cerrar"
+  },
+  "toastDriveViewQueue": {
+    "message": "Haz clic para ver en la cola de subida"
   }
 }
